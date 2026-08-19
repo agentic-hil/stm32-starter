@@ -1,0 +1,6 @@
+# The reference JUnit report is compared byte for byte against a freshly
+# generated one, and pytest writes it as a single line with no trailing
+# newline. Any end-of-line normalisation on the way in or out of the repository
+# would break that comparison on one platform and not the other, so this file
+# is stored and checked out exactly as committed.
+expected/simulator-junit.xml -text

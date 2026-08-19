@@ -1,0 +1,100 @@
+# The remote CI path: the three hardware test plans on a real Nucleo-F446RE.
+#
+# This job runs only on a self-hosted runner that has the board attached. A
+# GitHub-hosted runner has no probe, no serial port and no bench configuration,
+# so this workflow is never scheduled onto one and is not part of the pull
+# request gate. .github/workflows/simulator.yml is what runs there.
+#
+# What the runner has to provide, once, outside this repository:
+#
+#   * a Nucleo-F446RE connected through its ST-LINK USB port, and the runner's
+#     OS user holding the permissions to open the probe and the serial port;
+#   * CMake 3.21 or newer, which is what CMakePresets.json version 3 and its
+#     `toolchainFile` need, plus Ninja and arm-none-eabi-gcc on PATH;
+#     STM32CubeCLT carries all three;
+#   * STM32CubeProgrammer CLI, which is what discovery looks for when it binds
+#     the probe. OpenOCD serves as a backend once a configuration names it, but
+#     it is not what setup finds on its own: with OpenOCD alone, discovery falls
+#     through to the skeleton, `doctor` can still come back green, and every
+#     plan then fails on a `dut_uart` the configuration never bound;
+#   * agentic-hil installed user-local for that user
+#     (curl -LsSf https://agentic-hil.github.io/install.sh | sh), and
+#     `agentic-hil init` run once so the authoritative configuration exists
+#     outside the repository. Run it in the runner's own checkout of this repo,
+#     under the runner's `_work` directory, and nowhere else: a configuration
+#     binds a mandatory absolute `workspace_root`, and one bound to a different
+#     directory is refused rather than reused. A config bound elsewhere can be
+#     selected with an absolute `AGENTIC_HIL_CONFIG` in the runner service's
+#     environment, but its `workspace_root` still has to be this checkout.
+#     That file is the bench operator's: it names which probe and which port
+#     `dut` and `dut_uart` are, and nothing in this repository can change it.
+#
+# The runner labels below are how a job finds that machine. Register the runner
+# with `agentic-hil` and `nucleo-f446re` among its labels.
+name: Hardware
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One bench, one run at a time. The reactor also holds machine-wide locks on the
+# devices a plan names, so a second run would be refused rather than interleaved;
+# this group means it waits for its turn instead of failing.
+concurrency:
+  group: nucleo-f446re-bench
+  cancel-in-progress: false
+
+jobs:
+  hardware:
+    runs-on: [self-hosted, agentic-hil, nucleo-f446re]
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      # The bench's own installation answers here, not a project virtual
+      # environment: the configuration that says what this machine may do is
+      # bound to this workspace and discovered from it, and doctor is what
+      # reports which probe and which port it resolved.
+      - name: Report the bench
+        run: agentic-hil doctor
+
+      - name: Build the firmware
+        id: build
+        run: |
+          cmake --preset Debug
+          cmake --build --preset Debug
+
+      # Each plan is its own step, and a red one does not stop the ones after
+      # it: on the firmware this repository ships exactly one of the three goes
+      # red, and a job that stopped at the first failure could not show that.
+      # They still stop when the build did not produce an image, because there
+      # would be nothing to flash. A red plan fails the job either way.
+      - name: Nominal status
+        run: agentic-hil test-reactor --test-config tests/hil/nominal.testconfig.yaml
+
+      - name: Self-test diagnostic
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: agentic-hil test-reactor --test-config tests/hil/diagnostic.testconfig.yaml
+
+      - name: Diagnostic recovery
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        run: agentic-hil test-reactor --test-config tests/hil/recovery.testconfig.yaml
+
+      # The reports say what ran, under which configuration digest, which steps
+      # executed, and whether the board was ever reached. They are the evidence
+      # a hardware run produces, and they are worth keeping most when the run
+      # was red.
+      # `warn` rather than `error`, because a job that never got as far as a
+      # report has already failed for a reason worth reading, and a second
+      # failure from the upload step would sit on top of it.
+      - name: Upload the run evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: hardware-run-evidence
+          path: |
+            .agentic-hil/reports/
+            .agentic-hil/logs/
+          if-no-files-found: warn

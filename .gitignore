@@ -1,0 +1,19 @@
+artifacts/
+build/
+
+# Agentic HIL writes its run reports and logs into the workspace as untrusted
+# mirrors of the canonical copies under the operator's state root.
+.agentic-hil/
+
+# MCP host registrations name a verified absolute path to the executable that
+# answers as the hardware gate, so they are machine-specific and belong to the
+# operator, not to this repository. `agentic-hil setup --agent <agent>` writes
+# the user-level registration instead. README.md has the per-host blocks.
+.mcp.json
+.vscode/mcp.json
+
+.pytest_cache/
+.testenv/
+.venv/
+__pycache__/
+*.pyc

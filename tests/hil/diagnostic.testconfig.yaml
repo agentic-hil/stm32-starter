@@ -1,0 +1,41 @@
+# Hardware test 2 of 3: the self-test diagnostic.
+#
+#   agentic-hil test-reactor --test-config tests/hil/diagnostic.testconfig.yaml
+#
+# This is the plan the shipped firmware does not satisfy. `DIAG ON` must put the
+# board in `DEGRADED` and raise `E_SELF_TEST`; the exercise in README.md is to
+# find out why it does not and to fix the firmware, not this file.
+#
+# A claim that goes unmet fails with the tail of what the port did say, so the
+# report names what the board answered instead of the expected line.
+version: 3
+name: nucleo-f446re-diagnostic-selftest
+steps:
+  - device: dut
+    action: flash
+    image_path: build/Debug/stm32-starter.elf
+    reset_after_flash: false
+
+  - device: dut_uart
+    action: uart_open
+    clear_buffer: true
+
+  - device: dut
+    action: reset
+    mode: run
+
+  - device: dut_uart
+    action: uart_read
+    comparator:
+      pattern: "\"event\":\"boot\""
+    timeout_s: 5
+
+  - device: dut_uart
+    action: uart_write
+    text: "DIAG ON\n"
+
+  - device: dut_uart
+    action: uart_read
+    comparator:
+      pattern: "\"state\":\"DEGRADED\",\"diagnostic\":\"E_SELF_TEST\""
+    timeout_s: 5

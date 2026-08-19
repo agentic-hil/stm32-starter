@@ -1,0 +1,55 @@
+# Hardware test 1 of 3: the nominal path.
+#
+# Run it with the product's own command, from the repository root:
+#
+#   agentic-hil test-reactor --test-config tests/hil/nominal.testconfig.yaml
+#
+# This is a test plan and nothing else. `dut` and `dut_uart` are logical names
+# the authoritative configuration binds to a probe and a serial port; this file
+# names no COM port, no probe serial and no baudrate, which is what lets the
+# same plan run on your bench and on the CI bench without an edit.
+#
+# The reactor validates every device name, permission and session order before
+# the first hardware action, and closes the serial session even when a step
+# fails.
+version: 3
+name: nucleo-f446re-nominal-status
+steps:
+  # `reset_after_flash: false` is load-bearing here: the rest of the plan needs
+  # the port open before the firmware starts printing, so the board stays where
+  # the flash left it until the reset step below.
+  - device: dut
+    action: flash
+    image_path: build/Debug/stm32-starter.elf
+    reset_after_flash: false
+
+  # Opened before the reset, so the boot line is already being captured when the
+  # core starts running. `clear_buffer` makes every claim below a claim about
+  # this boot rather than about something a previous run left in the buffer.
+  - device: dut_uart
+    action: uart_open
+    clear_buffer: true
+
+  - device: dut
+    action: reset
+    mode: run
+
+  # The board restarted and reached its main loop.
+  - device: dut_uart
+    action: uart_read
+    comparator:
+      pattern: "\"event\":\"boot\""
+    timeout_s: 5
+
+  - device: dut_uart
+    action: uart_write
+    text: "STATUS\n"
+
+  # `pattern:` rather than `equals:` because the claim is that the board
+  # answered with the right value, and the answer is one JSON object on a line
+  # of its own.
+  - device: dut_uart
+    action: uart_read
+    comparator:
+      pattern: "\"state\":\"READY\",\"diagnostic\":\"NONE\""
+    timeout_s: 5

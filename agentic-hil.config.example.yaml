@@ -1,0 +1,46 @@
+# Bootstrap profile for `agentic-hil setup` / `agentic-hil init`.
+#
+# This is not the configuration. The authoritative configuration lives outside
+# this repository, is written by the command above, and is the operator's file:
+#
+#   %APPDATA%\agentic-hil\projects\<project-id>\config.yaml          (Windows)
+#   ${XDG_CONFIG_HOME:-~/.config}/agentic-hil/projects/<project-id>/config.yaml
+#
+# What this file does is tell that command what kind of bench this project
+# expects, so the generated configuration comes out matching the test plans in
+# tests/hil/ on the first run. Discovery fills in the parts that describe your
+# machine: which ST-Link is attached, where STM32CubeProgrammer lives, and which
+# virtual COM port belongs to that probe. Nothing machine-specific belongs here,
+# and nothing here is committed to the generated file verbatim.
+#
+# The generated configuration names the probe `dut` and the serial line
+# `dut_uart`, which are the two names every plan in tests/hil/ routes to.
+
+target:
+  name: "nucleo-f446re-starter"
+  controller: "stm32f446ret6"
+
+debuggers:
+  dut:
+    timeout_s: 60
+    # No permissions are named, so each one keeps the value a generated
+    # configuration gives it: granted, except the two that flashing is
+    # interlocked against. This project needs flash and reset, and asks for
+    # nothing beyond them.
+    permissions: {}
+
+artifacts:
+  # The build tree, and the three shapes a firmware image comes in. Narrower
+  # than the whole workspace on purpose: the only file this project ever flashes
+  # is the one CMake just produced.
+  allowed_roots: ["build"]
+  allowed_extensions: [".elf", ".hex", ".bin"]
+
+com_ports:
+  dut_uart:
+    baudrate: 115200
+    permissions:
+      # The diagnostic protocol is a conversation, so the plans in tests/hil/
+      # send `STATUS`, `DIAG ON` and `DIAG CLEAR` on this line. A plan that
+      # writes to a port without this grant is refused before the run starts.
+      allow_write: true

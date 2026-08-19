@@ -1,0 +1,48 @@
+# The local CI path: it runs on any GitHub-hosted runner, on every push and
+# pull request, and needs no bench. It validates the three hardware test plans
+# in tests/hil/ with the test reactor's own loader, so a plan the reactor would
+# refuse turns this workflow red before anybody carries a board to it.
+#
+# It establishes nothing electrical, and the suite prints that beside every
+# result. The bench half is .github/workflows/hardware-test.yml.
+name: Simulator
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  simulator:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v10.0.1
+        with:
+          version: "0.11.27"
+          enable-cache: true
+
+      # --frozen installs exactly what uv.lock resolves, which is the released
+      # agentic-hil from PyPI, so this job runs against what a stranger installs.
+      - name: Install locked dependencies
+        run: uv sync --frozen
+
+      # -s so the scope statement each test prints reaches the job log, where
+      # the reader of a green run sees what that green is worth.
+      - name: Validate the hardware test plans
+        run: uv run pytest -q -s --junitxml=artifacts/simulator-junit.xml
+
+      # `warn` for the same reason the hardware workflow gives: a job that failed
+      # before pytest wrote a report has already said why, and a second failure
+      # from the upload step would sit on top of the one worth reading.
+      - name: Upload the simulator report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: simulator-junit
+          path: artifacts/simulator-junit.xml
+          if-no-files-found: warn

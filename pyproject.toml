@@ -1,0 +1,29 @@
+[project]
+name = "agentic-hil-stm32-starter"
+version = "0.2.0"
+description = "Nucleo-F446RE starter for Agentic Hardware-in-the-Loop"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+
+# The simulator suite validates the hardware test plans with the test reactor's
+# own loader, so it needs the package the reactor ships in. A floor rather than
+# an exact pin: a starter that pinned one release would go stale on the next
+# one, and every plan here is format version 3, which 0.16 and later all read.
+#
+# PyYAML is declared rather than taken from agentic-hil's own requirements: the
+# suite imports it directly, and a dependency reached through somebody else's is
+# one that disappears the day they stop needing it.
+dependencies = [
+  "agentic-hil>=0.16.0",
+  "pytest>=9.1",
+  "pyyaml>=6",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+# The hardware tests are declared plans, not Python: tests/hil/*.testconfig.yaml
+# are run by `agentic-hil test-reactor`. What pytest collects is the simulator
+# suite, which validates those plans on any machine, with no bench attached.
+testpaths = ["tests/simulator"]

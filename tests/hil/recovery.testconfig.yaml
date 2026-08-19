@@ -1,0 +1,59 @@
+# Hardware test 3 of 3: recovery back to the nominal state.
+#
+#   agentic-hil test-reactor --test-config tests/hil/recovery.testconfig.yaml
+#
+# The claim is that `DIAG CLEAR` leaves the board `READY` with no diagnostic
+# raised. Making that a claim about `DIAG CLEAR`, and not about whatever was
+# already on the line, takes the middle read below: a read drains everything the
+# port buffered since the last one, so without it the final comparator would be
+# satisfied by the answer to `DIAG ON`, and the plan would pass whether or not
+# `DIAG CLEAR` did anything at all.
+#
+# That middle read accepts either state on purpose. It is there to consume one
+# answer, not to judge it, and judging it would make this plan red on the
+# firmware this repository ships. Exactly one plan is red before the fix, and it
+# is the one beside this file, which names the command actually at fault.
+version: 3
+name: nucleo-f446re-diagnostic-recovery
+steps:
+  - device: dut
+    action: flash
+    image_path: build/Debug/stm32-starter.elf
+    reset_after_flash: false
+
+  - device: dut_uart
+    action: uart_open
+    clear_buffer: true
+
+  - device: dut
+    action: reset
+    mode: run
+
+  - device: dut_uart
+    action: uart_read
+    comparator:
+      pattern: "\"event\":\"boot\""
+    timeout_s: 5
+
+  - device: dut_uart
+    action: uart_write
+    text: "DIAG ON\n"
+
+  # Consumes the answer to the command above, whichever of the two states the
+  # board reports, so that everything the next read sees arrived after
+  # `DIAG CLEAR` was sent.
+  - device: dut_uart
+    action: uart_read
+    comparator:
+      pattern: "\"state\":\"(READY|DEGRADED)\""
+    timeout_s: 5
+
+  - device: dut_uart
+    action: uart_write
+    text: "DIAG CLEAR\n"
+
+  - device: dut_uart
+    action: uart_read
+    comparator:
+      pattern: "\"state\":\"READY\",\"diagnostic\":\"NONE\""
+    timeout_s: 5
