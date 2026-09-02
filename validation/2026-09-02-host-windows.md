@@ -247,3 +247,7 @@ four items above, because both sit on alternative routes.
 
    ("The operator `<` is reserved for future use.") The Git Bash route in this
    note is the one that works.
+
+## Follow-up, same day
+
+The two documentation defects recorded above are fixed in ad52542 (README fallback lines) and 18abac8 (expected/README.md PowerShell route, which also found that PowerShell's `diff` is an alias of `Compare-Object` and compares the two path strings rather than the files). cf475e7 raises the agentic-hil floor from 0.16.0 to 0.21.0 with the lock refreshed; on 0.21.0 the simulator suite still reports `3 passed` and the report is byte-identical to `expected/simulator-junit.xml` (619 bytes, SHA256 5991B868360DDDCA8E68C7171A3975566ADFBC237A6DFAF4098E5757590A5D20), the same bytes this note recorded on 0.16.0.
