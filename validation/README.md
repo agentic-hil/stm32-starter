@@ -4,10 +4,13 @@ The evidence checklist this starter is held to before it is announced or promote
 
 ## Host side, no board required
 
-- [ ] A fresh clone plus `uv sync` succeeds on Linux, macOS and Windows.
-- [ ] The three simulator tests pass and print the scope statement.
-- [ ] A fresh report, put through the normalisation in `expected/README.md`, is byte for byte identical to `expected/simulator-junit.xml`.
-- [ ] The `Debug` and `Release` presets both build with `arm-none-eabi-gcc`, and `build/Debug/stm32-starter.elf` is what the plans name.
+Walked on Windows 11 build 26200.9168 with uv 0.11.27 and STM32CubeCLT 1.22.0 on
+2026-09-02. Evidence: [2026-09-02-host-windows.md](2026-09-02-host-windows.md).
+
+- [ ] A fresh clone plus `uv sync` succeeds on Linux, macOS and Windows. Windows is closed; Linux and macOS are not walked yet, so the item stays open.
+- [x] The three simulator tests pass and print the scope statement.
+- [x] A fresh report, put through the normalisation in `expected/README.md`, is byte for byte identical to `expected/simulator-junit.xml`.
+- [x] The `Debug` and `Release` presets both build with `arm-none-eabi-gcc`, and `build/Debug/stm32-starter.elf` is what the plans name.
 
 ## Bench side, board required
 

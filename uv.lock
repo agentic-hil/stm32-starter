@@ -8,7 +8,7 @@ resolution-markers = [
 
 [[package]]
 name = "agentic-hil"
-version = "0.16.0"
+version = "0.21.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "jsonschema" },
@@ -16,9 +16,9 @@ dependencies = [
     { name = "pyyaml" },
     { name = "tomli", marker = "python_full_version < '3.11'" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/19/39/42097457f75282b6909c87ce6942fa258a3318d5b3da3b1ea75ba67a04e4/agentic_hil-0.16.0.tar.gz", hash = "sha256:24096f5f3bdf2d608b3251444f6d81656e9f8fd3b979213e908d0cf922798ed2", size = 1139510, upload-time = "2026-08-18T08:27:49.103Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d7/95/8d326242789c4446cc4694aff5a9ef4399e31a94359670a2b3feb31e8cf9/agentic_hil-0.21.0.tar.gz", hash = "sha256:862786122666e8403dd442ec1cb50c49287396f1d67c6316debdf60940c389ca", size = 1344795, upload-time = "2026-09-01T20:01:10.472Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f5/39/976e767e530dfc1806f3d44cd2089c23b00ed5e5011f159b3ee1604ba435/agentic_hil-0.16.0-py3-none-any.whl", hash = "sha256:6c8167e7daaddbb6ecb1436598970eb6ad6887a787ea11c0b85edab660b8b15a", size = 667630, upload-time = "2026-08-18T08:27:47.73Z" },
+    { url = "https://files.pythonhosted.org/packages/03/03/b5cdd097a01866f3483b9f4c8d4550ddd6ffdf49fdc55e9841a51cdf0fac/agentic_hil-0.21.0-py3-none-any.whl", hash = "sha256:7616c2fd68e290147354a2f629cc79d5dd56802c53df4a2655abf9722775c3d9", size = 752631, upload-time = "2026-09-01T20:01:08.635Z" },
 ]
 
 [[package]]
@@ -33,7 +33,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "agentic-hil", specifier = ">=0.16.0" },
+    { name = "agentic-hil", specifier = ">=0.21.0" },
     { name = "pytest", specifier = ">=9.1" },
     { name = "pyyaml", specifier = ">=6" },
 ]

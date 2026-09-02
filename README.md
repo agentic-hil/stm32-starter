@@ -107,8 +107,8 @@ Without `uv`, the same suite runs from a plain virtual environment:
 
 ```bash
 python -m venv .venv
-.venv/bin/pip install "agentic-hil>=0.16.0" pytest pyyaml   # .venv\Scripts\pip on Windows
-.venv/bin/pytest -q -s
+.venv/bin/pip install "agentic-hil>=0.21.0" pytest pyyaml   # .venv\Scripts\pip on Windows
+.venv/bin/pytest -q -s   # .venv\Scripts\pytest on Windows
 ```
 
 Every test states what a green run is worth:

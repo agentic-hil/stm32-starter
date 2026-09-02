@@ -27,7 +27,22 @@ PY
 diff artifacts/simulator-junit.xml expected/simulator-junit.xml
 ```
 
-`diff` printing nothing is the pass. Anything it prints is a test that was added, renamed, removed, or that did not pass. On Windows those three run under Git Bash or WSL; from PowerShell, replace the last one with `fc.exe /b artifacts\simulator-junit.xml expected\simulator-junit.xml`.
+`diff` printing nothing is the pass. Anything it prints is a test that was added, renamed, removed, or that did not pass.
+
+Those three are a POSIX shell procedure, heredoc included, so on Windows they run as written under Git Bash, which ships with [Git for Windows](https://gitforwindows.org/), or under WSL. PowerShell cannot parse the heredoc, and its `diff` is an alias for `Compare-Object`, which compares the two path strings and reports a difference between files that are identical. The same sequence there:
+
+```powershell
+uv run pytest -q -s --junitxml=artifacts/simulator-junit.xml
+$report = (Resolve-Path artifacts\simulator-junit.xml).Path
+$text = [IO.File]::ReadAllText($report)
+$text = $text -replace 'hostname="[^"]*"', 'hostname="reference"'
+$text = $text -replace 'timestamp="[^"]*"', 'timestamp="1970-01-01T00:00:00+00:00"'
+$text = $text -replace 'time="[^"]*"', 'time="0.000"'
+[IO.File]::WriteAllText($report, $text)
+fc.exe /b artifacts\simulator-junit.xml expected\simulator-junit.xml
+```
+
+`fc.exe` reporting no differences, and exiting 0, is the pass. `Resolve-Path` and the `[IO.File]` calls are load-bearing: .NET resolves a relative path against its own working directory rather than PowerShell's, and `Set-Content` would append a trailing newline the reference file does not have, with `-Encoding utf8` adding a byte order mark on top.
 
 The same report is uploaded as the `simulator-junit` artifact by [.github/workflows/simulator.yml](../.github/workflows/simulator.yml) on every push and pull request.
 
