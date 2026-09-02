@@ -14,8 +14,16 @@ Walked on Windows 11 build 26200.9168 with uv 0.11.27 and STM32CubeCLT 1.22.0 on
 
 ## Bench side, board required
 
-- [ ] `agentic-hil setup --agent <agent>` on a machine with the board attached discovers one ST-Link, matches its virtual COM port, and writes a configuration naming the probe `dut` and the port `dut_uart`.
-- [ ] `agentic-hil doctor` reports that bench healthy.
+Walked on Windows 11 build 26200 with Agentic HIL 0.21.0 and a Nucleo-F446RE
+attached on 2026-09-02. The first two items closed. The first hardware plan was
+then refused before its first hardware action, so the eight items after them
+stay open. The project half was walked with `agentic-hil init`, which is the
+half of `setup` that writes this project's configuration, because the agent
+registrations on that machine were another session's. Evidence:
+[2026-09-02-bench-windows/](2026-09-02-bench-windows/README.md).
+
+- [x] `agentic-hil setup --agent <agent>` on a machine with the board attached discovers one ST-Link, matches its virtual COM port, and writes a configuration naming the probe `dut` and the port `dut_uart`.
+- [x] `agentic-hil doctor` reports that bench healthy.
 - [ ] The shipped firmware passes `tests/hil/nominal.testconfig.yaml` and `tests/hil/recovery.testconfig.yaml` and fails `tests/hil/diagnostic.testconfig.yaml`, and no other plan is red.
 - [ ] The failing report quotes what the board answered, so the failure names the defect rather than describing a silence.
 - [ ] The recovery plan's middle read consumes the answer to `DIAG ON` on the bench as it does on paper: its report shows that read matching one status line and the final read matching a second, so the plan's claim is about what `DIAG CLEAR` produced.

@@ -1,0 +1,7 @@
+{
+  "command": "\"C:\\\\ST\\\\STM32CubeCLT_1.22.0\\\\STM32CubeProgrammer\\\\bin\\\\STM32_Programmer_CLI.exe\" -q -c port=SWD mode=NORMAL sn=066AFF303435554157113106 -halt",
+  "returncode": 0,
+  "timed_out": false,
+  "stdout": "      -------------------------------------------------------------------\r\n                       STM32CubeProgrammer v2.23.0                  \r\n      -------------------------------------------------------------------\r\n\r\nST-LINK SN  : 066AFF303435554157113106\r\nST-LINK FW  : V2J30M19\r\nBoard       : NUCLEO-F446RE\r\nVoltage     : 3.27V\r\nSWD freq    : 4000 KHz\r\nConnect mode: Normal\r\nReset mode  : Software reset\r\nDevice ID   : 0x421\r\nRevision ID : Rev A\r\nDevice name : STM32F446xx\r\nNVM size    : 512 KBytes\r\nDevice type : MCU\r\nDevice CPU  : Cortex-M4\r\nBL Version  : 0x90\r\n\r\nCore halted\r\n",
+  "stderr": ""
+}
