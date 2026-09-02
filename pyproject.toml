@@ -9,12 +9,14 @@ license = "Apache-2.0"
 # own loader, so it needs the package the reactor ships in. A floor rather than
 # an exact pin: a starter that pinned one release would go stale on the next
 # one, and every plan here is format version 3, which 0.16 and later all read.
+# The floor names the release this suite was last run against, not the oldest
+# one that would still do.
 #
 # PyYAML is declared rather than taken from agentic-hil's own requirements: the
 # suite imports it directly, and a dependency reached through somebody else's is
 # one that disappears the day they stop needing it.
 dependencies = [
-  "agentic-hil>=0.16.0",
+  "agentic-hil>=0.21.0",
   "pytest>=9.1",
   "pyyaml>=6",
 ]
