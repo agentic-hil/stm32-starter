@@ -1,0 +1,11 @@
+{"event": "start", "port_id": "dut_uart", "device": "COM3", "time": "2026-09-03T20:31:13.578Z"}
+{"direction": "rx", "bytes": 1, "hex": "7b", "text": "{", "time": "2026-09-03T20:31:13.781Z"}
+{"direction": "rx", "bytes": 44, "hex": "226576656e74223a22626f6f74222c226669726d77617265223a2273746d33322d73746172746572227d0d0a", "text": "\"event\":\"boot\",\"firmware\":\"stm32-starter\"}\r\n", "time": "2026-09-03T20:31:13.788Z"}
+{"direction": "rx", "bytes": 1, "hex": "7b", "text": "{", "time": "2026-09-03T20:31:13.934Z"}
+{"direction": "rx", "bytes": 42, "hex": "227374617465223a224445475241444544222c22646961676e6f73746963223a22455f53454c465f5445", "text": "\"state\":\"DEGRADED\",\"diagnostic\":\"E_SELF_TE", "time": "2026-09-03T20:31:13.937Z"}
+{"direction": "rx", "bytes": 6, "hex": "5354227d0d0a", "text": "ST\"}\r\n", "time": "2026-09-03T20:31:13.940Z"}
+{"direction": "tx", "bytes": 8, "hex": "44494147204f4e0a", "text": "DIAG ON\n", "time": "2026-09-03T20:31:13.932Z"}
+{"direction": "rx", "bytes": 1, "hex": "7b", "text": "{", "time": "2026-09-03T20:31:14.018Z"}
+{"direction": "rx", "bytes": 38, "hex": "227374617465223a225245414459222c22646961676e6f73746963223a224e4f4e45227d0d0a", "text": "\"state\":\"READY\",\"diagnostic\":\"NONE\"}\r\n", "time": "2026-09-03T20:31:14.021Z"}
+{"direction": "tx", "bytes": 11, "hex": "4449414720434c4541520a", "text": "DIAG CLEAR\n", "time": "2026-09-03T20:31:14.016Z"}
+{"event": "stop", "reason": "requested", "time": "2026-09-03T20:31:14.090Z"}

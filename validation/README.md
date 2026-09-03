@@ -14,23 +14,31 @@ Walked on Windows 11 build 26200.9168 with uv 0.11.27 and STM32CubeCLT 1.22.0 on
 
 ## Bench side, board required
 
-Walked on Windows 11 build 26200 with Agentic HIL 0.21.0 and a Nucleo-F446RE
-attached on 2026-09-02. The first two items closed. The first hardware plan was
-then refused before its first hardware action, so the eight items after them
-stay open. The project half was walked with `agentic-hil init`, which is the
-half of `setup` that writes this project's configuration, because the agent
-registrations on that machine were another session's. Evidence:
+Walked twice on Windows 11 build 26200 with a Nucleo-F446RE attached. The
+project half was walked with `agentic-hil init` both times, which is the half of
+`setup` that writes this project's configuration, because the agent
+registrations on that machine were another session's.
+
+On 2026-09-02, with Agentic HIL 0.21.0, the first two items closed and the first
+hardware plan was then refused before its first hardware action, so the eight
+items after them stayed open. Evidence:
 [2026-09-02-bench-windows/](2026-09-02-bench-windows/README.md).
+
+On 2026-09-03, with Agentic HIL 0.21.1, that refusal named its own repair, the
+repair held, and the three plans ran. Seven more items closed. The last item
+stays open: the span it names, from the one-line installer, was not the span
+this walk measured. Evidence:
+[2026-09-03-bench-windows/](2026-09-03-bench-windows/README.md).
 
 - [x] `agentic-hil setup --agent <agent>` on a machine with the board attached discovers one ST-Link, matches its virtual COM port, and writes a configuration naming the probe `dut` and the port `dut_uart`.
 - [x] `agentic-hil doctor` reports that bench healthy.
-- [ ] The shipped firmware passes `tests/hil/nominal.testconfig.yaml` and `tests/hil/recovery.testconfig.yaml` and fails `tests/hil/diagnostic.testconfig.yaml`, and no other plan is red.
-- [ ] The failing report quotes what the board answered, so the failure names the defect rather than describing a silence.
-- [ ] The recovery plan's middle read consumes the answer to `DIAG ON` on the bench as it does on paper: its report shows that read matching one status line and the final read matching a second, so the plan's claim is about what `DIAG CLEAR` produced.
-- [ ] A coding agent fixes the firmware without changing the test plans, the simulator suite, or the protocol.
-- [ ] All three plans pass, then pass again on the same firmware revision with nothing edited in between.
-- [ ] The reactor reports and logs from both green runs are retained.
-- [ ] The board identity, firmware revision, debugger backend and version, compiler version, and the duration of each run are recorded beside them.
+- [x] The shipped firmware passes `tests/hil/nominal.testconfig.yaml` and `tests/hil/recovery.testconfig.yaml` and fails `tests/hil/diagnostic.testconfig.yaml`, and no other plan is red.
+- [x] The failing report quotes what the board answered, so the failure names the defect rather than describing a silence.
+- [x] The recovery plan's middle read consumes the answer to `DIAG ON` on the bench as it does on paper: its report shows that read matching one status line and the final read matching a second, so the plan's claim is about what `DIAG CLEAR` produced.
+- [x] A coding agent fixes the firmware without changing the test plans, the simulator suite, or the protocol.
+- [x] All three plans pass, then pass again on the same firmware revision with nothing edited in between.
+- [x] The reactor reports and logs from both green runs are retained.
+- [x] The board identity, firmware revision, debugger backend and version, compiler version, and the duration of each run are recorded beside them.
 - [ ] The whole path, from the one-line installer to the first green hardware plan, is walked by somebody who has not seen this repository before, and it takes under four hours.
 
 ## Remote CI
