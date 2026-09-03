@@ -1,0 +1,315 @@
+{
+  "ok": true,
+  "tool": "test_reactor",
+  "name": "nucleo-f446re-nominal-status",
+  "test_config_path": "C:\\Users\\mail\\work\\ahil-starter\\tests\\hil\\nominal.testconfig.yaml",
+  "steps": [
+    {
+      "index": 1,
+      "route": "dut",
+      "action": "flash",
+      "result": {
+        "ok": true,
+        "tool": "flash_firmware",
+        "backend": "stlink",
+        "started_at": "2026-09-03T20:31:11.303Z",
+        "finished_at": "2026-09-03T20:31:11.731Z",
+        "elapsed_ms": 428,
+        "success_confirmed": true,
+        "operation_result": {
+          "confirmed": true,
+          "matched_success_text": [
+            "Download verified successfully"
+          ]
+        },
+        "summary": "Firmware flashed and verified. Target was not reset.",
+        "log_path": ".agentic-hil/logs/stlink-20260903T203111303Z-flash_firmware.log",
+        "artifact": {
+          "source": "path",
+          "path": "build/Debug/stm32-starter.elf",
+          "sha256": "facb8770d64fc89a188dba202ee4f54120da630cc9448cae79cc199c62acba89"
+        },
+        "verify": true,
+        "reset_after_flash": false,
+        "side_effect_committed": true,
+        "side_effect_status": "committed",
+        "retry_safe": false,
+        "audit_ok": true,
+        "config_in_force": {
+          "path": "C:\\Users\\mail\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
+          "digest_algorithm": "sha256",
+          "digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
+          "description_source": "startup",
+          "file_state": "unchanged",
+          "file_digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
+          "diverged_from_file": false,
+          "checked_at": "2026-09-03T20:31:11Z"
+        },
+        "report_path": ".agentic-hil/reports/last-report.json",
+        "lease_id": "6548b3ea77a148b1e691df70c9c6c45c",
+        "resources": [
+          "debugger-discovery:all",
+          "probe:066aff303435554157113106"
+        ],
+        "lease_state": "released",
+        "safe_state_confirmed": true,
+        "processes_reaped": true,
+        "cleanup_required": false,
+        "quarantined": false,
+        "cleanup_reasons": [],
+        "quarantine_id": null
+      }
+    },
+    {
+      "index": 2,
+      "route": "dut_uart",
+      "action": "uart_open",
+      "result": {
+        "ok": true,
+        "tool": "com_session_start",
+        "port_id": "dut_uart",
+        "already_active": false,
+        "session": {
+          "session_active": true,
+          "started_at": "2026-09-03T20:31:11.883Z",
+          "rx_buffer_bytes": 0,
+          "overflow_bytes": 0,
+          "log_path": ".agentic-hil/logs/com-20260903T203111855Z-dut_uart.jsonl"
+        },
+        "identity": {
+          "device": "COM3",
+          "expected_serial_number": "066AFF303435554157113106",
+          "expected_from": "com_ports.dut_uart.serial_number",
+          "expected_vid": 1155,
+          "expected_pid": 14155,
+          "found_serial_number": "066AFF303435554157113106",
+          "found_vid": 1155,
+          "found_pid": 14155,
+          "status": "confirmed",
+          "summary": "The port behind this entry is the hardware it names."
+        },
+        "summary": "COM port session started.",
+        "side_effect_committed": true,
+        "side_effect_status": "committed",
+        "retry_safe": false,
+        "first_contact_at": "2026-09-03T20:31:11.883Z",
+        "first_contact_by": "serial_open",
+        "lease_id": "71fe6146f855422f68a50eef5e91ed43",
+        "resources": [
+          "com:serial:066aff303435554157113106"
+        ],
+        "lease_state": "active",
+        "safe_state_confirmed": false,
+        "processes_reaped": false,
+        "audit_ok": true,
+        "cleanup_required": false,
+        "quarantined": false,
+        "cleanup_reasons": [],
+        "quarantine_id": null,
+        "config_in_force": {
+          "path": "C:\\Users\\mail\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
+          "digest_algorithm": "sha256",
+          "digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
+          "description_source": "startup",
+          "file_state": "unchanged",
+          "file_digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
+          "diverged_from_file": false,
+          "checked_at": "2026-09-03T20:31:11Z"
+        },
+        "report_path": ".agentic-hil/reports/last-report.json"
+      }
+    },
+    {
+      "index": 3,
+      "route": "dut",
+      "action": "reset",
+      "result": {
+        "ok": true,
+        "tool": "reset_target",
+        "backend": "stlink",
+        "started_at": "2026-09-03T20:31:11.951Z",
+        "finished_at": "2026-09-03T20:31:12.074Z",
+        "elapsed_ms": 123,
+        "success_confirmed": true,
+        "operation_result": {
+          "confirmed": true,
+          "matched_success_text": [
+            "MCU Reset",
+            "reset is performed"
+          ]
+        },
+        "summary": "Target reset with mode 'run'.",
+        "log_path": ".agentic-hil/logs/stlink-20260903T203111951Z-reset_target.log",
+        "mode": "run",
+        "side_effect_committed": true,
+        "side_effect_status": "committed",
+        "retry_safe": false,
+        "audit_ok": true,
+        "config_in_force": {
+          "path": "C:\\Users\\mail\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
+          "digest_algorithm": "sha256",
+          "digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
+          "description_source": "startup",
+          "file_state": "unchanged",
+          "file_digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
+          "diverged_from_file": false,
+          "checked_at": "2026-09-03T20:31:12Z"
+        },
+        "report_path": ".agentic-hil/reports/last-report.json",
+        "lease_id": "b65ff796a04cb3e2a6d68395a8326b4a",
+        "resources": [
+          "debugger-discovery:all",
+          "probe:066aff303435554157113106"
+        ],
+        "lease_state": "released",
+        "safe_state_confirmed": true,
+        "processes_reaped": true,
+        "cleanup_required": false,
+        "quarantined": false,
+        "cleanup_reasons": [],
+        "quarantine_id": null
+      }
+    },
+    {
+      "index": 4,
+      "route": "dut_uart",
+      "action": "uart_read",
+      "result": {
+        "ok": true,
+        "tool": "test_reactor",
+        "summary": "Expected pattern matched the COM port output.",
+        "port_id": "dut_uart",
+        "comparator": {
+          "pattern": "\"event\":\"boot\""
+        },
+        "timeout_s": 5.0,
+        "bytes_received": 45,
+        "reads": 1
+      }
+    },
+    {
+      "index": 5,
+      "route": "dut_uart",
+      "action": "uart_write",
+      "result": {
+        "ok": true,
+        "tool": "com_write",
+        "port_id": "dut_uart",
+        "bytes_written": 7,
+        "data": {
+          "hex": "5354415455530a",
+          "text": "STATUS\n",
+          "encoding": "utf-8"
+        },
+        "log_path": ".agentic-hil/logs/com-20260903T203111855Z-dut_uart.jsonl",
+        "summary": "Stimulus written to COM port.",
+        "side_effect_committed": true,
+        "side_effect_status": "committed",
+        "retry_safe": false,
+        "first_contact_at": "2026-09-03T20:31:11.883Z",
+        "first_contact_by": "serial_open",
+        "lease_id": "71fe6146f855422f68a50eef5e91ed43",
+        "resources": [
+          "com:serial:066aff303435554157113106"
+        ],
+        "lease_state": "active",
+        "safe_state_confirmed": false,
+        "processes_reaped": false,
+        "audit_ok": true,
+        "cleanup_required": false,
+        "quarantined": false,
+        "cleanup_reasons": [],
+        "quarantine_id": null,
+        "config_in_force": {
+          "path": "C:\\Users\\mail\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
+          "digest_algorithm": "sha256",
+          "digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
+          "description_source": "startup",
+          "file_state": "unchanged",
+          "file_digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
+          "diverged_from_file": false,
+          "checked_at": "2026-09-03T20:31:12Z"
+        },
+        "report_path": ".agentic-hil/reports/last-report.json"
+      }
+    },
+    {
+      "index": 6,
+      "route": "dut_uart",
+      "action": "uart_read",
+      "result": {
+        "ok": true,
+        "tool": "test_reactor",
+        "summary": "Expected pattern matched the COM port output.",
+        "port_id": "dut_uart",
+        "comparator": {
+          "pattern": "\"state\":\"READY\",\"diagnostic\":\"NONE\""
+        },
+        "timeout_s": 5.0,
+        "bytes_received": 39,
+        "reads": 1
+      }
+    }
+  ],
+  "cleanup": [
+    {
+      "port_id": "dut_uart",
+      "action": "uart_close",
+      "result": {
+        "ok": true,
+        "tool": "com_session_stop",
+        "port_id": "dut_uart",
+        "was_active": true,
+        "session": {
+          "session_active": false,
+          "started_at": "2026-09-03T20:31:11.883Z",
+          "rx_buffer_bytes": 0,
+          "overflow_bytes": 0,
+          "log_path": ".agentic-hil/logs/com-20260903T203111855Z-dut_uart.jsonl"
+        },
+        "summary": "COM port session stopped.",
+        "first_contact_at": "2026-09-03T20:31:11.883Z",
+        "first_contact_by": "serial_open",
+        "lease_id": "71fe6146f855422f68a50eef5e91ed43",
+        "resources": [
+          "com:serial:066aff303435554157113106"
+        ],
+        "lease_state": "released",
+        "safe_state_confirmed": true,
+        "processes_reaped": true,
+        "audit_ok": true,
+        "cleanup_required": false,
+        "quarantined": false,
+        "cleanup_reasons": [],
+        "quarantine_id": null,
+        "config_in_force": {
+          "path": "C:\\Users\\mail\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
+          "digest_algorithm": "sha256",
+          "digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
+          "description_source": "startup",
+          "file_state": "unchanged",
+          "file_digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
+          "diverged_from_file": false,
+          "checked_at": "2026-09-03T20:31:12Z"
+        },
+        "report_path": ".agentic-hil/reports/last-report.json"
+      }
+    }
+  ],
+  "cleanup_ok": true,
+  "cleanup_errors": [],
+  "summary": "Test reactor sequence completed.",
+  "run": "run-7873d97027383ca6",
+  "audit_ok": true,
+  "config_in_force": {
+    "path": "C:\\Users\\mail\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
+    "digest_algorithm": "sha256",
+    "digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
+    "description_source": "startup",
+    "file_state": "unchanged",
+    "file_digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
+    "diverged_from_file": false,
+    "checked_at": "2026-09-03T20:31:12Z"
+  },
+  "report_path": ".agentic-hil/reports/last-report.json"
+}

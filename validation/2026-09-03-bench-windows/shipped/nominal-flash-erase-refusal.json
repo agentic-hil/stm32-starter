@@ -1,0 +1,133 @@
+{
+  "ok": false,
+  "tool": "test_reactor",
+  "name": "nucleo-f446re-nominal-status",
+  "test_config_path": "C:\\Users\\mail\\work\\ahil-starter\\tests\\hil\\nominal.testconfig.yaml",
+  "steps": [
+    {
+      "index": 1,
+      "route": "dut",
+      "action": "flash",
+      "result": {
+        "ok": false,
+        "tool": "flash_firmware",
+        "backend": "stlink",
+        "started_at": "2026-09-03T20:28:29.233Z",
+        "finished_at": "2026-09-03T20:28:29.602Z",
+        "elapsed_ms": 368,
+        "error_type": "flash_erase_failed",
+        "backend_error_type": "flash_erase_failed",
+        "summary": "STM32CubeProgrammer refused to erase the target's flash; its output reports no completed write, but whether any sector was erased before the refusal is not established, so the flash contents are unconfirmed.",
+        "likely_causes": [
+          "the core was running from flash when the programmer connected under hot plug, so it defeated the erase; an immediate retry usually succeeds",
+          "the sectors this image covers are protected (write protection, PCROP, or a read-out protection level that refuses the erase)",
+          "an earlier flash operation had not finished and left the flash controller busy"
+        ],
+        "remediation": [
+          "Retry the flash once. On the bench this was measured on, a core still executing from flash under hot plug defeated the erase and every immediate retry programmed and verified, so the retry is the substantive fix. Nothing has to be recovered first: this is an ordinary `debugger_result_unconfirmed` incident that owes no gate. When the failed call is a bare `flash_firmware`, its own implicit single-action run, that incident stands down the moment the call ends: the result carries `incident_stood_down` and `quarantined: false`, the bench is handed back automatically, and the next flash is simply accepted. When the call ran inside a declared run (`bench_run_start` \u2026 `bench_run_stop`), the run owns the hold, so the failed result stays `quarantined: true` with no `incident_stood_down`, and the declared run keeps the probe until `bench_run_stop` performs the run teardown and the same stand-down then. Either way the incident owes nobody a signature: `hardware_recover` over it answers `nothing_to_recover: true`, because there is nothing standing to clear, and a retry is accepted without a recovery step rather than being refused with `resource_quarantined`. `recover --confirm-safe-state` is for a quarantine that actually holds the bench, such as `resource_quarantined` or a broken audit, which this is not. It is not a free retry, though: a refused erase does not prove the flash is untouched, which the result still says, `cleanup_required` stays true and `cleanup_reasons` still names `debugger_result_unconfirmed`, so the board holds an indeterminate image until a retry programs and verifies.",
+          "Read `programmer_output.stdout` before anything else. It is the programmer's own account of what it erased, wrote and verified, and it is what says which operation stopped.",
+          "Treat the board as holding an indeterminate image whichever reading `erase_abort_point` gave, `erase_refused_effect_unconfirmed` no less than `flash_change_underway` or `abort_point_unreadable`, because none of them proves the flash is unchanged. Reflashing is the way through it, not a retry taken as proof the erase never happened; the reflash needs no recovery step ahead of it, a bare call's incident has already stood down, and a declared run's is one the reflash is allowed to run under, but read it as writing over an unknown image rather than a clean one.",
+          "If the refusal repeats on the retry, ask the device about protection rather than about wiring: read the option bytes with STM32CubeProgrammer yourself (`-ob displ`) and look for read-out protection, write protection or PCROP over the sectors the image covers.",
+          "The durable fix for a core that defeats the erase is connecting under reset for the flash, so the core is held in reset while the probe attaches and never runs during the erase. Set `debuggers.<name>.connect_mode` to `under_reset` (STM32CubeProgrammer's `mode=UR`); `project_config_set` writes it, because it sits under `allow_config_description_write` and grants nothing the flash did not already allow. Only `type: stlink` carries it and only `flash_firmware` reads it, so `probe_target`, `reset_target` and the memory reads keep the connect their own operation decides. It needs the probe's reset line wired to the target's NRST, which an on-board ST-Link already has and a board wired with SWDIO, SWCLK and ground alone does not, there the connect fails rather than falls back. A running MCP server puts the change in force with `project_config_reload_description` or a restart, because `connect_mode` is a description key it re-reads and not a permission. Until then the retry above is the workaround, and the plan is the place for that rather than somebody's memory."
+        ],
+        "do_not": [
+          "Do not read this as a reset problem. No reset failed, and re-seating the reset line, changing `debuggers.<name>.interface` or power-cycling on that theory changes nothing about a refused erase.",
+          "Do not grant `allow_mass_erase` to force the erase through. That permission makes this service refuse flashing outright, it erases the whole device rather than the sectors the image covers, and it answers a protection refusal by destroying more than the failed operation ever asked for."
+        ],
+        "log_path": ".agentic-hil/logs/stlink-20260903T202829234Z-flash_firmware.log",
+        "programmer_output": {
+          "returncode": 1,
+          "stdout": "      -------------------------------------------------------------------\r\n                       STM32CubeProgrammer v2.23.0                  \r\n      -------------------------------------------------------------------\r\n\r\nST-LINK SN  : 066AFF303435554157113106\r\nST-LINK FW  : V2J30M19\r\nBoard       : NUCLEO-F446RE\r\nVoltage     : 3.26V\r\nSWD freq    : 4000 KHz\r\nConnect mode: Hot Plug\r\nReset mode  : Software reset\r\nDevice ID   : 0x421\r\nRevision ID : Rev A\r\nDevice name : STM32F446xx\r\nNVM size    : 512 KBytes\r\nDevice type : MCU\r\nDevice CPU  : Cortex-M4\r\nBL Version  : 0x90\r\n\r\n\r\n\r\nOpening and parsing file: stm32-starter.elf\r\n\r\n\r\nMemory Programming ...\r\n  File          : stm32-starter.elf\r\n  Size          : 936.00 B \r\n  Address       : 0x08000000\r\n\r\n\r\nErasing memory corresponding to segment 0:\r\nErasing internal memory sector 0\r\nError: failed to erase memory\r\n\r\n\r\nError: failed to erase memory\r\n",
+          "stderr": ""
+        },
+        "erase_abort_point": {
+          "reading": "erase_refused_effect_unconfirmed",
+          "evidence_line": "Error: failed to erase memory",
+          "evidence_rule": "The erase was refused and no line reports a write phase completing, but the transcript does not establish that no sector was erased before the refusal, so the flash contents are unconfirmed and the quarantine stands."
+        },
+        "artifact": {
+          "source": "path",
+          "path": "build/Debug/stm32-starter.elf",
+          "sha256": "383917046e3aa1608b29d3995184c72bc738a479c9b8d8441e4a59bc3c0e7d32"
+        },
+        "verify": true,
+        "reset_after_flash": false,
+        "side_effect_status": "unknown",
+        "retry_safe": false,
+        "audit_ok": true,
+        "config_in_force": {
+          "path": "C:\\Users\\mail\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
+          "digest_algorithm": "sha256",
+          "digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
+          "description_source": "startup",
+          "file_state": "unchanged",
+          "file_digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
+          "diverged_from_file": false,
+          "checked_at": "2026-09-03T20:28:29Z"
+        },
+        "report_path": ".agentic-hil/reports/last-report.json",
+        "lease_id": "03235f13b02ea0959b2370bed34bb8fb",
+        "resources": [
+          "debugger-discovery:all",
+          "probe:066aff303435554157113106"
+        ],
+        "lease_state": "cleanup_required",
+        "safe_state_confirmed": false,
+        "processes_reaped": false,
+        "cleanup_required": true,
+        "quarantined": true,
+        "cleanup_reasons": [
+          "debugger_result_unconfirmed"
+        ],
+        "quarantine_id": "e88cf6002432bf4ceae3e77dca820c76",
+        "quarantine_guidance": [
+          {
+            "reason": "debugger_result_unconfirmed",
+            "attempted": "flash_firmware or reset_target reported an outcome the host could not confirm.",
+            "confirmed": "The command was issued through the configured toolchain and its output was captured in the log the report names.",
+            "unknown": "Whether the flash or reset reached the target and completed: the firmware on the board and its run state may be either the old or the new one.",
+            "physical_check": "Check which firmware the board runs (version banner, behavior), reflash or reset by its own controls if needed, then sign. Under `recovery.auto_recover: reset_halt` the service settles this itself with a verified reset into halt."
+          }
+        ]
+      }
+    }
+  ],
+  "cleanup": [],
+  "cleanup_ok": true,
+  "cleanup_errors": [],
+  "summary": "Test reactor sequence failed.",
+  "failed_step": 1,
+  "step_error_type": "flash_erase_failed",
+  "error_type": "flash_erase_failed",
+  "recovery": {
+    "attempted": true,
+    "actions": [
+      "reap_processes",
+      "reset_halt",
+      "probe_target"
+    ],
+    "outcome": "recovered",
+    "devices": [
+      "dut"
+    ],
+    "auto_recover_policy": "reset_halt",
+    "auto_recover_policy_source": "config",
+    "safe_state_predicate": "reset_halt",
+    "incident_resolved": true,
+    "incident_open": false,
+    "resolved_reason": "debugger_result_unconfirmed",
+    "resolved_quarantine_id": "e88cf6002432bf4ceae3e77dca820c76"
+  },
+  "run": "run-24d835430d618a6f",
+  "audit_ok": true,
+  "config_in_force": {
+    "path": "C:\\Users\\mail\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
+    "digest_algorithm": "sha256",
+    "digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
+    "description_source": "startup",
+    "file_state": "unchanged",
+    "file_digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
+    "diverged_from_file": false,
+    "checked_at": "2026-09-03T20:28:29Z"
+  }
+}
