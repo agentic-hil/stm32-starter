@@ -50,6 +50,8 @@ test plans in tests/hil.
 
 The agent runs `agentic-hil setup --agent <agent>`, which discovers your ST-LINK, matches its virtual COM port, and writes this project's authoritative configuration outside the repository, which is where the policy that decides what the bench may do belongs. Then it builds the firmware and runs the plans.
 
+`setup` is the first command when the agent on this machine is yours to register; when the agent registrations belong to somebody else, on a shared bench or under a CI runner's user, `agentic-hil init` is the first command instead and writes this project's half without touching them.
+
 ### 3. Watch it prove itself
 
 Two of the three plans go green on a working board. `tests/hil/diagnostic.testconfig.yaml` does not, and its report names the claim that went unmet and quotes what the board answered instead.

@@ -3,6 +3,10 @@
 Evidence for the ten items under "Bench side, board required" in
 [../README.md](../README.md), walked on Windows with a Nucleo-F446RE attached.
 
+The boxes in [../README.md](../README.md) carry stable numbers now, and this
+note's numbers predate them: item N of this note is box N minus 12, so its item
+17 is box 5.
+
 Two items closed. The walk then stopped at the first hardware plan, which was
 refused before its first hardware action, and the eight items after it stay
 open. The refusal is quoted verbatim below. Nothing was routed around it: the
