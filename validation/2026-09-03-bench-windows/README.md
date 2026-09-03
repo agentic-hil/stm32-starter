@@ -4,6 +4,10 @@ Evidence for the ten items under "Bench side, board required" in
 [../README.md](../README.md), walked on Windows with a Nucleo-F446RE attached,
 on Agentic HIL 0.21.1.
 
+The boxes in [../README.md](../README.md) carry stable numbers now, and this
+note's numbers predate them: item N of this note is box N minus 9, so its item
+15 is box 6.
+
 This is the second bench walk. The first, on 0.21.0
 ([../2026-09-02-bench-windows/](../2026-09-02-bench-windows/README.md)), stopped
 at the first hardware plan with `unsafe_configured_path` and left eight items
