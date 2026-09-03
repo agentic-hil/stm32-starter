@@ -16,7 +16,7 @@ A `permission_denied` result is the answer to your request, not an obstacle. Rep
 agentic-hil setup --agent <claude-code|codex|opencode>
 ```
 
-Say what it writes before you run it, and then run it in the same turn. It installs the agent skill and the user-level MCP registration, and it writes this project's authoritative configuration outside the repository. If the host refuses the command, run `agentic-hil init` immediately, which writes the project half and needs no agent-level grant, and hand the operator the one line that is left: `agentic-hil agent-install --agent <agent>`.
+Say what it writes before you run it, and then run it in the same turn. It installs the agent skill and the user-level MCP registration, and it writes this project's authoritative configuration outside the repository. `setup` is the first command when the agent on this machine is yours to register; when only the project half is wanted, on a shared bench or under a runner whose agent registrations are somebody else's, `agentic-hil init` is the first command and not a fallback. If the host refuses the command, run `agentic-hil init` immediately, which writes the project half and needs no agent-level grant, and hand the operator the one line that is left: `agentic-hil agent-install --agent <agent>`.
 
 `agentic-hil.config.example.yaml` in this repository is the bootstrap profile, not the configuration. It asks for the serial line at 115200 baud with writes allowed, because the plans send commands to the board, and for firmware images to be read from `build/`. Discovery supplies the rest: which ST-Link is attached, where STM32CubeProgrammer lives, and which virtual COM port belongs to that probe. A generated configuration names the probe `dut` and the serial line `dut_uart`, which are the two names every plan routes to.
 
@@ -68,3 +68,5 @@ Make the smallest firmware-only correction, rebuild, and run all three plans aga
 ## Reporting
 
 Say what you ran and what came back: the build command, each plan you ran and its verdict, the firmware revision, the board and probe `agentic-hil doctor` reported, and the path of each reactor report. If something was refused, name the permission or the host rule that refused it. A green simulator run on its own is not evidence that the loop closed.
+
+Reports and logs are workspace-relative, `.agentic-hil/reports/` and `.agentic-hil/logs/`, while the audit state that decides whether a run may start at all is under the operator's `state_root` outside the repository. A run refused before its first hardware action still leaves its log in `.agentic-hil/logs/`, and when what was refused is the audit write itself it leaves no report at all, so the log and the refusal you were handed are that run's record.

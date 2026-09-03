@@ -1,10 +1,20 @@
 # Bootstrap profile for `agentic-hil setup` / `agentic-hil init`.
 #
 # This is not the configuration. The authoritative configuration lives outside
-# this repository, is written by the command above, and is the operator's file:
+# this repository, is written by the command above, and is the operator's file.
+# Discovery has two roots and tries them in this order:
 #
 #   %APPDATA%\agentic-hil\projects\<project-id>\config.yaml          (Windows)
 #   ${XDG_CONFIG_HOME:-~/.config}/agentic-hil/projects/<project-id>/config.yaml
+#
+#   %USERPROFILE%\.agentic-hil\projects\<project-id>\config.yaml     (Windows)
+#   ~/.agentic-hil/projects/<project-id>/config.yaml
+#
+# The second root is taken when the first cannot be written, decided by
+# attempting the write rather than by whether the directory exists, which is how
+# a redirected profile or a packaged host lands there. A file already written
+# under the second root stays the one this project loads. `agentic-hil doctor`
+# prints the path in force as `config_path`, and that is the one to trust.
 #
 # What this file does is tell that command what kind of bench this project
 # expects, so the generated configuration comes out matching the test plans in
