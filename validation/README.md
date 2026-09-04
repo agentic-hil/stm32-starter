@@ -42,6 +42,7 @@ measured. Evidence:
 - [x] **12.** The reactor reports and logs from both green runs are retained.
 - [x] **13.** The board identity, firmware revision, debugger backend and version, compiler version, and the duration of each run are recorded beside them.
 - [ ] **14.** The whole path, from the one-line installer to the first green hardware plan, is walked by somebody who has not seen this repository before, and it takes under four hours.
+  A simulated walk on 2026-09-04, by an agent following only the public pages, stopped at five points on the release and reached the first green plan in 47 seconds on the development build ([2026-09-04-newcomer-linux/](2026-09-04-newcomer-linux/README.md)), so the box waits for a human newcomer.
 
 `.agentic-hil/reports/last-report.json` is overwritten by every run, so whoever runs the three plans and collects afterwards keeps one report of three. The copy that keeps all three is the canonical per-run one under the operator's `state_root`, one file per run that nothing later overwrites, and Agentic HIL 0.21.2 tells you where it is: the report carries the path in `canonical_report_path` and the run repeats it in the summary line it prints, a refusal included. The two bench walks above ran on 0.21.0 and 0.21.1 and had the workspace copy only, which is why they collect it run by run.
 
