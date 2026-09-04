@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Questions and first-run help
+    url: https://github.com/agentic-hil/stm32-starter/discussions/categories/q-a
+    about: Ask in Discussions Q&A when something is unclear or you are not yet sure whether what you saw is a defect.
+  - name: Security policy
+    url: https://github.com/agentic-hil/agentic-hil/blob/master/SECURITY.md
+    about: Report a vulnerability privately, the way Agentic HIL's SECURITY.md describes, and never as a public issue.

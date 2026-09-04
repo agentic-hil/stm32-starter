@@ -223,6 +223,10 @@ enabled = true
 | [expected/](expected/) | Reference reports to diff against |
 | [validation/](validation/) | The evidence gate: the checklist of results this starter has to have behind it before it is announced anywhere, and how far it has been walked |
 
+## Where to ask
+
+Questions about this starter, including the ones you are not yet sure are defects, go to [Discussions Q&A](https://github.com/agentic-hil/stm32-starter/discussions/categories/q-a). A run you got working, on this board or on another one behind the same probe, belongs in [Show and tell](https://github.com/agentic-hil/stm32-starter/discussions/categories/show-and-tell), because a path somebody has actually walked end to end is the most useful thing anyone can read here. A first run on your own bench goes in [the first run report](https://github.com/agentic-hil/stm32-starter/issues/new?template=first-run.yml), green or red: a red one says where this path breaks for a reader who has not read the source, which is the only way that gets found.
+
 ## Licence
 
 [Apache License 2.0](LICENSE), the same licence Agentic HIL itself ships under.
