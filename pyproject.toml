@@ -1,7 +1,7 @@
 [project]
 name = "agentic-hil-stm32-starter"
 version = "0.2.0"
-description = "Nucleo-F446RE starter for Agentic Hardware-in-the-Loop"
+description = "Reference path for developing firmware with Agentic Hardware-in-the-Loop, on a Nucleo-F446RE"
 requires-python = ">=3.10"
 license = "Apache-2.0"
 
