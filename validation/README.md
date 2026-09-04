@@ -43,7 +43,7 @@ measured. Evidence:
 - [x] **13.** The board identity, firmware revision, debugger backend and version, compiler version, and the duration of each run are recorded beside them.
 - [ ] **14.** The whole path, from the one-line installer to the first green hardware plan, is walked by somebody who has not seen this repository before, and it takes under four hours.
 
-`.agentic-hil/reports/last-report.json` is overwritten by every run, so a run's report is copied out right after the run that wrote it and not after the last of them: whoever runs the three plans first and collects afterwards keeps one report of three. A canonical per-run copy is kept under the operator's `state_root`, and a coming Agentic HIL release will print its path; until it does, the workspace copy is the one to collect.
+`.agentic-hil/reports/last-report.json` is overwritten by every run, so whoever runs the three plans and collects afterwards keeps one report of three. The copy that keeps all three is the canonical per-run one under the operator's `state_root`, one file per run that nothing later overwrites, and Agentic HIL 0.21.2 tells you where it is: the report carries the path in `canonical_report_path` and the run repeats it in the summary line it prints, a refusal included. The two bench walks above ran on 0.21.0 and 0.21.1 and had the workspace copy only, which is why they collect it run by run.
 
 A read whose comparator matched records the pattern, the byte count and the number of reads, and not the text it matched, which only a failing read quotes. Box 9 is a claim about what two matching reads consumed, so it is shown from the COM log beside the report until the report carries the matched text itself.
 
