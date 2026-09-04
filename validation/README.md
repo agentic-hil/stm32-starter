@@ -49,8 +49,8 @@ A read whose comparator matched records the pattern, the byte count and the numb
 
 ## Remote CI
 
-- [ ] **15.** A self-hosted runner labelled `agentic-hil` and `nucleo-f446re` runs `.github/workflows/hardware-test.yml` to three green plans.
-- [ ] **16.** Two runs queued at once serialise rather than colliding on the bench.
-- [ ] **17.** The evidence artifact uploads on a failed run as well as a passing one.
+- [x] **15.** A self-hosted runner labelled `agentic-hil` and `nucleo-f446re` runs `.github/workflows/hardware-test.yml` to three green plans. Run 33905284058 on 2026-09-04: bench report, build, nominal and recovery green, and the diagnostic plan failing exactly the documented way, which the step after it asserts from the run's own report (#13).
+- [x] **16.** Two runs queued at once serialise rather than colliding on the bench. Runs 33905428047 and 33905437615, dispatched six seconds apart on 2026-09-04: the second stayed queued and its job started at 18:21:47Z, after the first job completed at 18:21:41Z; both green.
+- [x] **17.** The evidence artifact uploads on a failed run as well as a passing one. `hardware-run-evidence` is attached to run 33904045828 (red at the diagnostic step, before #13) and to run 33905284058 (green).
 
 Do not close a physical item with a simulator result, and do not close one with a hand-edited report. An open box is a fact about this repository; a closed one that nothing happened behind is a claim it cannot keep.
