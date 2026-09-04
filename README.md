@@ -63,8 +63,9 @@ python -m venv .venv
 
 - A Nucleo-F446RE connected through its ST-LINK USB port
 - CMake 3.21 or newer, which is what [CMakePresets.json](CMakePresets.json) needs for its preset version and its `toolchainFile`, plus Ninja and the GNU Arm Embedded Toolchain (`arm-none-eabi-gcc`) on your `PATH`; [STM32CubeCLT](https://www.st.com/en/development-tools/stm32cubeclt.html) carries all three
-- STM32CubeProgrammer CLI, which is what `agentic-hil setup` looks for when it discovers your probe; OpenOCD serves the same role once the configuration names it
+- A debugger backend, STM32CubeProgrammer CLI or OpenOCD; either one is enough on its own, and [step 2](#2-say-one-sentence) says what each of them means for discovery
 - Python 3.10 or newer
+- **On Linux**, membership in two groups before the first plan: `dialout`, which owns the ST-LINK's virtual COM port, and `plugdev`, which the `openocd` package's udev rule gives the probe itself. `sudo usermod -aG plugdev,dialout "$USER"` adds both, and it is the one step in this path that asks for an administrator. Log in again afterwards, because a shell takes its groups at login and the one that ran `usermod` does not have them. The udev rule applies to a board plugged in after the `openocd` package was installed, so replug a board that was already attached
 
 The build tools above are yours to put on the path, and `cmake --build --preset Debug` is what tells you they are there. Build before you run a plan: the test reactor, the part of Agentic HIL that takes one declared test plan and runs it end to end against the bench, flashes `build/Debug/stm32-starter.elf`, and on a tree nobody has built it refuses the plan before its first hardware action with `test_config_invalid: Firmware artifact does not exist`.
 
@@ -90,7 +91,9 @@ test plans in tests/hil.
 
 The agent runs `agentic-hil setup --agent <agent>`, which discovers your ST-LINK, matches its virtual COM port, and writes this project's authoritative configuration outside the repository, which is where the policy that decides what the bench may do belongs. Then it builds the firmware and runs the plans.
 
-With no board attached that command is green anyway: discovery finds no probe, writes a placeholder where the probe's identity goes, and says so in that step of its own output. What you have afterwards is a configuration to finish on the day the board arrives, not a failure to work around.
+Discovery uses STM32CubeProgrammer's CLI where that is installed. Where it is not, it enumerates the attached ST-LINK out of the host's own USB inventory and drives it with the `openocd` on your `PATH`, which is how a Linux bench with OpenOCD and no vendor tool is discovered. Neither backend needs the other, and `agentic-hil doctor` afterwards names the one your configuration bound.
+
+A placeholder is written when no ST-LINK port is enumerated at all, on either path: discovery finds no probe, puts a placeholder where the probe's identity goes, and says so in that step of its own output. With no board attached that command is green anyway, and what you have afterwards is a configuration to finish on the day the board arrives, not a failure to work around. With the board on the desk and a placeholder written regardless, nothing enumerated the port, so it is the cable, the groups above, or the probe.
 
 `setup` is the first command when the agent on this machine is yours to register; when the agent registrations belong to somebody else, on a shared bench or under a CI runner's user, `agentic-hil init` is the first command instead and writes this project's half without touching them.
 
