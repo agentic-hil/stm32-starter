@@ -1,8 +1,8 @@
 # STM32 Agentic HIL Starter
 
-**Clone this repository, say one sentence to your coding agent, and watch it build firmware, flash a real Nucleo-F446RE, talk to it, and prove what the board actually did.**
+**Take your own copy of this repository, say one sentence to your coding agent, and watch it build firmware, flash a real Nucleo-F446RE, talk to it, and prove what the board actually did.**
 
-This is the reference path for [Agentic HIL](https://github.com/agentic-hil/agentic-hil), the local MCP server that lets an AI agent close the firmware loop on hardware you own: build, flash, stimulate, observe, diagnose, fix. Everything here needs a Nucleo-F446RE, a USB cable, and the onboard ST-LINK. No fixture to wire, no adapter to buy.
+Click **Use this template** above to get your own copy, or clone this one. Everything here needs a Nucleo-F446RE, a USB cable, and the onboard ST-LINK. No fixture to wire, no adapter to buy. This is the reference path for [Agentic HIL](https://github.com/agentic-hil/agentic-hil), the local MCP server that lets an AI agent close the firmware loop on hardware you own: build, flash, stimulate, observe, diagnose, fix.
 
 The firmware ships with one deliberate defect in its diagnostic protocol. Finding it is the exercise.
 
