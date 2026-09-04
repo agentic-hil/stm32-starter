@@ -70,13 +70,200 @@ jobs:
       # it: on the firmware this repository ships exactly one of the three goes
       # red, and a job that stopped at the first failure could not show that.
       # They still stop when the build did not produce an image, because there
-      # would be nothing to flash. A red plan fails the job either way.
+      # would be nothing to flash. A red nominal plan and a red recovery plan
+      # fail the job. The diagnostic plan is the one the shipped firmware is
+      # documented not to satisfy, so its step declares the failure it expects
+      # and the step after it is what decides the job.
       - name: Nominal status
         run: agentic-hil test-reactor --test-config tests/hil/nominal.testconfig.yaml
 
+      # `continue-on-error` does not forgive this plan. It hands the failure to
+      # the step below, which re-raises it for every outcome but the documented
+      # one, so a bench that broke is still red and a job that is green still
+      # means the board was reached.
+      #
+      # The two steps here are POSIX shell rather than one command, so they say
+      # `shell: bash`: this one keeps the exit code and the output of a command
+      # that is allowed to fail, and the next one reads a report.
       - name: Self-test diagnostic
+        id: diagnostic
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
-        run: agentic-hil test-reactor --test-config tests/hil/diagnostic.testconfig.yaml
+        continue-on-error: true
+        shell: bash
+        run: |
+          mkdir -p .agentic-hil/reports
+          status=0
+          agentic-hil test-reactor --test-config tests/hil/diagnostic.testconfig.yaml \
+            > .agentic-hil/reports/diagnostic-output.txt 2>&1 || status=$?
+          cat .agentic-hil/reports/diagnostic-output.txt
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          # Every run overwrites last-report.json and the recovery plan runs
+          # after this one, so this run's report is kept under its own name, for
+          # the step below and for the evidence artifact.
+          if [ -f .agentic-hil/reports/last-report.json ]; then
+            cp .agentic-hil/reports/last-report.json .agentic-hil/reports/diagnostic-report.json
+          fi
+          exit "$status"
+
+      # Why the report and not the exit code alone: a plan refused because this
+      # runner has no configuration, a flash that did not take, a board that
+      # never booted and the documented protocol defect are one exit code and
+      # four different events. Only the report tells them apart, and only one of
+      # the four is the one this repository ships.
+      - name: The diagnostic plan fails the way the shipped firmware is documented to fail
+        if: ${{ !cancelled() && steps.diagnostic.outcome != 'skipped' }}
+        shell: bash
+        env:
+          DIAGNOSTIC_EXIT_CODE: ${{ steps.diagnostic.outputs.exit_code }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import sys
+          from pathlib import Path
+
+          PLAN = "tests/hil/diagnostic.testconfig.yaml"
+          PLAN_NAME = "nucleo-f446re-diagnostic-selftest"
+          # The `uart_read` that follows `DIAG ON`, counted from 1 as the
+          # reactor counts the steps it reports in `failed_step`.
+          STEP = 6
+          ROUTE = "dut_uart"
+          ACTION = "uart_read"
+          ERROR_TYPE = "comparator_unmet"
+          FIX_IT = (
+              "A fork whose firmware has been fixed answers `DIAG ON`, and this plan passes there.",
+              "That is the finished state, and it is two deletions away: remove this step, and remove",
+              "`continue-on-error: true` from the `Self-test diagnostic` step above. The diagnostic",
+              "plan then has to pass outright, like the other two.",
+          )
+
+          report_path = Path(".agentic-hil/reports/diagnostic-report.json")
+          output_path = Path(".agentic-hil/reports/diagnostic-output.txt")
+          exit_code = os.environ.get("DIAGNOSTIC_EXIT_CODE") or "unknown"
+
+
+          def output_tail(limit=40):
+              if not output_path.exists():
+                  return ["The command left no output."]
+              lines = output_path.read_text(encoding="utf-8", errors="replace").splitlines()
+              omitted = [] if len(lines) <= limit else [f"[{len(lines) - limit} earlier lines omitted]"]
+              return ["What the command printed:", *omitted, *lines[-limit:]]
+
+
+          def fail(headline, *lines):
+              print(f"::error title=Diagnostic plan::{headline}")
+              for line in (headline, *lines):
+                  print(line)
+              sys.exit(1)
+
+
+          if not report_path.exists():
+              fail(
+                  "The diagnostic plan wrote no report, so it did not fail the documented way.",
+                  f"`agentic-hil test-reactor --test-config {PLAN}` exited {exit_code} without leaving",
+                  "a report, which is what a run refused before it reached the bench looks like: no",
+                  "configuration on this runner, one bound to another workspace, or a plan the reactor",
+                  "would not load.",
+                  *output_tail(),
+              )
+
+          try:
+              report = json.loads(report_path.read_text(encoding="utf-8"))
+          except (OSError, ValueError) as error:
+              fail(f"The diagnostic plan's report could not be read: {error}.", *output_tail())
+
+          if report.get("name") != PLAN_NAME:
+              fail(
+                  f"The report at {report_path} is {report.get('name')!r}, not the diagnostic plan"
+                  f" {PLAN_NAME!r}.",
+                  "Nothing here can say how the diagnostic plan ended, so this job is red rather than",
+                  "green on another run's evidence.",
+              )
+
+          summary = str(report.get("summary", "")).strip()
+
+          if report.get("ok") is True:
+              if exit_code not in ("0", "unknown"):
+                  fail(
+                      f"Every step of the diagnostic plan passed while the command exited {exit_code}.",
+                      "The run failed outside its steps: the audit ledger, or a session that did not",
+                      f"close. {summary}",
+                  )
+              fail(
+                  "The diagnostic plan passed, and on the firmware this repository ships it cannot:"
+                  " the plan sends `DIAG ON` and the firmware answers `DIAG ENABLE`.",
+                  "So either this fork's firmware is fixed, or this report is not evidence of the run",
+                  "that just happened.",
+                  *FIX_IT,
+              )
+
+          error_type = report.get("error_type")
+          if error_type != ERROR_TYPE:
+              fail(
+                  f"The diagnostic plan failed with `{error_type}`, not the documented `{ERROR_TYPE}`.",
+                  "That is the bench, the build, the flash, the reset or the serial line, and not the",
+                  f"protocol defect this repository ships. {summary}",
+              )
+
+          failed_step = report.get("failed_step")
+          if failed_step != STEP:
+              fail(
+                  f"The diagnostic plan failed at step {failed_step}, not at step {STEP}, the"
+                  f" `{ACTION}` that follows `DIAG ON`.",
+                  "Steps 1 to 5 are the flash, the serial session, the reset, the boot line and the",
+                  "`DIAG ON` write, so a failure among them is the bench rather than the answer this",
+                  f"plan is about. {summary}",
+              )
+
+          steps = report.get("steps") or []
+          failing = next((step for step in steps if step.get("index") == STEP), None)
+          if failing is None:
+              fail(f"The report names step {STEP} as the failure but carries no such step.")
+
+          if (failing.get("route"), failing.get("action")) != (ROUTE, ACTION):
+              fail(
+                  f"Step {STEP} of the plan is `{failing.get('route')}` / `{failing.get('action')}`,"
+                  f" and not the `{ROUTE}` / `{ACTION}` after `DIAG ON`.",
+                  f"{PLAN} has been edited, and this expectation is about the plan as it ships.",
+              )
+
+          step_error = (failing.get("result") or {}).get("error_type")
+          if step_error != ERROR_TYPE:
+              fail(
+                  f"Step {STEP} failed with `{step_error}`, and not with `{ERROR_TYPE}`.",
+                  "The board did not answer `DIAG ON` with something other than the claim: it did not",
+                  "answer at all, or the line was not there to answer on.",
+              )
+
+          earlier = [
+              step
+              for step in steps
+              if isinstance(step.get("index"), int)
+              and step["index"] < STEP
+              and (step.get("result") or {}).get("ok") is not True
+          ]
+          if earlier:
+              named = ", ".join(
+                  f"{step['index']}.{step.get('route')}.{step.get('action')}" for step in earlier
+              )
+              fail(
+                  f"A step before the `DIAG ON` read did not pass: {named}.",
+                  "The plan reached its claim without the flash, the reset and the boot line behind",
+                  "it, so what it caught is not the documented defect.",
+              )
+
+          print(
+              f"The diagnostic plan failed exactly where the shipped firmware is documented to fail"
+              f" it: `{ERROR_TYPE}` at step {STEP}, the `{ACTION}` after `DIAG ON`, with every step"
+              f" before it green."
+          )
+          print(
+              "The bench, the build, the flash, the reset and the serial line all held, which is what"
+              " this job exists to establish."
+          )
+          for line in FIX_IT:
+              print(line)
+          PY
 
       - name: Diagnostic recovery
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
@@ -85,7 +272,11 @@ jobs:
       # The reports say what ran, under which configuration digest, which steps
       # executed, and whether the board was ever reached. They are the evidence
       # a hardware run produces, and they are worth keeping most when the run
-      # was red.
+      # was red. The diagnostic run's report is in here under its own name,
+      # `diagnostic-report.json`, beside what its command printed: it is the
+      # evidence behind the one step this job expects to be red, and
+      # `last-report.json` alone would have been overwritten by the plan after
+      # it.
       # `warn` rather than `error`, because a job that never got as far as a
       # report has already failed for a reason worth reading, and a second
       # failure from the upload step would sit on top of it.
