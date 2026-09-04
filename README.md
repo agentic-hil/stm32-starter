@@ -203,7 +203,7 @@ enabled = true
 ## Continuous integration
 
 - [.github/workflows/simulator.yml](.github/workflows/simulator.yml) runs the simulator suite on a GitHub-hosted runner, on every push and pull request, and uploads the JUnit XML report.
-- [.github/workflows/hardware-test.yml](.github/workflows/hardware-test.yml) runs the three plans on a self-hosted runner that has a Nucleo-F446RE attached, labelled `agentic-hil` and `nucleo-f446re`. It serialises bench access with a concurrency group and uploads the reactor reports and logs whether the run passed or failed.
+- [.github/workflows/hardware-test.yml](.github/workflows/hardware-test.yml) runs the three plans on a self-hosted runner that has a Nucleo-F446RE attached, labelled `agentic-hil` and `nucleo-f446re`. It serialises bench access with a concurrency group and uploads the reactor reports and logs whether the run passed or failed. Its diagnostic step is expected to fail with `comparator_unmet` on the shipped firmware, and the step after it asserts exactly that from the diagnostic run's own report, so the workflow is green while the firmware answers `DIAG ON` the way it ships and red when the bench, the build or any other plan breaks. Once the firmware is fixed that plan passes outright, and the workflow names the two lines to delete so the step becomes a plain pass.
 
 [expected/](expected/) holds the reference simulator report, and [expected/README.md](expected/README.md) has the two commands that reproduce it and compare the two byte for byte.
 

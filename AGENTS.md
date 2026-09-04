@@ -49,7 +49,7 @@ Run each one with the `test_reactor_run` tool, passing the plan as `test_config_
 
 The reactor validates every device name, permission and session order before the first hardware action, holds the probe and the serial line for the whole plan, closes them even when a step fails, and writes one report. Do not rebuild that loop out of `flash_firmware`, `com_session_start`, `reset_target` and `com_read` calls: the plan says the same thing, is checked before it runs, and cleans up after itself. Reach for the individual tools only when a step needs something the plan vocabulary has no word for, and say in your report that you did and why.
 
-Expect two green plans and one red one on a working board.
+Expect two green plans and one red one on a working board. `.github/workflows/hardware-test.yml`, which runs the same three plans on a bench in CI, expects the same thing: its diagnostic step is expected to fail with `comparator_unmet` on the shipped firmware, and the step after it asserts exactly that from the run's own report, so that workflow is green while the firmware behaves as documented and red for any other reason.
 
 ## 4. Diagnose and fix
 
