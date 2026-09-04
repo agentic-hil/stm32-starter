@@ -61,7 +61,7 @@ Make the smallest firmware-only correction, rebuild, and run all three plans aga
 
 - Do not change the test plans in `tests/hil/`, the simulator suite in `tests/simulator/`, or the protocol in `README.md` to make the challenge pass. The firmware is what is wrong.
 - Do not emulate the MCU. The claim this repository makes is about a real board.
-- Do not say a simulator run verified firmware behaviour. `uv run pytest -s` validates the plans on any machine; it establishes nothing electrical, and the suite prints exactly that beside every result, which is what the `-s` is for.
+- Do not say a simulator run verified firmware behaviour. `uv run pytest -q -s` validates the plans on any machine; it establishes nothing electrical, and the suite prints exactly that beside every result, which is what the `-s` is for.
 - Do not write `.mcp.json` or `.vscode/mcp.json` into this repository. Both are gitignored on purpose: an MCP registration names the program that answers as the hardware gate, so it belongs in the operator's user-level configuration, not in a file anyone with repository access can change.
 - Do not commit build output, reactor reports or logs. `build/` and `.agentic-hil/` are gitignored.
 
@@ -71,4 +71,4 @@ Say what you ran and what came back: the build command, each plan you ran and it
 
 Reports and logs are workspace-relative, `.agentic-hil/reports/` and `.agentic-hil/logs/`, while the audit state that decides whether a run may start at all is under the operator's `state_root` outside the repository. A run refused before its first hardware action still leaves its log in `.agentic-hil/logs/`, and when what was refused is the audit write itself it leaves no report at all, so the log and the refusal you were handed are that run's record.
 
-`.agentic-hil/reports/last-report.json` holds the last run only, because every run overwrites it, so copy a report out right after the run that wrote it whenever more than one run has to be shown. A canonical per-run copy is kept under the operator's `state_root`, and a coming Agentic HIL release will print its path; until it does, the workspace copy is the one to collect.
+`.agentic-hil/reports/last-report.json` holds the last run only, because every run overwrites it, so it is never the path to quote when more than one run has to be shown. The copy that survives is the canonical per-run one under the operator's `state_root`, one file per run that nothing later overwrites, and Agentic HIL 0.21.2 tells you where it is: the report carries the path in `canonical_report_path` and the run repeats it in the summary line it prints, a refusal included. Report that path for each run.
