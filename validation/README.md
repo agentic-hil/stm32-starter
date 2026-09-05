@@ -10,8 +10,8 @@ Walked on Windows 11 build 26200.9168 with uv 0.11.27 and STM32CubeCLT 1.22.0 on
 2026-09-02. Evidence: [2026-09-02-host-windows.md](2026-09-02-host-windows.md).
 
 - [ ] **1.** A fresh clone plus `uv sync` succeeds on Linux, macOS and Windows. Windows is closed; Linux and macOS are not walked yet, so the item stays open.
-- [x] **2.** The three simulator tests pass and print the scope statement.
-- [x] **3.** A fresh report, put through the normalisation in `expected/README.md`, is byte for byte identical to `expected/simulator-junit.xml`.
+- [x] **2.** The three board-free tests pass and print the scope statement.
+- [x] **3.** A fresh report, put through the normalisation in `expected/README.md`, is byte for byte identical to `expected/check-plan-junit.xml`.
 - [x] **4.** The `Debug` and `Release` presets both build with `arm-none-eabi-gcc`, and `build/Debug/stm32-starter.elf` is what the plans name.
 
 ## Bench side, board required
@@ -37,7 +37,7 @@ measured. Evidence:
 - [x] **7.** The shipped firmware passes `tests/hil/nominal.testconfig.yaml` and `tests/hil/recovery.testconfig.yaml` and fails `tests/hil/diagnostic.testconfig.yaml`, and no other plan is red.
 - [x] **8.** The failing report quotes what the board answered, so the failure names the defect rather than describing a silence.
 - [x] **9.** The recovery plan's middle read consumes the answer to `DIAG ON` on the bench as it does on paper: its report shows that read matching one status line and the final read matching a second, so the plan's claim is about what `DIAG CLEAR` produced.
-- [x] **10.** A coding agent fixes the firmware without changing the test plans, the simulator suite, or the protocol.
+- [x] **10.** A coding agent fixes the firmware without changing the test plans, the check-plan suite, or the protocol.
 - [x] **11.** All three plans pass, then pass again on the same firmware revision with nothing edited in between.
 - [x] **12.** The reactor reports and logs from both green runs are retained.
 - [x] **13.** The board identity, firmware revision, debugger backend and version, compiler version, and the duration of each run are recorded beside them.
@@ -54,4 +54,4 @@ A read whose comparator matched records the pattern, the byte count and the numb
 - [x] **16.** Two runs queued at once serialise rather than colliding on the bench. Runs 33905428047 and 33905437615, dispatched six seconds apart on 2026-09-04: the second stayed queued and its job started at 18:21:47Z, after the first job completed at 18:21:41Z; both green.
 - [x] **17.** The evidence artifact uploads on a failed run as well as a passing one. `hardware-run-evidence` is attached to run 33904045828 (red at the diagnostic step, before #13) and to run 33905284058 (green).
 
-Do not close a physical item with a simulator result, and do not close one with a hand-edited report. An open box is a fact about this repository; a closed one that nothing happened behind is a claim it cannot keep.
+Do not close a physical item with a board-free result, and do not close one with a hand-edited report. An open box is a fact about this repository; a closed one that nothing happened behind is a claim it cannot keep.
