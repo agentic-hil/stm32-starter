@@ -10,7 +10,7 @@ than here. A plan red here is a plan no bench would run.
 
 What that is worth, and what it is not, is printed by every test below:
 
-    PASS  configuration and test semantics validated in simulator
+    PASS  configuration and test semantics validated without a board
     NEEDS PHYSICAL FIXTURE  electrical behavior not verified
 
 Nothing here executes, emulates or models the STM32. A green run says the plans
@@ -30,7 +30,7 @@ PLAN_DIR = REPO_ROOT / "tests" / "hil"
 PLAN_NAMES = ("nominal", "diagnostic", "recovery")
 
 SCOPE_LINES = (
-    "PASS  configuration and test semantics validated in simulator",
+    "PASS  configuration and test semantics validated without a board",
     "NEEDS PHYSICAL FIXTURE  electrical behavior not verified",
 )
 

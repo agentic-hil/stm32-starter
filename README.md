@@ -35,7 +35,7 @@ To register a single agent instead of all of them, pass `--agent claude-code` (o
 
 ## Run the plans with no board attached
 
-The simulator suite validates the three hardware test plans on any machine, with nothing plugged in. It needs Python 3.10 or newer and [uv](https://docs.astral.sh/uv/), which is what the lock file is for. The one-line installer above may or may not have left you with `uv`, since it falls back to `pip --user` where `uv` is absent; install it with `curl -LsSf https://astral.sh/uv/install.sh | sh` on Linux and macOS, or `irm https://astral.sh/uv/install.ps1 | iex` in PowerShell.
+The check-plan suite validates the three hardware test plans on any machine, with nothing plugged in. It needs Python 3.10 or newer and [uv](https://docs.astral.sh/uv/), which is what the lock file is for. The one-line installer above may or may not have left you with `uv`, since it falls back to `pip --user` where `uv` is absent; install it with `curl -LsSf https://astral.sh/uv/install.sh | sh` on Linux and macOS, or `irm https://astral.sh/uv/install.ps1 | iex` in PowerShell.
 
 ```bash
 uv sync
@@ -45,7 +45,7 @@ uv run pytest -q -s
 Every test states what a green run is worth:
 
 ```text
-PASS  configuration and test semantics validated in simulator
+PASS  configuration and test semantics validated without a board
 NEEDS PHYSICAL FIXTURE  electrical behavior not verified
 ```
 
@@ -139,7 +139,7 @@ A finished run is three green plans on one firmware revision, and the reactor's 
 
 ## What runs where
 
-**On any machine, with no board attached**, the simulator suite validates the three hardware plans with the test reactor's own loader: the closed plan schema, the step vocabulary, the format version gate, the diagnostic protocol the plans state, and the rule that a plan names logical devices, the configuration's own names for the probe and the serial line, `dut` and `dut_uart` here, and never somebody's serial port. A plan that passes here is one the reactor's loader accepts. The reactor also holds a plan against this bench's configured devices and permissions before the first hardware action, and that half needs a configuration, so it happens on the bench.
+**On any machine, with no board attached**, the check-plan suite validates the three hardware plans with the test reactor's own loader: the closed plan schema, the step vocabulary, the format version gate, the diagnostic protocol the plans state, and the rule that a plan names logical devices, the configuration's own names for the probe and the serial line, `dut` and `dut_uart` here, and never somebody's serial port. A plan that passes here is one the reactor's loader accepts. The reactor also holds a plan against this bench's configured devices and permissions before the first hardware action, and that half needs a configuration, so it happens on the bench.
 
 **On a bench with a Nucleo-F446RE attached**, the three plans in [tests/hil/](tests/hil/) run through `agentic-hil test-reactor`, which validates every device name, permission and session order before the first hardware action, holds the probe and the serial line for the whole run under one lease, the machine-wide claim on a device that keeps a second run off it until this one gives it back, closes them even when a step fails, and writes one JSON report saying what ran under which policy. That is where electrical behaviour is established.
 
@@ -208,7 +208,7 @@ enabled = true
 - [.github/workflows/check-plan.yml](.github/workflows/check-plan.yml) runs the check-plan suite on a GitHub-hosted runner, on every push and pull request, and uploads the JUnit XML report.
 - [.github/workflows/hardware-test.yml](.github/workflows/hardware-test.yml) runs the three plans on a self-hosted runner that has a Nucleo-F446RE attached, labelled `agentic-hil` and `nucleo-f446re`. It serialises bench access with a concurrency group and uploads the reactor reports and logs whether the run passed or failed. Its diagnostic step is expected to fail with `comparator_unmet` on the shipped firmware, and the step after it asserts exactly that from the diagnostic run's own report, so the workflow is green while the firmware answers `DIAG ON` the way it ships and red when the bench, the build or any other plan breaks. Once the firmware is fixed that plan passes outright, and the workflow names the two lines to delete so the step becomes a plain pass.
 
-[expected/](expected/) holds the reference simulator report, and [expected/README.md](expected/README.md) has the two commands that reproduce it and compare the two byte for byte.
+[expected/](expected/) holds the reference check-plan report, and [expected/README.md](expected/README.md) has the two commands that reproduce it and compare the two byte for byte.
 
 ## Where everything lives
 
@@ -217,7 +217,7 @@ enabled = true
 | [firmware/src/main.c](firmware/src/main.c) | The whole firmware: USART2 setup, the diagnostic protocol, and the defect |
 | [CMakeLists.txt](CMakeLists.txt), [CMakePresets.json](CMakePresets.json) | The `Debug` and `Release` builds, producing `build/Debug/stm32-starter.elf` |
 | [tests/hil/](tests/hil/) | Three test reactor plans, one per hardware test |
-| [tests/simulator/](tests/simulator/) | The host-side validation of those plans |
+| [tests/check_plan/](tests/check_plan/) | The host-side validation of those plans |
 | [agentic-hil.config.example.yaml](agentic-hil.config.example.yaml) | What `agentic-hil setup` should discover for this project |
 | [AGENTS.md](AGENTS.md) | The instructions your agent reads when it opens this repository |
 | [expected/](expected/) | Reference reports to diff against |
