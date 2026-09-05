@@ -3,7 +3,7 @@
 # This job runs only on a self-hosted runner that has the board attached. A
 # GitHub-hosted runner has no probe, no serial port and no bench configuration,
 # so this workflow is never scheduled onto one and is not part of the pull
-# request gate. .github/workflows/simulator.yml is what runs there.
+# request gate. .github/workflows/check-plan.yml is what runs there.
 #
 # What the runner has to provide, once, outside this repository:
 #
