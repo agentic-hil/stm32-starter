@@ -5,7 +5,7 @@
 #
 # It establishes nothing electrical, and the suite prints that beside every
 # result. The bench half is .github/workflows/hardware-test.yml.
-name: Simulator
+name: Check plan
 
 on:
   push:
@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 jobs:
-  simulator:
+  check-plan:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
@@ -34,15 +34,15 @@ jobs:
       # -s so the scope statement each test prints reaches the job log, where
       # the reader of a green run sees what that green is worth.
       - name: Validate the hardware test plans
-        run: uv run pytest -q -s --junitxml=artifacts/simulator-junit.xml
+        run: uv run pytest -q -s --junitxml=artifacts/check-plan-junit.xml
 
       # `warn` for the same reason the hardware workflow gives: a job that failed
       # before pytest wrote a report has already said why, and a second failure
       # from the upload step would sit on top of the one worth reading.
-      - name: Upload the simulator report
+      - name: Upload the check plan report
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: simulator-junit
-          path: artifacts/simulator-junit.xml
+          name: check-plan-junit
+          path: artifacts/check-plan-junit.xml
           if-no-files-found: warn

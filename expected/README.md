@@ -44,7 +44,7 @@ fc.exe /b artifacts\simulator-junit.xml expected\simulator-junit.xml
 
 `fc.exe` reporting no differences, and exiting 0, is the pass. `Resolve-Path` and the `[IO.File]` calls are load-bearing: .NET resolves a relative path against its own working directory rather than PowerShell's, and `Set-Content` would append a trailing newline the reference file does not have, with `-Encoding utf8` adding a byte order mark on top.
 
-The same report is uploaded as the `simulator-junit` artifact by [.github/workflows/simulator.yml](../.github/workflows/simulator.yml) on every push and pull request.
+The same report is uploaded as the `check-plan-junit` artifact by [.github/workflows/check-plan.yml](../.github/workflows/check-plan.yml) on every push and pull request.
 
 ## The hardware run
 
