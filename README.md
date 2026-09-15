@@ -29,13 +29,15 @@ powershell -c "irm https://agentic-hil.github.io/install.ps1|iex"
 
 One line installs the package user-local and registers the agent skill and the MCP server for every agent CLI it finds on your `PATH`. No admin rights are required, and it writes nothing inside this repository. Then restart your agent once.
 
-The `export` line in the first block is the one the installer prints itself when `~/.local/bin` is not already on your `PATH`, and it is the line that puts `uv` within reach as well, because both land in that directory.
+When `~/.local/bin` is not already on your `PATH`, the installer puts it there for the shells that come after it, by one line in your shell profile, and names the file it edited. The `export` line in the first block is for the shell you are in right now, and for any shell that does not read that file; it puts `uv` within reach as well, because both land in that directory.
 
 To register a single agent instead of all of them, pass `--agent claude-code` (or `codex`, `opencode`); piped, that reads `| sh -s -- --agent claude-code`.
 
 ## Run the plans with no board attached
 
-The check-plan suite validates the three hardware test plans on any machine, with nothing plugged in. It needs Python 3.10 or newer and [uv](https://docs.astral.sh/uv/), which is what the lock file is for. The one-line installer above may or may not have left you with `uv`, since it falls back to `pip --user` where `uv` is absent; install it with `curl -LsSf https://astral.sh/uv/install.sh | sh` on Linux and macOS, or `irm https://astral.sh/uv/install.ps1 | iex` in PowerShell.
+The check-plan suite validates the three hardware test plans on any machine, with nothing plugged in. It needs Python 3.10 or newer and [uv](https://docs.astral.sh/uv/), which is what the lock file is for. The one-line installer above leaves you with `uv` on most machines: it installs through `uv` when it finds one, and fetches `uv` itself when the Python it found has no `pip` or is one the distribution keeps for its own packages, so only a Python with a usable `pip` and no `uv` on the machine ends up without it. If `command -v uv` finds nothing, install it with `curl -LsSf https://astral.sh/uv/install.sh | sh` on Linux and macOS, or `irm https://astral.sh/uv/install.ps1 | iex` in PowerShell.
+
+Clone this repository first, then run these inside the clone:
 
 ```bash
 uv sync
@@ -48,6 +50,8 @@ Every test states what a green run is worth:
 PASS  configuration and test semantics validated without a board
 NEEDS PHYSICAL FIXTURE  electrical behavior not verified
 ```
+
+The environment `uv sync` builds carries the Agentic HIL release the lock file pins, and that release backs this suite. The hardware commands further down run the `agentic-hil` the installer put on your `PATH`, which may be newer. Two versions on one machine is the expected shape, not a mistake; `agentic-hil doctor` reports the one on your `PATH`.
 
 Without `uv`, the same suite runs from a plain virtual environment:
 
@@ -95,7 +99,7 @@ Discovery uses STM32CubeProgrammer's CLI where that is installed. Where it is no
 
 A placeholder is written when no ST-LINK port is enumerated at all, on either path: discovery finds no probe, puts a placeholder where the probe's identity goes, and says so in that step of its own output. With no board attached that command is green anyway, and what you have afterwards is a configuration to finish on the day the board arrives, not a failure to work around. With the board on the desk and a placeholder written regardless, nothing enumerated the port, so it is the cable, the groups above, or the probe.
 
-`setup` is the first command when the agent on this machine is yours to register; when the agent registrations belong to somebody else, on a shared bench or under a CI runner's user, `agentic-hil init` is the first command instead and writes this project's half without touching them.
+`setup` is the first command when the agent registrations in your home directory are yours, which on your own machine they are; when they belong to somebody else, under a CI runner's account for instance, `agentic-hil init` is the first command instead and writes this project's half without touching them.
 
 ### 3. Watch it prove itself
 
@@ -135,7 +139,7 @@ diagnostic claim goes unmet, make the smallest firmware fix, rebuild, and rerun
 all three plans. Do not change the test plans or the protocol.
 ```
 
-A finished run is three green plans on one firmware revision, and the reactor's report under `.agentic-hil/reports/` is the evidence.
+A finished run is three green plans on one firmware revision, and the evidence is the report each run keeps under the operator's state root, at the path the run prints in its own summary line; `.agentic-hil/reports/last-report.json` in the workspace holds the last run only, so three plans leave one file there and three under the state root.
 
 ## What runs where
 

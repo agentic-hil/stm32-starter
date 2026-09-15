@@ -1,0 +1,121 @@
+=== T_SETUP_START ===
+Tue Sep 15 21:38:01 UTC 2026
+=== agentic-hil setup --agent codex ===
+Agentic HIL project set up.
+
+  agent        codex
+  command      ~/.local/bin/agentic-hil
+  config_path  ~/.config/agentic-hil/projects/stm32-starter-da1f6d6135/config.yaml
+
+Halves
+  user (agent-install)  ok  Agentic HIL agent integration installed for this user
+                            account.
+                            Bind a project to it with `agentic-hil init --agent codex`
+                            from that project root. Naming the agent there settles
+                            that agent's own write permissions on the project's config
+                            and state root, whether the config is written by that run
+                            or already there. This half never has to run again for
+                            this user on this machine.
+  project (init)        ok  Agentic HIL project configured.
+
+Steps
+  config                   ok       Attached hardware was discovered and configured,
+                                    with every permission granted except the two that
+                                    are false so that flashing works.
+                                    '066AFF303435554157113106' is the one ST-Link this
+                                    host's USB serial inventory shows, and it is
+                                    bound. That inventory reaches an ST-Link only
+                                    through the virtual COM port a V2-1 or a V3
+                                    publishes, so a standalone ST-LINK/V2 -- or any
+                                    probe with no VCP -- would not appear in it even
+                                    if it were attached beside this one. If that is
+                                    this bench, name the intended board with
+                                    `agentic-hil adopt-hardware --probe-id <serial>`,
+                                    or install STM32CubeProgrammer, whose own listing
+                                    reads the serial off the probe itself and is an
+                                    authoritative count.
+                                     1. '066AFF303435554157113106' is the one ST-Link
+                                        this host's USB serial inventory shows, and it
+                                        is bound. That inventory reaches an ST-Link
+                                        only through the virtual COM port a V2-1 or a
+                                        V3 publishes, so a standalone ST-LINK/V2 -- or
+                                        any probe with no VCP -- would not appear in
+                                        it even if it were attached beside this one.
+                                        If that is this bench, name the intended board
+                                        with `agentic-hil adopt-hardware --probe-id
+                                        <serial>`, or install STM32CubeProgrammer,
+                                        whose own listing reads the serial off the
+                                        probe itself and is an authoritative count.
+                                        The same is recorded in the file under
+                                        `debuggers.dut.probe_inventory` and
+                                        `debuggers.dut.discovered_by`.
+                                     2. Discovery looked for STM32_Programmer_CLI
+                                        (STM32CubeProgrammer): not on this host;
+                                        openocd (OpenOCD): found at /usr/bin/openocd.
+                                        ST-Link serial port(s) on this host:
+                                        066AFF303435554157113106 on
+                                        /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066AFF303435554157113106-if02.
+                                     3. Review the config at
+                                        ~/.config/agentic-hil/projects/stm32-starter-da1f6d6135/config.yaml.
+                                        Set AGENTIC_HIL_CONFIG only when an explicit
+                                        absolute-path override is needed.
+                                     4. Edit target.name and target.controller for
+                                        your board.
+                                     5. Check interface_cfg and target_cfg on your
+                                        debuggers entry against your OpenOCD
+                                        installation.
+                                     6. Every permission in this file is true,
+                                        including probing, flashing, resetting,
+                                        resuming a halted debug session, and serial
+                                        and CAN writes, except
+                                        allow_raw_debugger_commands and
+                                        allow_mass_erase, which are false so that
+                                        flashing works. Read the permissions blocks
+                                        and decide which of the rest this bench should
+                                        not have.
+                                     7. You can also just tell the agent: over MCP it
+                                        may write false into any permission here and
+                                        can write no other value, so nothing it does
+                                        through `project_config_set` widens this file.
+                                        `agentic-hil init --force` is yours and
+                                        regenerates the file with the same defaults
+                                        again.
+                                     8. Leave allow_raw_debugger_commands and
+                                        allow_mass_erase alone unless something
+                                        outside these tools needs the probe that way:
+                                        validated flashing and unrestricted debugger
+                                        access are mutually exclusive policies, so
+                                        while either is true on a probe,
+                                        flash_firmware on that probe is refused.
+                                        Neither has a tool behind it here, so turning
+                                        one on costs you flashing and buys nothing.
+                                     9. If multiple debug probes are connected, give
+                                        each debuggers entry the full unique id of its
+                                        own probe; run `agentic-hil debugger-probes`
+                                        to list them (on an OpenOCD bench the ids come
+                                        from this host's USB serial inventory, which
+                                        reaches an ST-Link and no other adapter: for
+                                        one of those, read the serial off the probe).
+                                        Test-reactor plan steps then address a board
+                                        by its name; the MCP tools require exactly one
+                                        configured probe.
+                                    10. Detected COM ports: /dev/ttyS31, /dev/ttyS30,
+                                        /dev/ttyS29, /dev/ttyS28, /dev/ttyS27, and 28
+                                        more. Add the DUT UART under com_ports if
+                                        serial feedback is needed.
+                                    11. For CAN access, add a named bus under
+                                        can_buses.
+                                    12. Run: agentic-hil doctor
+                                    13. Create or update .mcp.json if your MCP client
+                                        needs project discovery.
+  skill install            ok       Agentic HIL Codex skill is already installed.
+  mcp config               skipped  Codex MCP entry already registered with the
+                                    trusted launcher.
+  doctor                   ok       Agentic HIL configuration loaded and 1 debugger(s)
+                                    checked.
+  agent write restriction  ok       Codex sandboxes model-generated shell commands and
+                                    leaves MCP servers outside that sandbox, so its
+                                    own policy already refuses this write.
+SETUP_EXIT=0
+=== T_SETUP_END ===
+Tue Sep 15 21:38:01 UTC 2026

@@ -1,0 +1,13 @@
+diff --git a/firmware/src/main.c b/firmware/src/main.c
+index 1489f78..6b8ed68 100644
+--- a/firmware/src/main.c
++++ b/firmware/src/main.c
+@@ -99,7 +99,7 @@ static void report_status(void)
+ 
+ static void handle_command(const char *command)
+ {
+-    if (text_equals(command, "DIAG ENABLE")) {
++    if (text_equals(command, "DIAG ON")) {
+         diagnostic_active = true;
+     } else if (text_equals(command, "DIAG CLEAR")) {
+         diagnostic_active = false;

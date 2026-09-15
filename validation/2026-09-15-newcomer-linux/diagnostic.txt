@@ -1,0 +1,275 @@
+=== T_DIAGNOSTIC_START ===
+Tue Sep 15 21:39:15 UTC 2026
+=== agentic-hil test-reactor --test-config tests/hil/diagnostic.testconfig.yaml ===
+Failed: comparator_unmet
+
+  Test reactor sequence failed. This run's own report is kept at
+  ~/.local/state/agentic-hil/projects/4e20753d6572c68da4f78f98/reports/runs/run-5f672f6d76d20ac2.json;
+  later runs do not overwrite it.
+
+Details
+  name                   nucleo-f446re-diagnostic-selftest
+  test_config_path       ~/stm32-starter/tests/hil/diagnostic.testconfig.yaml
+  test_config_sha256     ff3f4a487ab3f3236003d23d3fe2bb85a7164c3585469e23a87ef912b30f12d4
+  cleanup_ok             yes
+  failed_step            6
+  step_error_type        comparator_unmet
+  run                    run-5f672f6d76d20ac2
+  audit_ok               yes
+  report_path            .agentic-hil/reports/last-report.json
+  canonical_report_path  ~/.local/state/agentic-hil/projects/4e20753d6572c68da4f78f98/reports/runs/run-5f672f6d76d20ac2.json
+  steps
+    - 1
+        route       dut
+        action      flash
+        elapsed_ms  1363
+        result
+          Firmware flashed and verified. Target was not reset.
+          backend                openocd
+          started_at             2026-09-15T21:39:15.891Z
+          finished_at            2026-09-15T21:39:17.146Z
+          elapsed_ms             1255
+          log_path               .agentic-hil/logs/openocd-20260915T213915891Z-flash_firmware.log
+          success_confirmed      yes
+          verify                 yes
+          reset_after_flash      no
+          side_effect_committed  yes
+          side_effect_status     committed
+          retry_safe             no
+          audit_ok               yes
+          report_path            .agentic-hil/reports/last-report.json
+          lease_id               c85187c028ee2357d364d55f3569c7f5
+          resources              debugger-discovery:all,
+                                 probe:066aff303435554157113106
+          lease_state            released
+          safe_state_confirmed   yes
+          processes_reaped       yes
+          cleanup_required       no
+          quarantined            no
+          artifact
+            source  path
+            path    build/Debug/stm32-starter.elf
+            sha256  0c219181f7ca595b95178ee76ac10fda82085c0a1fab31e3ec8acf033280bbb3
+          config_in_force
+            path                ~/.config/agentic-hil/projects/stm32-starter-da1f6d6135/config.yaml
+            digest_algorithm    sha256
+            digest              sha256:3bae24e53463142163ee7b1ae5d5efd7c15d200266b024a8f75bf9896935d07a
+            description_source  startup
+            file_state          unchanged
+            file_digest         sha256:3bae24e53463142163ee7b1ae5d5efd7c15d200266b024a8f75bf9896935d07a
+            diverged_from_file  no
+            checked_at          2026-09-15T21:39:17Z
+    - 2
+        route       dut_uart
+        action      uart_open
+        elapsed_ms  77
+        result
+          COM port session started.
+          port_id                dut_uart
+          already_active         no
+          side_effect_committed  yes
+          side_effect_status     committed
+          retry_safe             no
+          first_contact_at       2026-09-15T21:39:17.270Z
+          first_contact_by       serial_open
+          lease_id               fad795bd054a38722e43253b0a653a73
+          resources              com:serial:066aff303435554157113106
+          lease_state            active
+          safe_state_confirmed   no
+          processes_reaped       no
+          audit_ok               yes
+          cleanup_required       no
+          quarantined            no
+          report_path            .agentic-hil/reports/last-report.json
+          session
+            session_active   yes
+            started_at       2026-09-15T21:39:17.270Z
+            rx_buffer_bytes  0
+            overflow_bytes   0
+            log_path         .agentic-hil/logs/com-20260915T213917251Z-dut_uart.jsonl
+          identity
+            The port behind this entry is the hardware it names.
+            device                  /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066AFF303435554157113106-if02
+            expected_serial_number  066AFF303435554157113106
+            expected_from           com_ports.dut_uart.serial_number
+            expected_vid            1155
+            expected_pid            14155
+            stable_device           /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066AFF303435554157113106-if02
+            found_serial_number     066AFF303435554157113106
+            found_vid               1155
+            found_pid               14155
+            status                  confirmed
+          config_in_force
+            path                ~/.config/agentic-hil/projects/stm32-starter-da1f6d6135/config.yaml
+            digest_algorithm    sha256
+            digest              sha256:3bae24e53463142163ee7b1ae5d5efd7c15d200266b024a8f75bf9896935d07a
+            description_source  startup
+            file_state          unchanged
+            file_digest         sha256:3bae24e53463142163ee7b1ae5d5efd7c15d200266b024a8f75bf9896935d07a
+            diverged_from_file  no
+            checked_at          2026-09-15T21:39:17Z
+    - 3
+        route       dut
+        action      reset
+        elapsed_ms  497
+        result
+          Target reset with mode 'run'. OpenOCD printed 1 failure-worded line in a run
+          its own success marker confirmed; they are carried verbatim in
+          backend_warnings.
+          backend                openocd
+          started_at             2026-09-15T21:39:17.355Z
+          finished_at            2026-09-15T21:39:17.725Z
+          elapsed_ms             370
+          log_path               .agentic-hil/logs/openocd-20260915T213917355Z-reset_target.log
+          success_confirmed      yes
+          backend_warnings       Error: Error setting register pc
+          mode                   run
+          side_effect_committed  yes
+          side_effect_status     committed
+          retry_safe             no
+          audit_ok               yes
+          report_path            .agentic-hil/reports/last-report.json
+          lease_id               d4db25e8a98c7f12478b8d3425593fc4
+          resources              debugger-discovery:all,
+                                 probe:066aff303435554157113106
+          lease_state            released
+          safe_state_confirmed   yes
+          processes_reaped       yes
+          cleanup_required       no
+          quarantined            no
+          config_in_force
+            path                ~/.config/agentic-hil/projects/stm32-starter-da1f6d6135/config.yaml
+            digest_algorithm    sha256
+            digest              sha256:3bae24e53463142163ee7b1ae5d5efd7c15d200266b024a8f75bf9896935d07a
+            description_source  startup
+            file_state          unchanged
+            file_digest         sha256:3bae24e53463142163ee7b1ae5d5efd7c15d200266b024a8f75bf9896935d07a
+            diverged_from_file  no
+            checked_at          2026-09-15T21:39:17Z
+    - 4
+        route       dut_uart
+        action      uart_read
+        elapsed_ms  47
+        result
+          Expected pattern matched the COM port output.
+          port_id                 dut_uart
+          timeout_s               5.0
+          bytes_received          45
+          reads                   1
+          matched_text_truncated  no
+          comparator
+            pattern  "event":"boot"
+          matched_text
+            hex       226576656e74223a22626f6f7422
+            text      "event":"boot"
+            encoding  utf-8
+    - 5
+        route       dut_uart
+        action      uart_write
+        elapsed_ms  54
+        result
+          Stimulus written to COM port.
+          port_id                dut_uart
+          bytes_written          8
+          log_path               .agentic-hil/logs/com-20260915T213917251Z-dut_uart.jsonl
+          side_effect_committed  yes
+          side_effect_status     committed
+          retry_safe             no
+          first_contact_at       2026-09-15T21:39:17.270Z
+          first_contact_by       serial_open
+          lease_id               fad795bd054a38722e43253b0a653a73
+          resources              com:serial:066aff303435554157113106
+          lease_state            active
+          safe_state_confirmed   no
+          processes_reaped       no
+          audit_ok               yes
+          cleanup_required       no
+          quarantined            no
+          report_path            .agentic-hil/reports/last-report.json
+          data
+            hex       44494147204f4e0a
+            text      DIAG ON
+            encoding  utf-8
+          config_in_force
+            path                ~/.config/agentic-hil/projects/stm32-starter-da1f6d6135/config.yaml
+            digest_algorithm    sha256
+            digest              sha256:3bae24e53463142163ee7b1ae5d5efd7c15d200266b024a8f75bf9896935d07a
+            description_source  startup
+            file_state          unchanged
+            file_digest         sha256:3bae24e53463142163ee7b1ae5d5efd7c15d200266b024a8f75bf9896935d07a
+            diverged_from_file  no
+            checked_at          2026-09-15T21:39:17Z
+    - 6
+        route       dut_uart
+        action      uart_read
+        elapsed_ms  5055
+        result
+          Expected pattern did not match the COM port output before this step's
+          timeout.
+          error_type  comparator_unmet
+          port_id                  dut_uart
+          timeout_s                5.0
+          bytes_received           39
+          reads                    2
+          received_tail_truncated  no
+          comparator
+            pattern  "state":"DEGRADED","diagnostic":"E_SELF_TEST"
+          received_tail
+            hex       7b227374617465223a225245414459222c22646961676e6f73746963223a224e4f4e45227d0d0a
+            text      {"state":"READY","diagnostic":"NONE"}
+            encoding  utf-8
+  cleanup
+    - dut_uart
+        action  uart_close
+        result
+          COM port session stopped.
+          port_id               dut_uart
+          was_active            yes
+          first_contact_at      2026-09-15T21:39:17.270Z
+          first_contact_by      serial_open
+          lease_id              fad795bd054a38722e43253b0a653a73
+          resources             com:serial:066aff303435554157113106
+          lease_state           released
+          safe_state_confirmed  yes
+          processes_reaped      yes
+          audit_ok              yes
+          cleanup_required      no
+          quarantined           no
+          report_path           .agentic-hil/reports/last-report.json
+          session
+            session_active   no
+            started_at       2026-09-15T21:39:17.270Z
+            rx_buffer_bytes  0
+            overflow_bytes   0
+            log_path         .agentic-hil/logs/com-20260915T213917251Z-dut_uart.jsonl
+          config_in_force
+            path                ~/.config/agentic-hil/projects/stm32-starter-da1f6d6135/config.yaml
+            digest_algorithm    sha256
+            digest              sha256:3bae24e53463142163ee7b1ae5d5efd7c15d200266b024a8f75bf9896935d07a
+            description_source  startup
+            file_state          unchanged
+            file_digest         sha256:3bae24e53463142163ee7b1ae5d5efd7c15d200266b024a8f75bf9896935d07a
+            diverged_from_file  no
+            checked_at          2026-09-15T21:39:22Z
+  recovery
+    attempted                   yes
+    actions                     reap_processes, reset_halt, probe_target
+    outcome                     recovered
+    devices                     dut
+    auto_recover_policy         reset_halt
+    auto_recover_policy_source  config
+    safe_state_predicate        reset_halt
+    incident_resolved           no
+    incident_open               no
+  config_in_force
+    path                ~/.config/agentic-hil/projects/stm32-starter-da1f6d6135/config.yaml
+    digest_algorithm    sha256
+    digest              sha256:3bae24e53463142163ee7b1ae5d5efd7c15d200266b024a8f75bf9896935d07a
+    description_source  startup
+    file_state          unchanged
+    file_digest         sha256:3bae24e53463142163ee7b1ae5d5efd7c15d200266b024a8f75bf9896935d07a
+    diverged_from_file  no
+    checked_at          2026-09-15T21:39:23Z
+DIAGNOSTIC_EXIT=1
+=== T_DIAGNOSTIC_END ===
+Tue Sep 15 21:39:23 UTC 2026

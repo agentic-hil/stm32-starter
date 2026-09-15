@@ -9,7 +9,7 @@ The number in front of a box is its name. It does not move: a new box takes the 
 Walked on Windows 11 build 26200.9168 with uv 0.11.27 and STM32CubeCLT 1.22.0 on
 2026-09-02. Evidence: [2026-09-02-host-windows.md](2026-09-02-host-windows.md).
 
-- [ ] **1.** A fresh clone plus `uv sync` succeeds on Linux, macOS and Windows. Windows is closed; Linux and macOS are not walked yet, so the item stays open.
+- [ ] **1.** A fresh clone plus `uv sync` succeeds on Linux, macOS and Windows. Windows is closed; Linux is closed by the 2026-09-15 walk (a fresh clone at `ff2cc5c`, `uv sync` with 14 packages and the suite green, [2026-09-15-newcomer-linux/](2026-09-15-newcomer-linux/README.md)); macOS is not walked yet, so the item stays open.
 - [x] **2.** The three board-free tests pass and print the scope statement.
 - [x] **3.** A fresh report, put through the normalisation in `expected/README.md`, is byte for byte identical to `expected/check-plan-junit.xml`.
 - [x] **4.** The `Debug` and `Release` presets both build with `arm-none-eabi-gcc`, and `build/Debug/stm32-starter.elf` is what the plans name.
@@ -43,6 +43,7 @@ measured. Evidence:
 - [x] **13.** The board identity, firmware revision, debugger backend and version, compiler version, and the duration of each run are recorded beside them.
 - [ ] **14.** The whole path, from the one-line installer to the first green hardware plan, is walked by somebody who has not seen this repository before, and it takes under four hours.
   A simulated walk on 2026-09-04, by an agent following only the public pages, stopped at five points on the release and reached the first green plan in 47 seconds on the development build ([2026-09-04-newcomer-linux/](2026-09-04-newcomer-linux/README.md)), so the box waits for a human newcomer.
+  A second simulated walk on 2026-09-15, again by an agent following only the public pages, ran the release as the installer delivers it, 0.21.5, met no stop, and reached the first green hardware plan 2 minutes 54 seconds after the installer line, all three plans in 3 minutes 42 seconds, with twelve non-blocking friction points recorded ([2026-09-15-newcomer-linux/](2026-09-15-newcomer-linux/README.md)). The release path is walked; the box still waits for a human newcomer.
 
 `.agentic-hil/reports/last-report.json` is overwritten by every run, so whoever runs the three plans and collects afterwards keeps one report of three. The copy that keeps all three is the canonical per-run one under the operator's `state_root`, one file per run that nothing later overwrites, and Agentic HIL 0.21.2 tells you where it is: the report carries the path in `canonical_report_path` and the run repeats it in the summary line it prints, a refusal included. The two bench walks above ran on 0.21.0 and 0.21.1 and had the workspace copy only, which is why they collect it run by run.
 

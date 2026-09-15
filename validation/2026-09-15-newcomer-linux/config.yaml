@@ -1,0 +1,74 @@
+workspace_root: ~/stm32-starter
+state_root: ~/.local/state/agentic-hil
+version: 3
+permissions:
+  allow_config_write: true
+  allow_config_description_write: true
+  allow_config_permissions_write: true
+  allow_recover: true
+  allow_upgrade: true
+target:
+  name: nucleo-f446re-starter
+  controller: stm32f446ret6
+debuggers:
+  dut:
+    type: openocd
+    executable: /usr/bin/openocd
+    probe_id: 066AFF303435554157113106
+    discovered_by: usb_serial_inventory
+    probe_inventory: incomplete
+    probe_inventory_note: '''066AFF303435554157113106'' is the one ST-Link this host''s
+      USB serial inventory shows, and it is bound. That inventory reaches an ST-Link
+      only through the virtual COM port a V2-1 or a V3 publishes, so a standalone
+      ST-LINK/V2 -- or any probe with no VCP -- would not appear in it even if it
+      were attached beside this one. If that is this bench, name the intended board
+      with `agentic-hil adopt-hardware --probe-id <serial>`, or install STM32CubeProgrammer,
+      whose own listing reads the serial off the probe itself and is an authoritative
+      count.'
+    interface_cfg: interface/stlink.cfg
+    target_cfg: target/stm32f4x.cfg
+    timeout_s: 60
+    permissions:
+      allow_flash: true
+      allow_reset: true
+      allow_debug_execution: true
+      allow_raw_debugger_commands: false
+      allow_mass_erase: false
+debug:
+  gdb_executable: null
+  allowed_symbols: []
+  allow_all_symbols: true
+  max_dump_size_bytes: 1048576
+artifacts:
+  allowed_roots:
+  - build
+  upload_directory: .agentic-hil/artifacts
+  allowed_extensions:
+  - .elf
+  - .hex
+  - .bin
+  max_upload_size_mb: 64
+  allow_upload: true
+com_ports:
+  dut_uart:
+    device: /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066AFF303435554157113106-if02
+    baudrate: 115200
+    serial_number: 066AFF303435554157113106
+    vid: 1155
+    pid: 14155
+    permissions:
+      allow_write: true
+can_buses: {}
+validation:
+  require_existing_file: true
+  require_allowed_root: true
+  require_allowed_extension: true
+  compute_sha256: true
+  inspect_known_formats: true
+reports:
+  directory: .agentic-hil/reports
+logs:
+  directory: .agentic-hil/logs
+recovery:
+  auto_recover: reset_halt
+  max_attempts: 3

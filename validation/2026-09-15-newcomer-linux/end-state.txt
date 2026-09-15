@@ -1,0 +1,105 @@
+=== decisive step of the diagnostic rerun (DIAG ON after the fix) ===
+205:          pattern  "state":"DEGRADED","diagnostic":"E_SELF_TEST"
+206-        matched_text
+207-          hex       227374617465223a224445475241444544222c22646961676e6f73746963223a22455f53454c465f5445535422
+208:          text      "state":"DEGRADED","diagnostic":"E_SELF_TEST"
+209-          encoding  utf-8
+210-
+211-cleanup
+212-  - dut_uart
+213-      action  uart_close
+214-      result
+215-        COM port session stopped.
+216-        port_id               dut_uart
+217-        was_active            yes
+218-        first_contact_at      2026-09-15T21:41:03.439Z
+219-        first_contact_by      serial_open
+220-        lease_id              51c9b1a6caf2b81f1bef0315d774b4c5
+
+=== T_ENDSTATE ===
+Tue Sep 15 21:41:24 UTC 2026
+=== agentic-hil lease-status ===
+Nothing on this bench is held and no incident is standing.
+
+  project_resource     project:4e20753d6572c68da4f78f98d24a6c82de983111a65c588dad64f41f797b4e23
+  owner_active         no
+  bench_held           no
+  snapshot_atomic      yes
+  blocked              no
+  incident_stands      no
+  auto_recoverable     no
+  auto_recover_policy  reset_halt
+  lifecycle_state      open
+
+record
+  version              2
+  state                released
+  owner_marker         697c38978b5321369dd2fef44d68789a37c7789fe1ae3815181a0df0e5c1e64c
+  owner_pid            99299
+  owner_started_at     2026-09-15T21:41:04.644Z
+  frontend             reactor
+  config_sha256        3bae24e53463142163ee7b1ae5d5efd7c15d200266b024a8f75bf9896935d07a
+  project_resource     project:4e20753d6572c68da4f78f98d24a6c82de983111a65c588dad64f41f797b4e23
+  recoverable_reasons  com_buffer_clear_unconfirmed, debug_backend_cleanup_exception,
+                       debug_breakpoint_cleanup_unconfirmed,
+                       debug_session_cleanup_unconfirmed,
+                       debug_session_result_unconfirmed,
+                       debug_session_start_unconfirmed,
+                       debug_shutdown_reporting_failed,
+                       debug_target_state_unconfirmed, debugger_call_exception,
+                       debugger_readonly_result_unconfirmed,
+                       debugger_readonly_target_state_unconfirmed,
+                       debugger_result_unconfirmed, lease_release_unconfirmed,
+                       owner_process_exited_without_release,
+                       released_dead_owner_no_contact
+  resources            com:serial:066aff303435554157113106
+  updated_at           2026-09-15T21:41:07.061Z
+LEASE_STATUS_EXIT=0
+
+=== agentic-hil recover --help (what the documented recovery command needs) ===
+usage: agentic-hil recover [-h] --confirm-safe-state --quarantine-id
+                           QUARANTINE_ID [--accept-config-change] [--json]
+
+options:
+  -h, --help            show this help message and exit
+  --confirm-safe-state
+  --quarantine-id QUARANTINE_ID
+  --accept-config-change
+                        explicit operator override: accept that the
+                        authoritative config changed since the incident was
+                        recorded
+  --json                print the JSON document instead of the rendering. The
+                        document is the machine contract, field for field, and
+                        every caller that parses this command has to ask for
+                        it: a pipe, a redirect and a subprocess are rendered
+                        like anything else
+
+=== agentic-hil doctor (final) ===
+Agentic HIL configuration loaded and 1 debugger(s) checked.
+
+  config_path      ~/.config/agentic-hil/projects/stm32-starter-da1f6d6135/config.yaml
+  state            unchanged
+  loaded_digest    sha256:3bae24e53463142163ee7b1ae5d5efd7c15d200266b024a8f75bf9896935d07a
+  reload_required  no
+  The authoritative configuration on disk is byte-for-byte the one this server loaded.
+
+State root
+  path     ~/.local/state/agentic-hil
+  verdict  ok
+  The configured state root accepts the writes every hardware action is recorded by.
+
+Bench binding
+  verdict  ok
+  Every device this configuration declares names the hardware behind it.
+
+Installation
+  version       0.21.5
+  package_path  ~/.local/share/uv/tools/agentic-hil/lib/python3.12/site-packages/agentic_hil
+  editable      no
+
+MCP registration
+  transport   stdio
+  command     ~/.local/bin/agentic-hil
+FINAL_DOCTOR_EXIT=0
+=== T_ENDSTATE_DONE ===
+Tue Sep 15 21:41:25 UTC 2026

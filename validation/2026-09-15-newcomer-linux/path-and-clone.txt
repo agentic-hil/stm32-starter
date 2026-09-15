@@ -1,0 +1,52 @@
+=== /etc/skel listing (fairness check: would a real new account source .bashrc?) ===
+total 20
+drwxr-xr-x  2 root root 4096 Aug  5  2025 .
+drwxr-xr-x 97 root root 4096 Sep 12 06:39 ..
+-rw-r--r--  1 root root  220 Mar 31  2024 .bash_logout
+-rw-r--r--  1 root root 3771 Mar 31  2024 .bashrc
+-rw-r--r--  1 root root  807 Mar 31  2024 .profile
+--- grep bashrc /etc/skel/.profile ---
+13:    # include .bashrc if it exists
+14:    if [ -f "$HOME/.bashrc" ]; then
+15:	. "$HOME/.bashrc"
+
+=== README remedy: export PATH=$HOME/.local/bin:$PATH ===
+PATH=~/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+~/.local/bin/agentic-hil
+cmdv_exit=0
+
+=== versions after installer ===
+0.21.5
+uv 0.12.10 (x86_64-unknown-linux-gnu)
+
+=== T_CLONE ===
+Tue Sep 15 21:36:52 UTC 2026
+=== git clone https://github.com/agentic-hil/stm32-starter.git ===
+Cloning into 'stm32-starter'...
+CLONE_EXIT=0
+PWD=~/stm32-starter
+ff2cc5c Merge pull request #20 from agentic-hil/check-plan-wording
+
+=== repo top level ===
+total 212
+drwxrwxr-x 8 user user   4096 Sep 15 21:36 .
+drwxr-xr-x 7 user user   4096 Sep 15 21:36 ..
+drwxrwxr-x 8 user user   4096 Sep 15 21:36 .git
+-rw-rw-r-- 1 user user    389 Sep 15 21:36 .gitattributes
+drwxrwxr-x 4 user user   4096 Sep 15 21:36 .github
+-rw-rw-r-- 1 user user    568 Sep 15 21:36 .gitignore
+-rw-rw-r-- 1 user user   7486 Sep 15 21:36 AGENTS.md
+-rw-rw-r-- 1 user user   1249 Sep 15 21:36 CMakeLists.txt
+-rw-rw-r-- 1 user user    775 Sep 15 21:36 CMakePresets.json
+-rw-rw-r-- 1 user user  11304 Sep 15 21:36 LICENSE
+-rw-rw-r-- 1 user user  15596 Sep 15 21:36 README.md
+-rw-rw-r-- 1 user user   2546 Sep 15 21:36 agentic-hil.config.example.yaml
+drwxrwxr-x 2 user user   4096 Sep 15 21:36 expected
+drwxrwxr-x 4 user user   4096 Sep 15 21:36 firmware
+-rw-rw-r-- 1 user user   1261 Sep 15 21:36 pyproject.toml
+drwxrwxr-x 4 user user   4096 Sep 15 21:36 tests
+-rw-rw-r-- 1 user user 120258 Sep 15 21:36 uv.lock
+drwxrwxr-x 5 user user   4096 Sep 15 21:36 validation
+
+=== T_DONE ===
+Tue Sep 15 21:36:53 UTC 2026
