@@ -1,0 +1,42 @@
+=== T_UVSYNC_START ===
+Tue Sep 15 21:37:17 UTC 2026
+=== uv sync ===
+Using CPython 3.12.3 interpreter at: /usr/bin/python3
+Creating virtual environment at: .venv
+Resolved 19 packages in 1ms
+Downloading pygments (1.2MiB)
+ Downloaded pygments
+Prepared 5 packages in 270ms
+Installed 14 packages in 16ms
+ + agentic-hil==0.21.2
+ + attrs==26.1.0
+ + iniconfig==2.3.0
+ + jsonschema==4.26.0
+ + jsonschema-specifications==2025.9.1
+ + packaging==26.3
+ + pluggy==1.6.0
+ + pygments==2.21.0
+ + pyserial==3.5
+ + pytest==9.1.1
+ + pyyaml==6.0.3
+ + referencing==0.37.0
+ + rpds-py==2026.6.3
+ + typing-extensions==4.16.0
+UV_SYNC_EXIT=0
+=== T_UVSYNC_END ===
+Tue Sep 15 21:37:17 UTC 2026
+
+=== T_PYTEST_START ===
+Tue Sep 15 21:37:17 UTC 2026
+=== uv run pytest -q -s ===
+PASS  configuration and test semantics validated without a board
+NEEDS PHYSICAL FIXTURE  electrical behavior not verified
+.PASS  configuration and test semantics validated without a board
+NEEDS PHYSICAL FIXTURE  electrical behavior not verified
+.PASS  configuration and test semantics validated without a board
+NEEDS PHYSICAL FIXTURE  electrical behavior not verified
+.
+3 passed in 1.11s
+PYTEST_EXIT=0
+=== T_PYTEST_END ===
+Tue Sep 15 21:37:20 UTC 2026

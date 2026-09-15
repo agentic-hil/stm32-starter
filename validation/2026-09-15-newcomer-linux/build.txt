@@ -1,0 +1,50 @@
+=== T_BUILD_START ===
+Tue Sep 15 21:38:35 UTC 2026
+=== cmake --preset Debug ===
+Preset CMake variables:
+
+  CMAKE_BUILD_TYPE="Debug"
+  CMAKE_EXPORT_COMPILE_COMMANDS="ON"
+  CMAKE_TOOLCHAIN_FILE:FILEPATH="~/stm32-starter/firmware/cmake/arm-none-eabi.cmake"
+
+-- The C compiler identification is GNU 13.2.1
+-- The ASM compiler identification is GNU
+-- Found assembler: /usr/bin/arm-none-eabi-gcc
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/arm-none-eabi-gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: ~/stm32-starter/build/Debug
+CONFIGURE_EXIT=0
+
+=== cmake --build --preset Debug ===
+[1/3] Building ASM object CMakeFiles/stm32-starter.dir/firmware/src/startup_stm32f446xx.S.obj
+[2/3] Building C object CMakeFiles/stm32-starter.dir/firmware/src/main.c.obj
+[3/3] Linking C executable stm32-starter.elf
+Memory region         Used Size  Region Size  %age Used
+           FLASH:         936 B       512 KB      0.18%
+             RAM:           4 B       128 KB      0.00%
+   text	   data	    bss	    dec	    hex	filename
+    936	      0	      4	    940	    3ac	~/stm32-starter/build/Debug/stm32-starter.elf
+BUILD_EXIT=0
+=== T_BUILD_END ===
+Tue Sep 15 21:38:36 UTC 2026
+
+=== build artifacts ===
+total 112
+drwxrwxr-x 3 user user  4096 Sep 15 21:38 .
+drwxrwxr-x 3 user user  4096 Sep 15 21:38 ..
+-rw-rw-r-- 1 user user   520 Sep 15 21:38 .ninja_deps
+-rw-rw-r-- 1 user user   281 Sep 15 21:38 .ninja_log
+-rw-rw-r-- 1 user user 13656 Sep 15 21:38 CMakeCache.txt
+drwxrwxr-x 6 user user  4096 Sep 15 21:38 CMakeFiles
+-rw-rw-r-- 1 user user 16735 Sep 15 21:38 build.ninja
+-rw-rw-r-- 1 user user  1525 Sep 15 21:38 cmake_install.cmake
+-rw-rw-r-- 1 user user  1082 Sep 15 21:38 compile_commands.json
+-rwxrwxr-x 1 user user   936 Sep 15 21:38 stm32-starter.bin
+-rwxrwxr-x 1 user user 29784 Sep 15 21:38 stm32-starter.elf
+-rw-rw-r-- 1 user user  2690 Sep 15 21:38 stm32-starter.hex
+-rw-rw-r-- 1 user user  8106 Sep 15 21:38 stm32-starter.map

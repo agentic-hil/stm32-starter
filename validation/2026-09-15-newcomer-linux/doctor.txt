@@ -1,0 +1,151 @@
+=== T_DOCTOR_START ===
+Tue Sep 15 21:38:19 UTC 2026
+=== agentic-hil doctor ===
+Agentic HIL configuration loaded and 1 debugger(s) checked.
+
+  config_path      ~/.config/agentic-hil/projects/stm32-starter-da1f6d6135/config.yaml
+  state            unchanged
+  loaded_digest    sha256:3bae24e53463142163ee7b1ae5d5efd7c15d200266b024a8f75bf9896935d07a
+  reload_required  no
+  The authoritative configuration on disk is byte-for-byte the one this server loaded.
+
+State root
+  path     ~/.local/state/agentic-hil
+  verdict  ok
+  The configured state root accepts the writes every hardware action is recorded by.
+
+Bench binding
+  verdict  ok
+  Every device this configuration declares names the hardware behind it.
+
+Installation
+  version       0.21.5
+  package_path  ~/.local/share/uv/tools/agentic-hil/lib/python3.12/site-packages/agentic_hil
+  editable      no
+
+MCP registration
+  transport   stdio
+  command     ~/.local/bin/agentic-hil
+  args        mcp-stdio
+  persistent  yes
+  Register this exact path with 'agentic-hil setup --agent <agent>'; a transient
+  runner or a bare PATH name is not a registration.
+
+Target
+  name        nucleo-f446re-starter
+  controller  stm32f446ret6
+
+Debuggers
+  dut (openocd, bound)
+    probe_id       066AFF303435554157113106
+    interface_cfg  interface/stlink.cfg (search_name) resolved by openocd
+    target_cfg     target/stm32f4x.cfg (search_name) resolved by openocd
+    permissions    granted: allow_debug_execution, allow_flash, allow_reset; closed:
+                   allow_mass_erase, allow_raw_debugger_commands
+    check           ok              OpenOCD is available.
+    target_support  not_applicable  OpenOCD selects the target through
+                                    debuggers.<name>.target_cfg, a bundled script, not
+                                    through a target_type a CMSIS pack has to provide.
+
+COM ports
+  dut_uart
+    device           /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066AFF303435554157113106-if02
+    baudrate         115200
+    encoding         utf-8
+    serial_number    066AFF303435554157113106
+    identity_source  serial_number
+    permissions  granted: allow_write
+
+CAN buses
+  None configured.
+
+Compared with a running server
+  This is the configuration as it is on disk right now; the command line reads it
+  fresh on every invocation. A running MCP server does not: it keeps serving what it
+  parsed at startup. Compare the `loaded_digest` here with
+  `config_status.loaded_digest` in that server's `debugger_info`. If they differ, that
+  server is enforcing an older configuration. Two things change that, and which one
+  depends on what moved: `project_config_reload_description` on that server adopts a
+  changed `target`, `debuggers`, `com_ports` or `can_buses` without a restart, and a
+  restart adopts everything else: every `permissions:` block included, which that call
+  never re-reads in either direction. `agentic-hil config-reload` previews what that
+  call would take from this file and lists the sections it would leave for a restart.
+DOCTOR_EXIT=0
+=== T_DOCTOR_END ===
+Tue Sep 15 21:38:19 UTC 2026
+
+=== the configuration setup wrote (for reading only) ===
+workspace_root: ~/stm32-starter
+state_root: ~/.local/state/agentic-hil
+version: 3
+permissions:
+  allow_config_write: true
+  allow_config_description_write: true
+  allow_config_permissions_write: true
+  allow_recover: true
+  allow_upgrade: true
+target:
+  name: nucleo-f446re-starter
+  controller: stm32f446ret6
+debuggers:
+  dut:
+    type: openocd
+    executable: /usr/bin/openocd
+    probe_id: 066AFF303435554157113106
+    discovered_by: usb_serial_inventory
+    probe_inventory: incomplete
+    probe_inventory_note: '''066AFF303435554157113106'' is the one ST-Link this host''s
+      USB serial inventory shows, and it is bound. That inventory reaches an ST-Link
+      only through the virtual COM port a V2-1 or a V3 publishes, so a standalone
+      ST-LINK/V2 -- or any probe with no VCP -- would not appear in it even if it
+      were attached beside this one. If that is this bench, name the intended board
+      with `agentic-hil adopt-hardware --probe-id <serial>`, or install STM32CubeProgrammer,
+      whose own listing reads the serial off the probe itself and is an authoritative
+      count.'
+    interface_cfg: interface/stlink.cfg
+    target_cfg: target/stm32f4x.cfg
+    timeout_s: 60
+    permissions:
+      allow_flash: true
+      allow_reset: true
+      allow_debug_execution: true
+      allow_raw_debugger_commands: false
+      allow_mass_erase: false
+debug:
+  gdb_executable: null
+  allowed_symbols: []
+  allow_all_symbols: true
+  max_dump_size_bytes: 1048576
+artifacts:
+  allowed_roots:
+  - build
+  upload_directory: .agentic-hil/artifacts
+  allowed_extensions:
+  - .elf
+  - .hex
+  - .bin
+  max_upload_size_mb: 64
+  allow_upload: true
+com_ports:
+  dut_uart:
+    device: /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066AFF303435554157113106-if02
+    baudrate: 115200
+    serial_number: 066AFF303435554157113106
+    vid: 1155
+    pid: 14155
+    permissions:
+      allow_write: true
+can_buses: {}
+validation:
+  require_existing_file: true
+  require_allowed_root: true
+  require_allowed_extension: true
+  compute_sha256: true
+  inspect_known_formats: true
+reports:
+  directory: .agentic-hil/reports
+logs:
+  directory: .agentic-hil/logs
+recovery:
+  auto_recover: reset_halt
+  max_attempts: 3

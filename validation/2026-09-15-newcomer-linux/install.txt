@@ -1,0 +1,35 @@
+=== T_INSTALL_START ===
+Tue Sep 15 21:35:59 UTC 2026
+=== README line 1: curl -LsSf https://agentic-hil.github.io/install.sh | sh ===
+agentic-hil install: step 1/5  probe: no agentic-hil on this PATH, installing it user-local
+agentic-hil install: step 2/5  package: python3 has no pip module, so pip cannot install with it; falling back to uv
+downloading uv 0.12.10 x86_64-unknown-linux-gnu
+installing to ~/.local/bin
+  uv
+  uvx
+everything's installed!
+Resolved 12 packages in 326ms
+Prepared 12 packages in 258ms
+Installed 12 packages in 25ms
+ + agentic-hil==0.21.5
+ + attrs==26.1.0
+ + jsonschema==4.26.0
+ + jsonschema-specifications==2025.9.1
+ + packaging==26.3
+ + pyserial==3.5
+ + python-can==4.6.1
+ + pyyaml==6.0.3
+ + referencing==0.37.0
+ + rpds-py==2026.6.3
+ + typing-extensions==4.16.0
+ + wrapt==1.17.3
+Installed 1 executable: agentic-hil
+agentic-hil install: step 3/5  PATH: agentic-hil landed in ~/.local/bin, which is not on your PATH
+agentic-hil install: PATH: added one line to ~/.bashrc, so the next shell you open finds the command; this run already has it
+agentic-hil install: step 4/5  agent: registering the skill and the MCP server for codex
+agentic-hil install: agent: codex registered (skill and MCP server, restart pending)
+agentic-hil install: step 5/5  restart: no agent CLI of yours is running, so there is nothing to restart
+agentic-hil install: The next start of your agent has everything, and the first hardware question creates this project's configuration.
+=== INSTALLER_PIPELINE_EXIT=0 ===
+=== T_INSTALL_END ===
+Tue Sep 15 21:36:04 UTC 2026
