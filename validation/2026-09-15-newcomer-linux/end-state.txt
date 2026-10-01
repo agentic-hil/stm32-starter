@@ -52,7 +52,7 @@ record
                        debugger_result_unconfirmed, lease_release_unconfirmed,
                        owner_process_exited_without_release,
                        released_dead_owner_no_contact
-  resources            com:serial:066aff303435554157113106
+  resources            com:serial:066bff505050505050505050
   updated_at           2026-09-15T21:41:07.061Z
 LEASE_STATUS_EXIT=0
 

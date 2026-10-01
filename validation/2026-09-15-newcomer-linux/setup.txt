@@ -22,7 +22,7 @@ Steps
   config                   ok       Attached hardware was discovered and configured,
                                     with every permission granted except the two that
                                     are false so that flashing works.
-                                    '066AFF303435554157113106' is the one ST-Link this
+                                    '066BFF505050505050505050' is the one ST-Link this
                                     host's USB serial inventory shows, and it is
                                     bound. That inventory reaches an ST-Link only
                                     through the virtual COM port a V2-1 or a V3
@@ -34,7 +34,7 @@ Steps
                                     or install STM32CubeProgrammer, whose own listing
                                     reads the serial off the probe itself and is an
                                     authoritative count.
-                                     1. '066AFF303435554157113106' is the one ST-Link
+                                     1. '066BFF505050505050505050' is the one ST-Link
                                         this host's USB serial inventory shows, and it
                                         is bound. That inventory reaches an ST-Link
                                         only through the virtual COM port a V2-1 or a
@@ -53,8 +53,8 @@ Steps
                                         (STM32CubeProgrammer): not on this host;
                                         openocd (OpenOCD): found at /usr/bin/openocd.
                                         ST-Link serial port(s) on this host:
-                                        066AFF303435554157113106 on
-                                        /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066AFF303435554157113106-if02.
+                                        066BFF505050505050505050 on
+                                        /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066BFF505050505050505050-if02.
                                      3. Review the config at
                                         ~/.config/agentic-hil/projects/stm32-starter-da1f6d6135/config.yaml.
                                         Set AGENTIC_HIL_CONFIG only when an explicit

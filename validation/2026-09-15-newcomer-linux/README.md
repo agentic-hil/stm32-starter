@@ -33,7 +33,7 @@ integration.
 | Item | Value |
 |---|---|
 | Date | 2026-09-15, installer line at 21:35:59 UTC |
-| OS | Ubuntu 24.04.4 LTS, kernel 6.8.0, x86_64 |
+| OS | Ubuntu 24.04, x86_64 |
 | Account | a fresh home directory with the default system `PATH`, every command run through a login shell in it: no earlier clone, no `~/.local/bin`, no Agentic HIL, no `uv`, no configuration. Verified before the installer: `command -v agentic-hil uv` found nothing |
 | Agentic HIL | 0.21.5, from the one-line installer |
 | uv | 0.12.10, fetched by the installer |
@@ -70,7 +70,7 @@ Target
 
 Debuggers
   dut (openocd, bound)
-    probe_id       066AFF303435554157113106
+    probe_id       066BFF505050505050505050
     interface_cfg  interface/stlink.cfg (search_name) resolved by openocd
     target_cfg     target/stm32f4x.cfg (search_name) resolved by openocd
     permissions    granted: allow_debug_execution, allow_flash, allow_reset; closed:
@@ -79,10 +79,10 @@ Debuggers
 
 COM ports
   dut_uart
-    device           /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066AFF303435554157113106-if02
+    device           /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066BFF505050505050505050-if02
     baudrate         115200
     encoding         utf-8
-    serial_number    066AFF303435554157113106
+    serial_number    066BFF505050505050505050
     identity_source  serial_number
     permissions  granted: allow_write
 ```
@@ -92,7 +92,7 @@ looked for `STM32_Programmer_CLI`, found none, found `openocd` at `/usr/bin/open
 and took the probe out of the host's USB serial inventory, which is the path the README
 describes for a Linux bench with OpenOCD. It bound the port by its `/dev/serial/by-id/`
 symlink and by serial number, and the nominal plan re-confirmed that identity at runtime
-(`status confirmed`, `found_serial_number 066AFF303435554157113106`). `setup` also wrote
+(`status confirmed`, `found_serial_number 066BFF505050505050505050`). `setup` also wrote
 down what that discovery cannot see, unprompted, as `probe_inventory: incomplete` with a
 note that a probe publishing no virtual COM port would be invisible to it, and named the
 two commands that settle it.
@@ -233,8 +233,8 @@ agentic-hil install: step 5/5  restart: no agent CLI of yours is running, so the
         (STM32CubeProgrammer): not on this host;
         openocd (OpenOCD): found at /usr/bin/openocd.
         ST-Link serial port(s) on this host:
-        066AFF303435554157113106 on
-        /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066AFF303435554157113106-if02.
+        066BFF505050505050505050 on
+        /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066BFF505050505050505050-if02.
 ```
 
 **The order the README insists on held.** `doctor` before `setup` is documented to refuse
@@ -327,7 +327,7 @@ side, in agentic-hil.
 ### 6. `setup` prints the same paragraph twice
 
 The `config` step's headline text and numbered item 1 beneath it are the same ninety
-words, character for character, beginning `'066AFF303435554157113106' is the one ST-Link
+words, character for character, beginning `'066BFF505050505050505050' is the one ST-Link
 this host's USB serial inventory shows`. Product side.
 
 ### 7. A green step carries the word `Error`
@@ -407,7 +407,7 @@ record
   version              2
   state                released
   frontend             reactor
-  resources            com:serial:066aff303435554157113106
+  resources            com:serial:066bff505050505050505050
   updated_at           2026-09-15T21:41:07.061Z
 ```
 
