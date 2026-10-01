@@ -53,6 +53,71 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      # The job log and the evidence artifact can be read by anyone who can read
+      # this repository, and doctor, the reactor and the backend's own logs name
+      # the probe by its serial number: as its probe_id, inside the serial port's
+      # /dev/serial/by-id path, in the name of a device lock and on the backend's
+      # command line. This step reads the serial numbers the bench's
+      # configuration names before anything prints them, masks them in the log
+      # of every step after it, and keeps them for the step before the upload,
+      # which publishes the evidence with each one replaced by [withheld]. A
+      # doctor with no answer to read them from stops the job here, before
+      # anything could print one.
+      - name: Withhold the probe's serial number
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          done = subprocess.run(
+              ["agentic-hil", "doctor", "--json"],
+              capture_output=True,
+              text=True,
+              encoding="utf-8",
+              errors="replace",
+          )
+          try:
+              answer = json.loads(done.stdout)
+          except ValueError:
+              # The serial numbers are not known here, so the line that says why
+              # is shown with every long hexadecimal run withheld instead.
+              last = ((done.stderr or done.stdout).strip().splitlines() or ["(nothing)"])[-1]
+              last = re.sub(r"(?i)(?<![0-9a-f])[0-9a-f]{16,}(?![0-9a-f])", "[withheld]", last)
+              print(
+                  "::error title=Withhold the probe's serial number::`agentic-hil doctor --json`"
+                  f" exited {done.returncode} without an answer to read the serial numbers from: {last}"
+              )
+              sys.exit(1)
+
+
+          def serial_numbers(node, key=""):
+              if isinstance(node, dict):
+                  for name, value in node.items():
+                      yield from serial_numbers(value, name)
+              elif isinstance(node, list):
+                  for value in node:
+                      yield from serial_numbers(value, key)
+              elif isinstance(node, str) and (key == "probe_id" or key.endswith("serial_number")):
+                  yield node.strip()
+
+
+          values = sorted({value for value in serial_numbers(answer) if len(value) >= 4})
+          for value in values:
+              # The log masks a value as spelled, and the reactor writes a serial
+              # number in lower case where it names a device lock.
+              for spelling in dict.fromkeys((value, value.upper(), value.lower())):
+                  print(f"::add-mask::{spelling}")
+          Path(os.environ["RUNNER_TEMP"], "withheld-serial-numbers").write_text(
+              "".join(f"{value}\n" for value in values), encoding="utf-8"
+          )
+          print(f"{len(values)} serial number(s) withheld from this job's log and evidence.")
+          PY
+
       # The bench's own installation answers here, not a project virtual
       # environment: the configuration that says what this machine may do is
       # bound to this workspace and discovered from it, and doctor is what
@@ -269,6 +334,36 @@ jobs:
         if: ${{ !cancelled() && steps.build.outcome == 'success' }}
         run: agentic-hil test-reactor --test-config tests/hil/recovery.testconfig.yaml
 
+      # What is uploaded is a copy of the reports and logs with every serial
+      # number the first step read replaced by [withheld], line by line and with
+      # nothing removed; the files on the bench stay as the reactor wrote them.
+      # Without that step's list there is no telling what to withhold, so
+      # nothing is copied and the upload below finds nothing to publish.
+      - name: Withhold the probe's serial number from the evidence
+        if: always()
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          temp = Path(os.environ["RUNNER_TEMP"])
+          listed = temp / "withheld-serial-numbers"
+          if not listed.exists():
+              print("The serial numbers were never read, so no evidence is published.")
+              raise SystemExit(0)
+          values = sorted((line for line in listed.read_text(encoding="utf-8").splitlines() if line), key=len, reverse=True)
+          pattern = re.compile("|".join(re.escape(value) for value in values) or "(?!)", re.IGNORECASE)
+          for source in (Path(".agentic-hil/reports"), Path(".agentic-hil/logs")):
+              for path in sorted(source.rglob("*")):
+                  if path.is_file():
+                      target = temp / "evidence" / pattern.sub("[withheld]", path.relative_to(".agentic-hil").as_posix())
+                      target.parent.mkdir(parents=True, exist_ok=True)
+                      text = path.read_bytes().decode("utf-8", "surrogateescape")
+                      target.write_bytes(pattern.sub("[withheld]", text).encode("utf-8", "surrogateescape"))
+          PY
+
       # The reports say what ran, under which configuration digest, which steps
       # executed, and whether the board was ever reached. They are the evidence
       # a hardware run produces, and they are worth keeping most when the run
@@ -285,7 +380,5 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: hardware-run-evidence
-          path: |
-            .agentic-hil/reports/
-            .agentic-hil/logs/
+          path: ${{ runner.temp }}/evidence/
           if-no-files-found: warn
