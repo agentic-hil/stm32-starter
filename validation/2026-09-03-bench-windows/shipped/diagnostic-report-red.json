@@ -2,7 +2,7 @@
   "ok": false,
   "tool": "test_reactor",
   "name": "nucleo-f446re-diagnostic-selftest",
-  "test_config_path": "C:\\Users\\mail\\work\\ahil-starter\\tests\\hil\\diagnostic.testconfig.yaml",
+  "test_config_path": "C:\\Users\\alice\\work\\ahil-starter\\tests\\hil\\diagnostic.testconfig.yaml",
   "steps": [
     {
       "index": 1,
@@ -36,7 +36,7 @@
         "retry_safe": false,
         "audit_ok": true,
         "config_in_force": {
-          "path": "C:\\Users\\mail\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
+          "path": "C:\\Users\\alice\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
           "digest_algorithm": "sha256",
           "digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
           "description_source": "startup",
@@ -49,7 +49,7 @@
         "lease_id": "909b7910407f805e09d6eaab36fce2ff",
         "resources": [
           "debugger-discovery:all",
-          "probe:066aff303435554157113106"
+          "probe:066bff505050505050505050"
         ],
         "lease_state": "released",
         "safe_state_confirmed": true,
@@ -78,11 +78,11 @@
         },
         "identity": {
           "device": "COM3",
-          "expected_serial_number": "066AFF303435554157113106",
+          "expected_serial_number": "066BFF505050505050505050",
           "expected_from": "com_ports.dut_uart.serial_number",
           "expected_vid": 1155,
           "expected_pid": 14155,
-          "found_serial_number": "066AFF303435554157113106",
+          "found_serial_number": "066BFF505050505050505050",
           "found_vid": 1155,
           "found_pid": 14155,
           "status": "confirmed",
@@ -96,7 +96,7 @@
         "first_contact_by": "serial_open",
         "lease_id": "da44929755ec3adcb50bc2f5df1cd1d2",
         "resources": [
-          "com:serial:066aff303435554157113106"
+          "com:serial:066bff505050505050505050"
         ],
         "lease_state": "active",
         "safe_state_confirmed": false,
@@ -107,7 +107,7 @@
         "cleanup_reasons": [],
         "quarantine_id": null,
         "config_in_force": {
-          "path": "C:\\Users\\mail\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
+          "path": "C:\\Users\\alice\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
           "digest_algorithm": "sha256",
           "digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
           "description_source": "startup",
@@ -146,7 +146,7 @@
         "retry_safe": false,
         "audit_ok": true,
         "config_in_force": {
-          "path": "C:\\Users\\mail\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
+          "path": "C:\\Users\\alice\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
           "digest_algorithm": "sha256",
           "digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
           "description_source": "startup",
@@ -159,7 +159,7 @@
         "lease_id": "90e20b7bfd50e4dd0f053ecb15fb6fdf",
         "resources": [
           "debugger-discovery:all",
-          "probe:066aff303435554157113106"
+          "probe:066bff505050505050505050"
         ],
         "lease_state": "released",
         "safe_state_confirmed": true,
@@ -210,7 +210,7 @@
         "first_contact_by": "serial_open",
         "lease_id": "da44929755ec3adcb50bc2f5df1cd1d2",
         "resources": [
-          "com:serial:066aff303435554157113106"
+          "com:serial:066bff505050505050505050"
         ],
         "lease_state": "active",
         "safe_state_confirmed": false,
@@ -221,7 +221,7 @@
         "cleanup_reasons": [],
         "quarantine_id": null,
         "config_in_force": {
-          "path": "C:\\Users\\mail\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
+          "path": "C:\\Users\\alice\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
           "digest_algorithm": "sha256",
           "digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
           "description_source": "startup",
@@ -279,7 +279,7 @@
         "first_contact_by": "serial_open",
         "lease_id": "da44929755ec3adcb50bc2f5df1cd1d2",
         "resources": [
-          "com:serial:066aff303435554157113106"
+          "com:serial:066bff505050505050505050"
         ],
         "lease_state": "released",
         "safe_state_confirmed": true,
@@ -290,7 +290,7 @@
         "cleanup_reasons": [],
         "quarantine_id": null,
         "config_in_force": {
-          "path": "C:\\Users\\mail\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
+          "path": "C:\\Users\\alice\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
           "digest_algorithm": "sha256",
           "digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
           "description_source": "startup",
@@ -329,7 +329,7 @@
   "run": "run-6945203bd56cbbed",
   "audit_ok": true,
   "config_in_force": {
-    "path": "C:\\Users\\mail\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
+    "path": "C:\\Users\\alice\\.agentic-hil\\projects\\ahil-starter-27c0fc5d4e\\config.yaml",
     "digest_algorithm": "sha256",
     "digest": "sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141",
     "description_source": "startup",

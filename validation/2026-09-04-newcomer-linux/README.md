@@ -30,7 +30,7 @@ stop was recorded.
 | Item | Value |
 |---|---|
 | Date | 2026-09-04, pass 1 started 20:55:11 UTC, pass 2 started 20:59:00 UTC |
-| OS | Ubuntu 24.04.4 LTS, kernel 6.8.0 |
+| OS | Ubuntu 24.04 |
 | Account | a fresh account with the README's prerequisites installed, no administrator rights and no way to gain them |
 | Home | a home directory created for this walk, empty at the start: no earlier clone, no `~/.local/bin`, no Agentic HIL configuration. A second, equally empty one for pass 2 |
 | Agentic HIL, pass 1 | 0.21.2, from the one-line installer |
@@ -61,16 +61,16 @@ Target
 
 Debuggers
   dut (openocd, bound)
-    probe_id       066AFF303435554157113106
+    probe_id       066BFF505050505050505050
     interface_cfg  interface/stlink.cfg (search_name) resolved by openocd
     target_cfg     target/stm32f4x.cfg (search_name) resolved by openocd
     check           ok              OpenOCD is available.
 
 COM ports
   dut_uart
-    device           /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066AFF303435554157113106-if02
+    device           /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066BFF505050505050505050-if02
     baudrate         115200
-    serial_number    066AFF303435554157113106
+    serial_number    066BFF505050505050505050
     identity_source  serial_number
 ```
 
@@ -206,9 +206,9 @@ ids and its stable device name:
 ```
       - /dev/ttyACM0
           description    STM32 STLink - ST-Link VCP Ctrl
-          hwid           USB VID:PID=0483:374B SER=066AFF303435554157113106
-          serial_number  066AFF303435554157113106
-          stable_device  /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066AFF303435554157113106-if02
+          hwid           USB VID:PID=0483:374B SER=066BFF505050505050505050
+          serial_number  066BFF505050505050505050
+          stable_device  /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066BFF505050505050505050-if02
 
 Next step
   Attach the board this project drives, then call this again. Nothing was written.

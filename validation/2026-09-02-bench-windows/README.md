@@ -19,16 +19,16 @@ was opened outside Agentic HIL.
 | Item | Value |
 |---|---|
 | Date | 2026-09-02, walk started 10:03:00 +02:00 |
-| OS | Microsoft Windows 11 Pro, 10.0.26200, 64 bit |
-| Shell | Windows PowerShell 5.1, inside a packaged (MSIX) host |
-| Clone | `C:\Users\mail\work\ahil-starter`, branch `validation/bench-gate` off `main`, commit `ddb35bd` |
+| OS | Windows 11, 64 bit |
+| Shell | Windows PowerShell 5.1 |
+| Clone | `C:\Users\alice\work\ahil-starter`, branch `validation/bench-gate` off `main`, commit `ddb35bd` |
 | Agentic HIL | 0.21.0, from the project environment (`uv run agentic-hil`), package at `.venv\Lib\site-packages\agentic_hil` |
 | uv | `uv 0.11.27 (19fc8b03b 2026-07-06 x86_64-pc-windows-msvc)` |
 | CMake | `cmake version 4.3.1`, `C:\ST\STM32CubeCLT_1.22.0\CMake\bin\cmake.exe` |
 | arm-none-eabi-gcc | `arm-none-eabi-gcc.exe (GNU Tools for STM32 14.3.rel1.20251027-0700) 14.3.1 20250623` |
 | STM32CubeCLT | 1.22.0 |
 | Debugger backend | `stlink`, `C:\ST\STM32CubeCLT_1.22.0\STM32CubeProgrammer\bin\STM32_Programmer_CLI.exe`, version `STM32CubeProgrammer 2.23.0`, interface SWD |
-| Configuration | `C:\Users\mail\.agentic-hil\projects\ahil-starter-27c0fc5d4e\config.yaml` |
+| Configuration | `C:\Users\alice\.agentic-hil\projects\ahil-starter-27c0fc5d4e\config.yaml` |
 | Firmware revision built and attempted | `ddb35bdf4587653ef7ebd82946d7aca48807bd6f`, the shipped tree, unmodified |
 
 The project environment was used for every Agentic HIL command because the
@@ -42,7 +42,7 @@ left behind
 ([stlink-20260902T080556482Z-reset_target.log](stlink-20260902T080556482Z-reset_target.log)):
 
 ```
-ST-LINK SN  : 066AFF303435554157113106
+ST-LINK SN  : 066BFF505050505050505050
 ST-LINK FW  : V2J30M19
 Board       : NUCLEO-F446RE
 Voltage     : 3.26V
@@ -73,7 +73,7 @@ matching and the generated names are the same code either way.
 $ uv run agentic-hil init
 Agentic HIL project configured.
 
-  config_path  C:\Users\mail\.agentic-hil\projects\ahil-starter-27c0fc5d4e\config.yaml
+  config_path  C:\Users\alice\.agentic-hil\projects\ahil-starter-27c0fc5d4e\config.yaml
   agent        none named
   scope        project
 
@@ -97,7 +97,7 @@ named `dut_uart`, and the COM port matched to that probe by serial number.
 $ uv run agentic-hil doctor
 Agentic HIL configuration loaded and 1 debugger(s) checked.
 
-  config_path      C:\Users\mail\.agentic-hil\projects\ahil-starter-27c0fc5d4e\config.yaml
+  config_path      C:\Users\alice\.agentic-hil\projects\ahil-starter-27c0fc5d4e\config.yaml
   state            unchanged
   loaded_digest    sha256:95a58f739f9970c3e188c18c8f180ef551bdf5e3e0f427bda7d2293b45e43c21
   reload_required  no
@@ -105,7 +105,7 @@ Agentic HIL configuration loaded and 1 debugger(s) checked.
 
 Installation
   version       0.21.0
-  package_path  C:\Users\mail\work\ahil-starter\.venv\Lib\site-packages\agentic_hil
+  package_path  C:\Users\alice\work\ahil-starter\.venv\Lib\site-packages\agentic_hil
   editable      no
 
 Target
@@ -114,7 +114,7 @@ Target
 
 Debuggers
   dut (stlink, bound)
-    probe_id     066AFF303435554157113106
+    probe_id     066BFF505050505050505050
     permissions  granted: allow_debug_execution, allow_flash, allow_reset; closed:
                  allow_mass_erase, allow_probe, allow_raw_debugger_commands
     check           ok              STM32CubeProgrammer CLI is available.
@@ -127,7 +127,7 @@ COM ports
     device           COM3
     baudrate         115200
     encoding         utf-8
-    serial_number    066AFF303435554157113106
+    serial_number    066BFF505050505050505050
     identity_source  serial_number
     permissions  granted: allow_write; closed: allow_read
 
@@ -152,7 +152,7 @@ $ cmake --preset Debug
 -- Found assembler: C:/ST/STM32CubeCLT_1.22.0/GNU-tools-for-STM32/bin/arm-none-eabi-gcc.exe
 -- Configuring done (0.6s)
 -- Generating done (0.0s)
--- Build files have been written to: C:/Users/mail/work/ahil-starter/build/Debug
+-- Build files have been written to: C:/Users/alice/work/ahil-starter/build/Debug
 
 $ cmake --build --preset Debug
 [1/3] Building ASM object CMakeFiles/stm32-starter.dir/firmware/src/startup_stm32f446xx.S.obj
@@ -162,7 +162,7 @@ Memory region         Used Size  Region Size  %age Used
            FLASH:         936 B       512 KB      0.18%
              RAM:           4 B       128 KB      0.00%
    text	   data	    bss	    dec	    hex	filename
-    936	      0	      4	    940	    3ac	C:/Users/mail/work/ahil-starter/build/Debug/stm32-starter.elf
+    936	      0	      4	    940	    3ac	C:/Users/alice/work/ahil-starter/build/Debug/stm32-starter.elf
 ```
 
 Both exited 0, on a `build/Debug` deleted first so the image belongs to this
@@ -182,7 +182,7 @@ Refused: audit_unavailable
 
 Details
   name              nucleo-f446re-nominal-status
-  test_config_path  C:\Users\mail\work\ahil-starter\tests\hil\nominal.testconfig.yaml
+  test_config_path  C:\Users\alice\work\ahil-starter\tests\hil\nominal.testconfig.yaml
   cleanup_ok        yes
   audit_ok          no
   retry_safe        no
@@ -202,8 +202,8 @@ Details
             Configured file's parent directory resolves to a different location than
             it names.
             error_type  unsafe_configured_path
-            path             C:\Users\mail\AppData\Local\agentic-hil\projects\32bea74e27467b193691a238\reports\report-state.json
-            resolved_parent  C:\Users\mail\AppData\Local\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Local\agentic-hil\projects\32bea74e27467b193691a238\reports
+            path             C:\Users\alice\AppData\Local\agentic-hil\projects\32bea74e27467b193691a238\reports\report-state.json
+            resolved_parent  C:\Users\alice\AppData\Local\Packages\<package>\LocalCache\Local\agentic-hil\projects\32bea74e27467b193691a238\reports
               1. Read `resolved_parent` first when the refusal carries one: the parent
                  of `path` resolves to that other spelling, and the resolved spelling
                  is the one that works. Point the setting at it, or at a location
@@ -214,7 +214,7 @@ Details
                  symlink or a file where a directory was needed. Replace it with a
                  real directory, or point the setting at a path that does not go
                  through it.
-              3. C:\Users\mail\.agentic-hil is a location this tool creates for itself
+              3. C:\Users\alice\.agentic-hil is a location this tool creates for itself
                  and is a safe answer when the discovered default cannot be used.
                  `agentic-hil init` and `project_config_create` fall back to it on
                  their own for both the configuration and the state_root, so
@@ -232,8 +232,8 @@ Details
   audit_error
     Configured file's parent directory resolves to a different location than it names.
     error_type  unsafe_configured_path
-    path             C:\Users\mail\AppData\Local\agentic-hil\projects\32bea74e27467b193691a238\reports\report-state.json
-    resolved_parent  C:\Users\mail\AppData\Local\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Local\agentic-hil\projects\32bea74e27467b193691a238\reports
+    path             C:\Users\alice\AppData\Local\agentic-hil\projects\32bea74e27467b193691a238\reports\report-state.json
+    resolved_parent  C:\Users\alice\AppData\Local\Packages\<package>\LocalCache\Local\agentic-hil\projects\32bea74e27467b193691a238\reports
       1. Read `resolved_parent` first when the refusal carries one: the parent of
          `path` resolves to that other spelling, and the resolved spelling is the one
          that works. Point the setting at it, or at a location outside the redirected
@@ -242,7 +242,7 @@ Details
          that stopped the walk, and there the object really is a symlink or a file
          where a directory was needed. Replace it with a real directory, or point the
          setting at a path that does not go through it.
-      3. C:\Users\mail\.agentic-hil is a location this tool creates for itself and is
+      3. C:\Users\alice\.agentic-hil is a location this tool creates for itself and is
          a safe answer when the discovered default cannot be used. `agentic-hil init`
          and `project_config_create` fall back to it on their own for both the
          configuration and the state_root, so re-running either is usually the whole
@@ -262,8 +262,8 @@ Details
         error_type       unsafe_configured_path
         summary          Configured file's parent directory resolves to a different
                          location than it names.
-        path             C:\Users\mail\AppData\Local\agentic-hil\projects\32bea74e27467b193691a238\reports\report-state.json
-        resolved_parent  C:\Users\mail\AppData\Local\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Local\agentic-hil\projects\32bea74e27467b193691a238\reports
+        path             C:\Users\alice\AppData\Local\agentic-hil\projects\32bea74e27467b193691a238\reports\report-state.json
+        resolved_parent  C:\Users\alice\AppData\Local\Packages\<package>\LocalCache\Local\agentic-hil\projects\32bea74e27467b193691a238\reports
         remediation      Read `resolved_parent` first when the refusal carries one:
                          the parent of `path` resolves to that other spelling, and the
                          resolved spelling is the one that works. Point the setting at
@@ -274,7 +274,7 @@ Details
                          object really is a symlink or a file where a directory was
                          needed. Replace it with a real directory, or point the
                          setting at a path that does not go through it.,
-                         C:\Users\mail\.agentic-hil is a location this tool creates
+                         C:\Users\alice\.agentic-hil is a location this tool creates
                          for itself and is a safe answer when the discovered default
                          cannot be used. `agentic-hil init` and
                          `project_config_create` fall back to it on their own for both
@@ -306,7 +306,7 @@ Details
     auto_recover_policy_source  config
     failed_action               reset_halt
   config_in_force
-    path                C:\Users\mail\.agentic-hil\projects\ahil-starter-27c0fc5d4e\config.yaml
+    path                C:\Users\alice\.agentic-hil\projects\ahil-starter-27c0fc5d4e\config.yaml
     digest_algorithm    sha256
     digest              sha256:95a58f739f9970c3e188c18c8f180ef551bdf5e3e0f427bda7d2293b45e43c21
     description_source  startup
@@ -337,16 +337,16 @@ The configuration `init` wrote names two roots, and only one of them avoids the
 redirected profile tree:
 
 ```
-workspace_root: C:\Users\mail\work\ahil-starter
-state_root: C:\Users\mail\AppData\Local\agentic-hil
+workspace_root: C:\Users\alice\work\ahil-starter
+state_root: C:\Users\alice\AppData\Local\agentic-hil
 ```
 
 The configuration file itself landed at
-`C:\Users\mail\.agentic-hil\projects\ahil-starter-27c0fc5d4e\config.yaml`, which
+`C:\Users\alice\.agentic-hil\projects\ahil-starter-27c0fc5d4e\config.yaml`, which
 is the fallback root the refusal's own item 3 names. The `state_root` beside it
-was left pointing at `%LOCALAPPDATA%\agentic-hil`, which under this packaged
-host resolves to
-`C:\Users\mail\AppData\Local\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Local\agentic-hil`.
+was left pointing at `%LOCALAPPDATA%\agentic-hil`, which under this redirected
+profile resolves to
+`C:\Users\alice\AppData\Local\Packages\<package>\LocalCache\Local\agentic-hil`.
 The reactor writes its audit state under `state_root`, the safety check compares
 the configured spelling with the resolved one, they differ, and the flash step
 is refused before it starts.
@@ -355,7 +355,7 @@ So the fallback that item 3 describes was applied to the configuration and not
 to the `state_root`, inside the one `init` run, and item 4 cannot hold while the
 file still names the redirected root. Two other project configurations on this
 machine, written earlier by other routes, name `state_root:
-"C:/Users/mail/.agentic-hil/state"` and run on this same bench.
+"C:/Users/alice/.agentic-hil/state"` and run on this same bench.
 
 ### What was left standing
 
@@ -409,7 +409,7 @@ to the first green hardware plan, because there was none.
 
 ## Findings for the product
 
-1. `agentic-hil init` 0.21.0, run inside a packaged host with a redirected
+1. `agentic-hil init` 0.21.0, run under a redirected
    profile, applies its fallback root to the configuration file and not to
    `state_root`, and the configuration it writes is then refused by the reactor
    at the first hardware action with `unsafe_configured_path`. The refusal is
@@ -431,7 +431,7 @@ Written from the first walk of this repository, as issue material.
 1. `agentic-hil.config.example.yaml` says the authoritative configuration lands
    at `%APPDATA%\agentic-hil\projects\<project-id>\config.yaml` on Windows. On
    this machine it landed at
-   `C:\Users\mail\.agentic-hil\projects\ahil-starter-27c0fc5d4e\config.yaml`,
+   `C:\Users\alice\.agentic-hil\projects\ahil-starter-27c0fc5d4e\config.yaml`,
    which is neither `%APPDATA%` nor the `%LOCALAPPDATA%` the state root uses. A
    newcomer looking where the file says to look does not find it. The command
    prints the real path, which is what to trust.

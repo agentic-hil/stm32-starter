@@ -44,7 +44,7 @@
         "lease_id": "a64a3ea51cede428876045972a4851c4",
         "resources": [
           "debugger-discovery:all",
-          "probe:066aff303435554157113106"
+          "probe:066bff505050505050505050"
         ],
         "lease_state": "released",
         "safe_state_confirmed": true,
@@ -73,13 +73,13 @@
           "log_path": ".agentic-hil/logs/com-20260915T213852545Z-dut_uart.jsonl"
         },
         "identity": {
-          "device": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066AFF303435554157113106-if02",
-          "expected_serial_number": "066AFF303435554157113106",
+          "device": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066BFF505050505050505050-if02",
+          "expected_serial_number": "066BFF505050505050505050",
           "expected_from": "com_ports.dut_uart.serial_number",
           "expected_vid": 1155,
           "expected_pid": 14155,
-          "stable_device": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066AFF303435554157113106-if02",
-          "found_serial_number": "066AFF303435554157113106",
+          "stable_device": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066BFF505050505050505050-if02",
+          "found_serial_number": "066BFF505050505050505050",
           "found_vid": 1155,
           "found_pid": 14155,
           "status": "confirmed",
@@ -93,7 +93,7 @@
         "first_contact_by": "serial_open",
         "lease_id": "35a9d72b2f5e62e0fda7df154a38ca3c",
         "resources": [
-          "com:serial:066aff303435554157113106"
+          "com:serial:066bff505050505050505050"
         ],
         "lease_state": "active",
         "safe_state_confirmed": false,
@@ -153,7 +153,7 @@
         "lease_id": "5f3ca025f1418aedba30b8a1156b624a",
         "resources": [
           "debugger-discovery:all",
-          "probe:066aff303435554157113106"
+          "probe:066bff505050505050505050"
         ],
         "lease_state": "released",
         "safe_state_confirmed": true,
@@ -212,7 +212,7 @@
         "first_contact_by": "serial_open",
         "lease_id": "35a9d72b2f5e62e0fda7df154a38ca3c",
         "resources": [
-          "com:serial:066aff303435554157113106"
+          "com:serial:066bff505050505050505050"
         ],
         "lease_state": "active",
         "safe_state_confirmed": false,
@@ -282,7 +282,7 @@
         "first_contact_by": "serial_open",
         "lease_id": "35a9d72b2f5e62e0fda7df154a38ca3c",
         "resources": [
-          "com:serial:066aff303435554157113106"
+          "com:serial:066bff505050505050505050"
         ],
         "lease_state": "released",
         "safe_state_confirmed": true,

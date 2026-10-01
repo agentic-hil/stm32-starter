@@ -6,7 +6,7 @@ The number in front of a box is its name. It does not move: a new box takes the 
 
 ## Host side, no board required
 
-Walked on Windows 11 build 26200.9168 with uv 0.11.27 and STM32CubeCLT 1.22.0 on
+Walked on Windows 11 with uv 0.11.27 and STM32CubeCLT 1.22.0 on
 2026-09-02. Evidence: [2026-09-02-host-windows.md](2026-09-02-host-windows.md).
 
 - [ ] **1.** A fresh clone plus `uv sync` succeeds on Linux, macOS and Windows. Windows is closed; Linux is closed by the 2026-09-15 walk (a fresh clone at `ff2cc5c`, `uv sync` with 14 packages and the suite green, [2026-09-15-newcomer-linux/](2026-09-15-newcomer-linux/README.md)); macOS is not walked yet, so the item stays open.
@@ -16,7 +16,7 @@ Walked on Windows 11 build 26200.9168 with uv 0.11.27 and STM32CubeCLT 1.22.0 on
 
 ## Bench side, board required
 
-Walked twice on Windows 11 build 26200 with a Nucleo-F446RE attached. The
+Walked twice on Windows 11 with a Nucleo-F446RE attached. The
 project half was walked with `agentic-hil init` both times, which is the half of
 `setup` that writes this project's configuration, because the agent
 registrations on that machine were another session's.

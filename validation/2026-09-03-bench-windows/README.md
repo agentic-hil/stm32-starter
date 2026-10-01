@@ -22,17 +22,17 @@ board action ran through `uv run agentic-hil`.
 | Item | Value |
 |---|---|
 | Date | 2026-09-03, walk started 22:25:07 +02:00 |
-| OS | Microsoft Windows 11 Pro, 10.0.26200, 64 bit |
-| Host | a packaged (MSIX) agent host with a redirected profile, `C:\Users\mail\AppData\Local\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Local` |
-| Clone | `C:\Users\mail\work\ahil-starter`, branch `validation/bench-gate-2` off `main`, commit `5d9ed823b3544915b6a7dc4dac9d02f600a87518` |
+| OS | Windows 11, 64 bit |
+| Profile | redirected, `C:\Users\alice\AppData\Local\Packages\<package>\LocalCache\Local` |
+| Clone | `C:\Users\alice\work\ahil-starter`, branch `validation/bench-gate-2` off `main`, commit `5d9ed823b3544915b6a7dc4dac9d02f600a87518` |
 | Agentic HIL | 0.21.1, from the project environment (`uv run agentic-hil`), package at `.venv\Lib\site-packages\agentic_hil` |
 | uv | `uv 0.11.27 (19fc8b03b 2026-07-06 x86_64-pc-windows-msvc)` |
 | CMake | `cmake version 4.3.1`, `C:\ST\STM32CubeCLT_1.22.0\CMake\bin\cmake.exe` |
 | Compiler | `arm-none-eabi-gcc.exe (GNU Tools for STM32 14.3.rel1.20251027-0700) 14.3.1 20250623` |
 | STM32CubeCLT | 1.22.0 |
 | Debugger backend | `stlink`, `C:\ST\STM32CubeCLT_1.22.0\STM32CubeProgrammer\bin\STM32_Programmer_CLI.EXE`, version `STM32CubeProgrammer 2.23.0`, interface SWD |
-| Configuration | `C:\Users\mail\.agentic-hil\projects\ahil-starter-27c0fc5d4e\config.yaml` |
-| State root, after the repair | `C:\Users\mail\.agentic-hil\state` |
+| Configuration | `C:\Users\alice\.agentic-hil\projects\ahil-starter-27c0fc5d4e\config.yaml` |
+| State root, after the repair | `C:\Users\alice\.agentic-hil\state` |
 
 The project environment was used for every Agentic HIL command, as in the first
 walk, because the bench-wide `agentic-hil` on `PATH` is an older release held by
@@ -44,7 +44,7 @@ As the backend reported it through Agentic HIL, in
 [green-2/logs/stlink-20260903T203135859Z-reset_target.log](green-2/logs/stlink-20260903T203135859Z-reset_target.log):
 
 ```
-ST-LINK SN  : 066AFF303435554157113106
+ST-LINK SN  : 066BFF505050505050505050
 ST-LINK FW  : V2J30M19
 Board       : NUCLEO-F446RE
 Voltage     : 3.26V
@@ -79,7 +79,7 @@ it, which is what it is documented to do:
 $ uv run agentic-hil init
 Agentic HIL project configured.
 
-  config_path  C:\Users\mail\.agentic-hil\projects\ahil-starter-27c0fc5d4e\config.yaml
+  config_path  C:\Users\alice\.agentic-hil\projects\ahil-starter-27c0fc5d4e\config.yaml
   agent        none named
   scope        project
 
@@ -91,7 +91,7 @@ Steps
                                     checked.
 ```
 
-That configuration still named `state_root: C:\Users\mail\AppData\Local\agentic-hil`,
+That configuration still named `state_root: C:\Users\alice\AppData\Local\agentic-hil`,
 the redirected root, so the first hardware plan was refused exactly as on
 2026-09-02, with `audit_unavailable` over `unsafe_configured_path`
 (`run-2c3dd95465eb27d9`). What is new in 0.21.1 is remediation item 4, which
@@ -116,8 +116,8 @@ identically.
 configuration and nothing else:
 
 ```
--state_root: C:\Users\mail\AppData\Local\agentic-hil
-+state_root: C:\Users\mail\.agentic-hil\state
+-state_root: C:\Users\alice\AppData\Local\agentic-hil
++state_root: C:\Users\alice\.agentic-hil\state
 ```
 
 The configuration digest went from
@@ -131,7 +131,7 @@ hardware run below carries the second digest in its `config_in_force`.
 $ uv run agentic-hil doctor
 Agentic HIL configuration loaded and 1 debugger(s) checked.
 
-  config_path      C:\Users\mail\.agentic-hil\projects\ahil-starter-27c0fc5d4e\config.yaml
+  config_path      C:\Users\alice\.agentic-hil\projects\ahil-starter-27c0fc5d4e\config.yaml
   state            unchanged
   loaded_digest    sha256:eab5dcf5f76d3b2969310e308d621896af104132cf3483f9f6e09ca819a19141
   reload_required  no
@@ -139,7 +139,7 @@ Agentic HIL configuration loaded and 1 debugger(s) checked.
 
 Installation
   version       0.21.1
-  package_path  C:\Users\mail\work\ahil-starter\.venv\Lib\site-packages\agentic_hil
+  package_path  C:\Users\alice\work\ahil-starter\.venv\Lib\site-packages\agentic_hil
   editable      no
 
 Target
@@ -148,7 +148,7 @@ Target
 
 Debuggers
   dut (stlink, bound)
-    probe_id     066AFF303435554157113106
+    probe_id     066BFF505050505050505050
     permissions  granted: allow_debug_execution, allow_flash, allow_reset; closed:
                  allow_mass_erase, allow_raw_debugger_commands
     check           ok              STM32CubeProgrammer CLI is available.
@@ -161,7 +161,7 @@ COM ports
     device           COM3
     baudrate         115200
     encoding         utf-8
-    serial_number    066AFF303435554157113106
+    serial_number    066BFF505050505050505050
     identity_source  serial_number
     permissions  granted: allow_write
 
@@ -185,7 +185,7 @@ $ cmake --preset Debug
 -- Found assembler: C:/ST/STM32CubeCLT_1.22.0/GNU-tools-for-STM32/bin/arm-none-eabi-gcc.exe
 -- Configuring done (2.8s)
 -- Generating done (0.0s)
--- Build files have been written to: C:/Users/mail/work/ahil-starter/build/Debug
+-- Build files have been written to: C:/Users/alice/work/ahil-starter/build/Debug
 
 $ cmake --build --preset Debug
 [1/3] Building ASM object CMakeFiles/stm32-starter.dir/firmware/src/startup_stm32f446xx.S.obj
@@ -195,7 +195,7 @@ Memory region         Used Size  Region Size  %age Used
            FLASH:         936 B       512 KB      0.18%
              RAM:           4 B       128 KB      0.00%
    text	   data	    bss	    dec	    hex	filename
-    936	      0	      4	    940	    3ac	C:/Users/mail/work/ahil-starter/build/Debug/stm32-starter.elf
+    936	      0	      4	    940	    3ac	C:/Users/alice/work/ahil-starter/build/Debug/stm32-starter.elf
 ```
 
 Both exited 0, on a `build/` deleted first so the image belongs to this commit.

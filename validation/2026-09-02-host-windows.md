@@ -11,10 +11,10 @@ debugger, serial device or CAN adapter was opened.
 | Item | Value |
 |---|---|
 | Date | 2026-09-02 |
-| OS | Microsoft Windows 11 Pro, 10.0.26200.9168, 25H2, 64 bit |
+| OS | Windows 11, 64 bit |
 | Shells | Git Bash (MSYS2) for items 1 to 4, Windows PowerShell 5.1 for the second byte comparison |
 | Clone | fresh clone of `agentic-hil/stm32-starter`, branch `validation/host-gate`, commit `7930720` |
-| uv | `uv 0.11.27 (19fc8b03b 2026-07-06 x86_64-pc-windows-msvc)`, `C:\Users\mail\.local\bin\uv.exe` |
+| uv | `uv 0.11.27 (19fc8b03b 2026-07-06 x86_64-pc-windows-msvc)`, `C:\Users\alice\.local\bin\uv.exe` |
 | Python | CPython 3.13.14, virtual environment created by `uv sync` |
 | CMake | `cmake version 4.3.1`, `C:\ST\STM32CubeCLT_1.22.0\CMake\bin\cmake.exe` |
 | Ninja | `1.13.2`, `C:\ST\STM32CubeCLT_1.22.0\Ninja\bin\ninja.exe` |
@@ -63,7 +63,7 @@ The virtual environment `uv sync` creates on Windows has `.venv/Scripts/` and no
 $ uv run pytest -s
 ============================= test session starts =============================
 platform win32 -- Python 3.13.14, pytest-9.1.1, pluggy-1.6.0
-rootdir: C:\Users\mail\work\ahil-starter
+rootdir: C:\Users\alice\work\ahil-starter
 configfile: pyproject.toml
 testpaths: tests/simulator
 plugins: agentic-hil-0.16.0
@@ -152,7 +152,7 @@ Both presets configured and built with `arm-none-eabi-gcc` from STM32CubeCLT
 $ cmake --preset Debug
 -- Configuring done (3.3s)
 -- Generating done (0.0s)
--- Build files have been written to: C:/Users/mail/work/ahil-starter/build/Debug
+-- Build files have been written to: C:/Users/alice/work/ahil-starter/build/Debug
 
 $ cmake --build --preset Debug
 [1/3] Building ASM object CMakeFiles/stm32-starter.dir/firmware/src/startup_stm32f446xx.S.obj
@@ -167,7 +167,7 @@ Memory region         Used Size  Region Size  %age Used
 $ cmake --preset Release
 -- Configuring done (0.6s)
 -- Generating done (0.0s)
--- Build files have been written to: C:/Users/mail/work/ahil-starter/build/Release
+-- Build files have been written to: C:/Users/alice/work/ahil-starter/build/Release
 
 $ cmake --build --preset Release
 [1/3] Building ASM object CMakeFiles/stm32-starter.dir/firmware/src/startup_stm32f446xx.S.obj

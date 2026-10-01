@@ -40,7 +40,7 @@ Details
           report_path            .agentic-hil/reports/last-report.json
           lease_id               c85187c028ee2357d364d55f3569c7f5
           resources              debugger-discovery:all,
-                                 probe:066aff303435554157113106
+                                 probe:066bff505050505050505050
           lease_state            released
           safe_state_confirmed   yes
           processes_reaped       yes
@@ -73,7 +73,7 @@ Details
           first_contact_at       2026-09-15T21:39:17.270Z
           first_contact_by       serial_open
           lease_id               fad795bd054a38722e43253b0a653a73
-          resources              com:serial:066aff303435554157113106
+          resources              com:serial:066bff505050505050505050
           lease_state            active
           safe_state_confirmed   no
           processes_reaped       no
@@ -89,13 +89,13 @@ Details
             log_path         .agentic-hil/logs/com-20260915T213917251Z-dut_uart.jsonl
           identity
             The port behind this entry is the hardware it names.
-            device                  /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066AFF303435554157113106-if02
-            expected_serial_number  066AFF303435554157113106
+            device                  /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066BFF505050505050505050-if02
+            expected_serial_number  066BFF505050505050505050
             expected_from           com_ports.dut_uart.serial_number
             expected_vid            1155
             expected_pid            14155
-            stable_device           /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066AFF303435554157113106-if02
-            found_serial_number     066AFF303435554157113106
+            stable_device           /dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066BFF505050505050505050-if02
+            found_serial_number     066BFF505050505050505050
             found_vid               1155
             found_pid               14155
             status                  confirmed
@@ -131,7 +131,7 @@ Details
           report_path            .agentic-hil/reports/last-report.json
           lease_id               d4db25e8a98c7f12478b8d3425593fc4
           resources              debugger-discovery:all,
-                                 probe:066aff303435554157113106
+                                 probe:066bff505050505050505050
           lease_state            released
           safe_state_confirmed   yes
           processes_reaped       yes
@@ -178,7 +178,7 @@ Details
           first_contact_at       2026-09-15T21:39:17.270Z
           first_contact_by       serial_open
           lease_id               fad795bd054a38722e43253b0a653a73
-          resources              com:serial:066aff303435554157113106
+          resources              com:serial:066bff505050505050505050
           lease_state            active
           safe_state_confirmed   no
           processes_reaped       no
@@ -228,7 +228,7 @@ Details
           first_contact_at      2026-09-15T21:39:17.270Z
           first_contact_by      serial_open
           lease_id              fad795bd054a38722e43253b0a653a73
-          resources             com:serial:066aff303435554157113106
+          resources             com:serial:066bff505050505050505050
           lease_state           released
           safe_state_confirmed  yes
           processes_reaped      yes
