@@ -1,0 +1,68 @@
+[
+  {
+    "event_item_id": "item_14",
+    "tool": "test_reactor_run",
+    "arguments": {
+      "test_config_path": "tests/hil/nominal.testconfig.yaml"
+    },
+    "ok": true,
+    "error_type": null,
+    "test_config_sha256": "67748bfdc9b905aca815bba7adb2a20d97ed08514822ce659c098df45c51fab7",
+    "report_file": "run-27a9390c26740d23.json"
+  },
+  {
+    "event_item_id": "item_18",
+    "tool": "test_reactor_run",
+    "arguments": {
+      "test_config_path": "tests/hil/diagnostic.testconfig.yaml"
+    },
+    "ok": false,
+    "error_type": "comparator_unmet",
+    "test_config_sha256": "ff3f4a487ab3f3236003d23d3fe2bb85a7164c3585469e23a87ef912b30f12d4",
+    "report_file": "run-0a0765c488dcc7e9.json"
+  },
+  {
+    "event_item_id": "item_25",
+    "tool": "test_reactor_run",
+    "arguments": {
+      "test_config_path": "tests/hil/recovery.testconfig.yaml"
+    },
+    "ok": true,
+    "error_type": null,
+    "test_config_sha256": "80d368cee5ce65efe43157cb2ba22249c9c5ba2ea238b33f0ae6e0c768c1b480",
+    "report_file": "run-c490546cd14b43f0.json"
+  },
+  {
+    "event_item_id": "item_31",
+    "tool": "test_reactor_run",
+    "arguments": {
+      "test_config_path": "tests/hil/nominal.testconfig.yaml"
+    },
+    "ok": true,
+    "error_type": null,
+    "test_config_sha256": "67748bfdc9b905aca815bba7adb2a20d97ed08514822ce659c098df45c51fab7",
+    "report_file": "run-4971ae81a7881746.json"
+  },
+  {
+    "event_item_id": "item_35",
+    "tool": "test_reactor_run",
+    "arguments": {
+      "test_config_path": "tests/hil/diagnostic.testconfig.yaml"
+    },
+    "ok": true,
+    "error_type": null,
+    "test_config_sha256": "ff3f4a487ab3f3236003d23d3fe2bb85a7164c3585469e23a87ef912b30f12d4",
+    "report_file": "run-453061478c6cccb0.json"
+  },
+  {
+    "event_item_id": "item_39",
+    "tool": "test_reactor_run",
+    "arguments": {
+      "test_config_path": "tests/hil/recovery.testconfig.yaml"
+    },
+    "ok": true,
+    "error_type": null,
+    "test_config_sha256": "80d368cee5ce65efe43157cb2ba22249c9c5ba2ea238b33f0ae6e0c768c1b480",
+    "report_file": "run-ac0cc7a8ff06dcda.json"
+  }
+]

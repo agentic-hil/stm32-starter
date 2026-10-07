@@ -1,0 +1,7 @@
+{"event": "start", "port_id": "dut_uart", "device": "<UART_DEVICE>", "time": "2026-10-06T22:01:05.672Z"}
+{"direction": "rx", "bytes": 1, "hex": "7b", "text": "{", "time": "2026-10-06T22:01:05.917Z"}
+{"direction": "rx", "bytes": 44, "hex": "226576656e74223a22626f6f74222c226669726d77617265223a2273746d33322d73746172746572227d0d0a", "text": "\"event\":\"boot\",\"firmware\":\"stm32-starter\"}\r\n", "time": "2026-10-06T22:01:05.922Z"}
+{"direction": "tx", "bytes": 8, "hex": "44494147204f4e0a", "text": "DIAG ON\n", "time": "2026-10-06T22:01:06.079Z"}
+{"direction": "rx", "bytes": 1, "hex": "7b", "text": "{", "time": "2026-10-06T22:01:06.096Z"}
+{"direction": "rx", "bytes": 38, "hex": "227374617465223a225245414459222c22646961676e6f73746963223a224e4f4e45227d0d0a", "text": "\"state\":\"READY\",\"diagnostic\":\"NONE\"}\r\n", "time": "2026-10-06T22:01:06.100Z"}
+{"event": "stop", "reason": "requested", "time": "2026-10-06T22:01:11.170Z"}

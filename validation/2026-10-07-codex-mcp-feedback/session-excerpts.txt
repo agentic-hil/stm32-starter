@@ -1,0 +1,11 @@
+Selected verbatim excerpts from the actual Codex CLI session.
+Recording date: 2026-10-07 (CEST).
+Selected prose only. These excerpts omit the rest of the session; no video or raw session is included.
+
+Nominal passed on the board. Diagnostic failed at its UART check: after `DIAG ON`, the board returned `READY` and `NONE` instead of `DEGRADED` and `E_SELF_TEST`.
+
+The failure report and source identify the defect: the handler recognizes `DIAG ENABLE`, while the protocol sends `DIAG ON`.
+
+All three corrected plans passed on the real board.
+
+`DIAG ON` now returns `DEGRADED` with `E_SELF_TEST`, and `DIAG CLEAR` returns `READY` with `NONE`.

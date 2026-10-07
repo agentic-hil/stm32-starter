@@ -1,0 +1,7 @@
+{
+  "chunk_id": "f996f2",
+  "wall_time_seconds": 0.897839,
+  "exit_code": 0,
+  "original_token_count": 272,
+  "output": "diff --git a/firmware/src/main.c b/firmware/src/main.c\nindex 1489f78..6b8ed68 100644\n--- a/firmware/src/main.c\n+++ b/firmware/src/main.c\n@@ -99,7 +99,7 @@ static void report_status(void)\n \n static void handle_command(const char *command)\n {\n-    if (text_equals(command, \"DIAG ENABLE\")) {\n+    if (text_equals(command, \"DIAG ON\")) {\n         diagnostic_active = true;\n     } else if (text_equals(command, \"DIAG CLEAR\")) {\n         diagnostic_active = false;\n[1/2] Building C object CMakeFiles/stm32-starter.dir/firmware/src/main.c.obj\n[2/2] Linking C executable stm32-starter.elf\nMemory region         Used Size  Region Size  %age Used\n           FLASH:         932 B       512 KB      0.18%\n             RAM:           4 B       128 KB      0.00%\n   text\t   data\t    bss\t    dec\t    hex\tfilename\n    932\t      0\t      4\t    936\t    3a8\t<PROJECT_ROOT>/build/Debug/stm32-starter.elf\n6d631fa6ccb4749f586d10ca11a13f0d54ed99e4c1f70c9e850ffa86e4f79412  firmware/src/main.c\nd46b9f9a0c98db3cc09cd6f2a1c45992f0fcee47545ed975fe8e388407928aac  build/Debug/stm32-starter.elf\n"
+}

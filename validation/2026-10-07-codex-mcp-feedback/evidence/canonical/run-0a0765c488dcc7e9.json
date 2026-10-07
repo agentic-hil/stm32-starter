@@ -1,0 +1,344 @@
+{
+  "ok": false,
+  "tool": "test_reactor",
+  "name": "nucleo-f446re-diagnostic-selftest",
+  "test_config_path": "<PROJECT_ROOT>/tests/hil/diagnostic.testconfig.yaml",
+  "test_config_sha256": "ff3f4a487ab3f3236003d23d3fe2bb85a7164c3585469e23a87ef912b30f12d4",
+  "steps": [
+    {
+      "index": 1,
+      "route": "dut",
+      "action": "flash",
+      "result": {
+        "ok": true,
+        "tool": "flash_firmware",
+        "backend": "openocd",
+        "started_at": "2026-10-06T22:01:04.714Z",
+        "finished_at": "2026-10-06T22:01:05.482Z",
+        "elapsed_ms": 767,
+        "summary": "Firmware flashed and verified. Target was not reset.",
+        "log_path": ".agentic-hil/logs/openocd-20261006T220104714Z-flash_firmware.log",
+        "success_confirmed": true,
+        "artifact": {
+          "source": "path",
+          "path": "build/Debug/stm32-starter.elf",
+          "sha256": "12ecb28b87f3332e8ff713001d812cb4e916e7b085100446ace3172c986b7bfb"
+        },
+        "verify": true,
+        "reset_after_flash": false,
+        "side_effect_committed": true,
+        "side_effect_status": "committed",
+        "retry_safe": false,
+        "audit_ok": true,
+        "config_in_force": {
+          "path": "<AUTHORITATIVE_CONFIG>",
+          "digest_algorithm": "sha256",
+          "digest": "sha256:2ed43d1345e6bdfab5b13cc8f005f7ffcb0afacaed1bf6b80c060395e90419e6",
+          "description_source": "startup",
+          "file_state": "unchanged",
+          "file_digest": "sha256:2ed43d1345e6bdfab5b13cc8f005f7ffcb0afacaed1bf6b80c060395e90419e6",
+          "diverged_from_file": false,
+          "checked_at": "2026-10-06T22:01:05Z"
+        },
+        "report_path": ".agentic-hil/reports/last-report.json",
+        "lease_id": "24b4e19adb30dfc657a8f1f2b3911968",
+        "resources": [
+          "debugger-discovery:all",
+          "probe:<PROBE_SERIAL>"
+        ],
+        "lease_state": "released",
+        "safe_state_confirmed": true,
+        "processes_reaped": true,
+        "cleanup_required": false,
+        "quarantined": false,
+        "cleanup_reasons": [],
+        "quarantine_id": null
+      },
+      "elapsed_ms": 879
+    },
+    {
+      "index": 2,
+      "route": "dut_uart",
+      "action": "uart_open",
+      "result": {
+        "ok": true,
+        "tool": "com_session_start",
+        "port_id": "dut_uart",
+        "already_active": false,
+        "session": {
+          "session_active": true,
+          "started_at": "2026-10-06T22:01:05.672Z",
+          "rx_buffer_bytes": 0,
+          "overflow_bytes": 0,
+          "log_path": ".agentic-hil/logs/com-20261006T220105621Z-dut_uart.jsonl"
+        },
+        "identity": {
+          "device": "<UART_DEVICE>",
+          "expected_serial_number": "<PROBE_SERIAL>",
+          "expected_from": "com_ports.dut_uart.serial_number",
+          "expected_vid": 1155,
+          "expected_pid": 14155,
+          "stable_device": "<UART_DEVICE>",
+          "found_serial_number": "<PROBE_SERIAL>",
+          "found_vid": 1155,
+          "found_pid": 14155,
+          "status": "confirmed",
+          "summary": "The port behind this entry is the hardware it names."
+        },
+        "summary": "COM port session started.",
+        "side_effect_committed": true,
+        "side_effect_status": "committed",
+        "retry_safe": false,
+        "first_contact_at": "2026-10-06T22:01:05.672Z",
+        "first_contact_by": "serial_open",
+        "lease_id": "ff2e5a549995b2bf9081958ad71d8e04",
+        "resources": [
+          "com:serial:<PROBE_SERIAL>"
+        ],
+        "lease_state": "active",
+        "safe_state_confirmed": false,
+        "processes_reaped": false,
+        "audit_ok": true,
+        "cleanup_required": false,
+        "quarantined": false,
+        "cleanup_reasons": [],
+        "quarantine_id": null,
+        "config_in_force": {
+          "path": "<AUTHORITATIVE_CONFIG>",
+          "digest_algorithm": "sha256",
+          "digest": "sha256:2ed43d1345e6bdfab5b13cc8f005f7ffcb0afacaed1bf6b80c060395e90419e6",
+          "description_source": "startup",
+          "file_state": "unchanged",
+          "file_digest": "sha256:2ed43d1345e6bdfab5b13cc8f005f7ffcb0afacaed1bf6b80c060395e90419e6",
+          "diverged_from_file": false,
+          "checked_at": "2026-10-06T22:01:05Z"
+        },
+        "report_path": ".agentic-hil/reports/last-report.json"
+      },
+      "elapsed_ms": 130
+    },
+    {
+      "index": 3,
+      "route": "dut",
+      "action": "reset",
+      "result": {
+        "ok": true,
+        "tool": "reset_target",
+        "backend": "openocd",
+        "started_at": "2026-10-06T22:01:05.738Z",
+        "finished_at": "2026-10-06T22:01:05.921Z",
+        "elapsed_ms": 183,
+        "summary": "Target reset with mode 'run'.",
+        "log_path": ".agentic-hil/logs/openocd-20261006T220105738Z-reset_target.log",
+        "success_confirmed": true,
+        "mode": "run",
+        "side_effect_committed": true,
+        "side_effect_status": "committed",
+        "retry_safe": false,
+        "audit_ok": true,
+        "config_in_force": {
+          "path": "<AUTHORITATIVE_CONFIG>",
+          "digest_algorithm": "sha256",
+          "digest": "sha256:2ed43d1345e6bdfab5b13cc8f005f7ffcb0afacaed1bf6b80c060395e90419e6",
+          "description_source": "startup",
+          "file_state": "unchanged",
+          "file_digest": "sha256:2ed43d1345e6bdfab5b13cc8f005f7ffcb0afacaed1bf6b80c060395e90419e6",
+          "diverged_from_file": false,
+          "checked_at": "2026-10-06T22:01:05Z"
+        },
+        "report_path": ".agentic-hil/reports/last-report.json",
+        "lease_id": "735356f0a8a7da7bc23add4895ff3c94",
+        "resources": [
+          "debugger-discovery:all",
+          "probe:<PROBE_SERIAL>"
+        ],
+        "lease_state": "released",
+        "safe_state_confirmed": true,
+        "processes_reaped": true,
+        "cleanup_required": false,
+        "quarantined": false,
+        "cleanup_reasons": [],
+        "quarantine_id": null
+      },
+      "elapsed_ms": 311
+    },
+    {
+      "index": 4,
+      "route": "dut_uart",
+      "action": "uart_read",
+      "result": {
+        "ok": true,
+        "tool": "test_reactor",
+        "summary": "Expected pattern matched the COM port output.",
+        "port_id": "dut_uart",
+        "comparator": {
+          "pattern": "\"event\":\"boot\""
+        },
+        "timeout_s": 5.0,
+        "bytes_received": 45,
+        "reads": 1,
+        "matched_text": {
+          "hex": "226576656e74223a22626f6f7422",
+          "text": "\"event\":\"boot\"",
+          "encoding": "utf-8"
+        },
+        "matched_text_truncated": false
+      },
+      "elapsed_ms": 43
+    },
+    {
+      "index": 5,
+      "route": "dut_uart",
+      "action": "uart_write",
+      "result": {
+        "ok": true,
+        "tool": "com_write",
+        "port_id": "dut_uart",
+        "bytes_written": 8,
+        "data": {
+          "hex": "44494147204f4e0a",
+          "text": "DIAG ON\n",
+          "encoding": "utf-8"
+        },
+        "log_path": ".agentic-hil/logs/com-20261006T220105621Z-dut_uart.jsonl",
+        "summary": "Stimulus written to COM port.",
+        "side_effect_committed": true,
+        "side_effect_status": "committed",
+        "retry_safe": false,
+        "first_contact_at": "2026-10-06T22:01:05.672Z",
+        "first_contact_by": "serial_open",
+        "lease_id": "ff2e5a549995b2bf9081958ad71d8e04",
+        "resources": [
+          "com:serial:<PROBE_SERIAL>"
+        ],
+        "lease_state": "active",
+        "safe_state_confirmed": false,
+        "processes_reaped": false,
+        "audit_ok": true,
+        "cleanup_required": false,
+        "quarantined": false,
+        "cleanup_reasons": [],
+        "quarantine_id": null,
+        "config_in_force": {
+          "path": "<AUTHORITATIVE_CONFIG>",
+          "digest_algorithm": "sha256",
+          "digest": "sha256:2ed43d1345e6bdfab5b13cc8f005f7ffcb0afacaed1bf6b80c060395e90419e6",
+          "description_source": "startup",
+          "file_state": "unchanged",
+          "file_digest": "sha256:2ed43d1345e6bdfab5b13cc8f005f7ffcb0afacaed1bf6b80c060395e90419e6",
+          "diverged_from_file": false,
+          "checked_at": "2026-10-06T22:01:06Z"
+        },
+        "report_path": ".agentic-hil/reports/last-report.json"
+      },
+      "elapsed_ms": 61
+    },
+    {
+      "index": 6,
+      "route": "dut_uart",
+      "action": "uart_read",
+      "result": {
+        "ok": false,
+        "tool": "test_reactor",
+        "error_type": "comparator_unmet",
+        "summary": "Expected pattern did not match the COM port output before this step's timeout.",
+        "port_id": "dut_uart",
+        "comparator": {
+          "pattern": "\"state\":\"DEGRADED\",\"diagnostic\":\"E_SELF_TEST\""
+        },
+        "timeout_s": 5.0,
+        "bytes_received": 39,
+        "reads": 2,
+        "received_tail": {
+          "hex": "7b227374617465223a225245414459222c22646961676e6f73746963223a224e4f4e45227d0d0a",
+          "text": "{\"state\":\"READY\",\"diagnostic\":\"NONE\"}\r\n",
+          "encoding": "utf-8"
+        },
+        "received_tail_truncated": false
+      },
+      "elapsed_ms": 5050
+    }
+  ],
+  "cleanup": [
+    {
+      "port_id": "dut_uart",
+      "action": "uart_close",
+      "result": {
+        "ok": true,
+        "tool": "com_session_stop",
+        "port_id": "dut_uart",
+        "was_active": true,
+        "session": {
+          "session_active": false,
+          "started_at": "2026-10-06T22:01:05.672Z",
+          "rx_buffer_bytes": 0,
+          "overflow_bytes": 0,
+          "log_path": ".agentic-hil/logs/com-20261006T220105621Z-dut_uart.jsonl"
+        },
+        "summary": "COM port session stopped.",
+        "first_contact_at": "2026-10-06T22:01:05.672Z",
+        "first_contact_by": "serial_open",
+        "lease_id": "ff2e5a549995b2bf9081958ad71d8e04",
+        "resources": [
+          "com:serial:<PROBE_SERIAL>"
+        ],
+        "lease_state": "released",
+        "safe_state_confirmed": true,
+        "processes_reaped": true,
+        "audit_ok": true,
+        "cleanup_required": false,
+        "quarantined": false,
+        "cleanup_reasons": [],
+        "quarantine_id": null,
+        "config_in_force": {
+          "path": "<AUTHORITATIVE_CONFIG>",
+          "digest_algorithm": "sha256",
+          "digest": "sha256:2ed43d1345e6bdfab5b13cc8f005f7ffcb0afacaed1bf6b80c060395e90419e6",
+          "description_source": "startup",
+          "file_state": "unchanged",
+          "file_digest": "sha256:2ed43d1345e6bdfab5b13cc8f005f7ffcb0afacaed1bf6b80c060395e90419e6",
+          "diverged_from_file": false,
+          "checked_at": "2026-10-06T22:01:11Z"
+        },
+        "report_path": ".agentic-hil/reports/last-report.json"
+      }
+    }
+  ],
+  "cleanup_ok": true,
+  "cleanup_errors": [],
+  "summary": "Test reactor sequence failed. This run's own report is kept at <STATE_ROOT>/reports/runs/run-0a0765c488dcc7e9.json; later runs do not overwrite it.",
+  "failed_step": 6,
+  "step_error_type": "comparator_unmet",
+  "error_type": "comparator_unmet",
+  "recovery": {
+    "attempted": true,
+    "actions": [
+      "reap_processes",
+      "reset_halt",
+      "probe_target"
+    ],
+    "outcome": "recovered",
+    "devices": [
+      "dut"
+    ],
+    "auto_recover_policy": "reset_halt",
+    "auto_recover_policy_source": "config",
+    "safe_state_predicate": "reset_halt",
+    "incident_resolved": false,
+    "incident_open": false
+  },
+  "run": "run-0a0765c488dcc7e9",
+  "audit_ok": true,
+  "config_in_force": {
+    "path": "<AUTHORITATIVE_CONFIG>",
+    "digest_algorithm": "sha256",
+    "digest": "sha256:2ed43d1345e6bdfab5b13cc8f005f7ffcb0afacaed1bf6b80c060395e90419e6",
+    "description_source": "startup",
+    "file_state": "unchanged",
+    "file_digest": "sha256:2ed43d1345e6bdfab5b13cc8f005f7ffcb0afacaed1bf6b80c060395e90419e6",
+    "diverged_from_file": false,
+    "checked_at": "2026-10-06T22:01:11Z"
+  },
+  "report_path": ".agentic-hil/reports/last-report.json",
+  "canonical_report_path": "<STATE_ROOT>/reports/runs/run-0a0765c488dcc7e9.json"
+}

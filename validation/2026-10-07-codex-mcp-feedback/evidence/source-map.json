@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "recording_date_local": "2026-10-07",
+  "recording_timezone": "Europe/Berlin (CEST, UTC+02:00)",
+  "baseline_commit": "c64484450bffbb73a29546334633c53e7fff9960",
+  "versions": {
+    "agentic_hil": "0.21.4",
+    "backend": "OpenOCD 0.12.0"
+  },
+  "hardware": {
+    "board": "ST Nucleo-F446RE",
+    "probe_type": "ST-LINK",
+    "interface": "Agentic HIL MCP test_reactor_run"
+  },
+  "scope": "Prepared maintainer exercise with a deliberate diagnostic protocol defect on a real board. Existing configured bench; no independent benchmark or physical fault injection.",
+  "initial_firmware_source_sha256": "f4b670a8b0bd8d30b3924931556b902b40029b3a5705d06cd9e574b94d2c002c",
+  "corrected_firmware_source_sha256": "6d631fa6ccb4749f586d10ca11a13f0d54ed99e4c1f70c9e850ffa86e4f79412",
+  "initial_firmware_elf_sha256": "12ecb28b87f3332e8ff713001d812cb4e916e7b085100446ace3172c986b7bfb",
+  "corrected_firmware_elf_sha256": "d46b9f9a0c98db3cc09cd6f2a1c45992f0fcee47545ed975fe8e388407928aac",
+  "build_note": "Build invoked before each recorded plan. Initial image was already current. The corrected-nominal build recompiled and linked the one-line firmware change; later builds reused that image.",
+  "corrected_build": "build-corrected-nominal.json",
+  "firmware_diff": "firmware.diff",
+  "hash_note": "published_copy_sha256 verifies the included bytes. original_private_file_sha256 identifies the retained original before redaction and text normalization; it does not verify the published copy. Original private files are not included.",
+  "redaction_note": "Private roots, executable paths, device path and probe identity were replaced with explicit placeholders. UART payload bytes and test verdicts are unchanged.",
+  "runs": [
+    {
+      "phase": "initial",
+      "plan": "tests/hil/nominal.testconfig.yaml",
+      "plan_sha256": "67748bfdc9b905aca815bba7adb2a20d97ed08514822ce659c098df45c51fab7",
+      "verdict": "PASS",
+      "run_id": "run-27a9390c26740d23",
+      "started_at_utc": "2026-10-06T22:00:41.167Z",
+      "firmware_elf_sha256": "12ecb28b87f3332e8ff713001d812cb4e916e7b085100446ace3172c986b7bfb",
+      "firmware_source_sha256": "f4b670a8b0bd8d30b3924931556b902b40029b3a5705d06cd9e574b94d2c002c",
+      "report": "canonical/run-27a9390c26740d23.json",
+      "uart_log": "logs/com-20261006T220042159Z-dut_uart.jsonl",
+      "failed_step": null,
+      "error_type": null
+    },
+    {
+      "phase": "initial",
+      "plan": "tests/hil/diagnostic.testconfig.yaml",
+      "plan_sha256": "ff3f4a487ab3f3236003d23d3fe2bb85a7164c3585469e23a87ef912b30f12d4",
+      "verdict": "FAIL",
+      "run_id": "run-0a0765c488dcc7e9",
+      "started_at_utc": "2026-10-06T22:01:04.714Z",
+      "firmware_elf_sha256": "12ecb28b87f3332e8ff713001d812cb4e916e7b085100446ace3172c986b7bfb",
+      "firmware_source_sha256": "f4b670a8b0bd8d30b3924931556b902b40029b3a5705d06cd9e574b94d2c002c",
+      "report": "canonical/run-0a0765c488dcc7e9.json",
+      "uart_log": "logs/com-20261006T220105621Z-dut_uart.jsonl",
+      "failed_step": 6,
+      "error_type": "comparator_unmet"
+    },
+    {
+      "phase": "initial",
+      "plan": "tests/hil/recovery.testconfig.yaml",
+      "plan_sha256": "80d368cee5ce65efe43157cb2ba22249c9c5ba2ea238b33f0ae6e0c768c1b480",
+      "verdict": "PASS",
+      "run_id": "run-c490546cd14b43f0",
+      "started_at_utc": "2026-10-06T22:01:34.777Z",
+      "firmware_elf_sha256": "12ecb28b87f3332e8ff713001d812cb4e916e7b085100446ace3172c986b7bfb",
+      "firmware_source_sha256": "f4b670a8b0bd8d30b3924931556b902b40029b3a5705d06cd9e574b94d2c002c",
+      "report": "canonical/run-c490546cd14b43f0.json",
+      "uart_log": "logs/com-20261006T220135630Z-dut_uart.jsonl",
+      "failed_step": null,
+      "error_type": null
+    },
+    {
+      "phase": "corrected",
+      "plan": "tests/hil/nominal.testconfig.yaml",
+      "plan_sha256": "67748bfdc9b905aca815bba7adb2a20d97ed08514822ce659c098df45c51fab7",
+      "verdict": "PASS",
+      "run_id": "run-4971ae81a7881746",
+      "started_at_utc": "2026-10-06T22:02:07.925Z",
+      "firmware_elf_sha256": "d46b9f9a0c98db3cc09cd6f2a1c45992f0fcee47545ed975fe8e388407928aac",
+      "firmware_source_sha256": "6d631fa6ccb4749f586d10ca11a13f0d54ed99e4c1f70c9e850ffa86e4f79412",
+      "report": "canonical/run-4971ae81a7881746.json",
+      "uart_log": "logs/com-20261006T220208793Z-dut_uart.jsonl",
+      "failed_step": null,
+      "error_type": null
+    },
+    {
+      "phase": "corrected",
+      "plan": "tests/hil/diagnostic.testconfig.yaml",
+      "plan_sha256": "ff3f4a487ab3f3236003d23d3fe2bb85a7164c3585469e23a87ef912b30f12d4",
+      "verdict": "PASS",
+      "run_id": "run-453061478c6cccb0",
+      "started_at_utc": "2026-10-06T22:02:23.801Z",
+      "firmware_elf_sha256": "d46b9f9a0c98db3cc09cd6f2a1c45992f0fcee47545ed975fe8e388407928aac",
+      "firmware_source_sha256": "6d631fa6ccb4749f586d10ca11a13f0d54ed99e4c1f70c9e850ffa86e4f79412",
+      "report": "canonical/run-453061478c6cccb0.json",
+      "uart_log": "logs/com-20261006T220224716Z-dut_uart.jsonl",
+      "failed_step": null,
+      "error_type": null
+    },
+    {
+      "phase": "corrected",
+      "plan": "tests/hil/recovery.testconfig.yaml",
+      "plan_sha256": "80d368cee5ce65efe43157cb2ba22249c9c5ba2ea238b33f0ae6e0c768c1b480",
+      "verdict": "PASS",
+      "run_id": "run-ac0cc7a8ff06dcda",
+      "started_at_utc": "2026-10-06T22:02:40.805Z",
+      "firmware_elf_sha256": "d46b9f9a0c98db3cc09cd6f2a1c45992f0fcee47545ed975fe8e388407928aac",
+      "firmware_source_sha256": "6d631fa6ccb4749f586d10ca11a13f0d54ed99e4c1f70c9e850ffa86e4f79412",
+      "report": "canonical/run-ac0cc7a8ff06dcda.json",
+      "uart_log": "logs/com-20261006T220241684Z-dut_uart.jsonl",
+      "failed_step": null,
+      "error_type": null
+    }
+  ],
+  "files": [
+    {
+      "path": "canonical/run-27a9390c26740d23.json",
+      "published_copy_sha256": "4d320083830804f627b8c88064f5db9375dc7ac53b16abb59b0000462b4ded93",
+      "original_private_file_sha256": "c7fed4186fb9444ed3c94a808e707d8a190eeaddb0518ee160b2ebf8d822eab0"
+    },
+    {
+      "path": "logs/com-20261006T220042159Z-dut_uart.jsonl",
+      "published_copy_sha256": "5c9fb32af5271c490c5ad5d35d79c9deae52e2a5225c15d3839dc944b069cf6e",
+      "original_private_file_sha256": "e8ffdf5a02190d9f4dc15203fd81a933874dd5d3abe369e38f3f565510f8fdbf"
+    },
+    {
+      "path": "canonical/run-0a0765c488dcc7e9.json",
+      "published_copy_sha256": "eaeff78b875d21d81d2790b49b9c5800f778bfe4c2957bc5097ba6020248df00",
+      "original_private_file_sha256": "f62455ea2a5cfb757df54d8b610f7c888e2863ef3fd1d3ce99d036699b878fdb"
+    },
+    {
+      "path": "logs/com-20261006T220105621Z-dut_uart.jsonl",
+      "published_copy_sha256": "85a4f7dd36cbfa61ac722bbd5d596f1c6d2435aab5bd5e2a9a339e39e7517baa",
+      "original_private_file_sha256": "865cc0c839e1f1fb6f0d7825d6f46123f1f5842313aaf207fea78dde26136149"
+    },
+    {
+      "path": "canonical/run-c490546cd14b43f0.json",
+      "published_copy_sha256": "1dccd34f9b69713b3baedb8415ca36a31d08c32fe52d576d10769d237f0d9304",
+      "original_private_file_sha256": "c5e767f362a779cb2b22852179ede9ea9aa4793df4a8289f7d249e18d96ffb9d"
+    },
+    {
+      "path": "logs/com-20261006T220135630Z-dut_uart.jsonl",
+      "published_copy_sha256": "d3888e8ce5261ecd8551c37ccf3ef07f8285d922f49179363400d3a71f480678",
+      "original_private_file_sha256": "d63b7678dca6f009f627e6fd256c3ce777579173ff6f2f7062a2068eaa89f48f"
+    },
+    {
+      "path": "canonical/run-4971ae81a7881746.json",
+      "published_copy_sha256": "5f3bc5027ae3c089a1823fee581602b36168e50acc310fc8cacf4bd4293203ed",
+      "original_private_file_sha256": "f9e6ecc19f07ea233d161ca9858e58299e1a55f982cba59c181c761f05593ce7"
+    },
+    {
+      "path": "logs/com-20261006T220208793Z-dut_uart.jsonl",
+      "published_copy_sha256": "8c3ed3c1f09205c8cad71badcd9079b0aceb4461d1816427f00ae68170d3e200",
+      "original_private_file_sha256": "e4d587f7393f30666b645b6eb78a0e612463a26ad569e567f6baeff9fdd62f0e"
+    },
+    {
+      "path": "canonical/run-453061478c6cccb0.json",
+      "published_copy_sha256": "5ca06e51b63af58a256b89c0800026de7e3aea07fdfe040193ab74285bc8eba9",
+      "original_private_file_sha256": "5f6c3e01cca8c8fd21732d6bd4bf99406031f091ca1bf60bdf276da57df8d368"
+    },
+    {
+      "path": "logs/com-20261006T220224716Z-dut_uart.jsonl",
+      "published_copy_sha256": "419394140a2032ee4792d699de039e069289afec63a9414ba07ecbf98cd86efa",
+      "original_private_file_sha256": "2dd56903dee012c8495b85e23f01006fce3f00d4dd111658d5f0f351506caee3"
+    },
+    {
+      "path": "canonical/run-ac0cc7a8ff06dcda.json",
+      "published_copy_sha256": "6ea12ccdb4068c3c9174a0a3deef47e7b7c87be37fdf2d014fcbdbe336795dda",
+      "original_private_file_sha256": "15dfc7509df55563bf8254c70fa091203e653c056974a410400b5d5e9f757285"
+    },
+    {
+      "path": "logs/com-20261006T220241684Z-dut_uart.jsonl",
+      "published_copy_sha256": "27f2409d053f1d4d224b530cf539311b0e87e19778911cfaacfc61ecdc2c4504",
+      "original_private_file_sha256": "3f631c9013d3b703022513eba5185cb192ad4b3364deae1826e735a6a8daa44c"
+    },
+    {
+      "path": "firmware.diff",
+      "published_copy_sha256": "9e0a4ddd525c694e92fbd1fb60e554af35b1ba63950b84c75be2f3f9d8c907eb",
+      "original_private_file_sha256": "3a2d820c5901de82d2ca7a9e0dd5b75d3a5f2be22f0f34c27802b53010180e76"
+    },
+    {
+      "path": "build-corrected-nominal.json",
+      "published_copy_sha256": "43243d34fa0a907205944cc22b5014624ce6f123ba20187e7036241724c4b69e"
+    }
+  ]
+}
